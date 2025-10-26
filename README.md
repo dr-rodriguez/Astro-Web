@@ -18,6 +18,8 @@ uv sync
 
 ### Running the Application
 
+Grab a copy of the database at https://github.com/SIMPLE-AstroDB/SIMPLE-binary
+
 ```bash
 # Start the development server
 uvicorn src.main:app --reload --port 8000
