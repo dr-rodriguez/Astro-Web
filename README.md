@@ -14,8 +14,6 @@ A dynamic web application for exploring astronomical databases, built with FastA
 ```bash
 # Install dependencies
 uv sync
-# OR
-pip install -r requirements.txt
 ```
 
 ### Running the Application
@@ -23,9 +21,6 @@ pip install -r requirements.txt
 ```bash
 # Start the development server
 uvicorn src.main:app --reload --port 8000
-
-# OR use the project script
-uv run serve
 ```
 
 Then open your browser to http://localhost:8000
