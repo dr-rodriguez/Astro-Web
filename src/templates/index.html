@@ -1,81 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astro Web</title>
-    <link rel="stylesheet" href="/static/style.css">
-<script src="https://cdn.bokeh.org/bokeh/release/bokeh-3.8.0.min.js"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.8.0.min.js"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.8.0.min.js"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-3.8.0.min.js"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-3.8.0.min.js"
-        crossorigin="anonymous"></script>
-    {{ plot_script|safe }}
-</head>
-<body>
-    <header>
-        <h1>Astro Web</h1>
-    </header>
-    
-    <main>
-        <div class="content">
-            <h2>Sources Data</h2>
-            <p>Astronomical sources from SIMPLE database</p>
-            <div class="visualization">
-                <h3>Sample Data Visualization</h3>
-                {{ plot_div|safe }}
-            </div>
-            
-            {% if has_error %}
-            <div class="error-message">
-                <p>{{ error_message }}</p>
-            </div>
-            {% else %}
-            <div class="sources-table-container">
-                <h3>Sources</h3>
-                <table class="sources-table">
-                    <thead>
-                        <tr>
-                            <th>Source</th>
-                            <th>RA</th>
-                            <th>Dec</th>
-                            <th>Epoch</th>
-                            <th>Equinox</th>
-                            <th>Shortname</th>
-                            <th>Reference</th>
-                            <th>Other References</th>
-                            <th>Comments</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in sources_data %}
-                        <tr>
-                            <td>{{ row.source if row.source else '' }}</td>
-                            <td>{{ row.ra if row.ra is not none else '' }}</td>
-                            <td>{{ row.dec if row.dec is not none else '' }}</td>
-                            <td>{{ row.epoch if row.epoch is not none else '' }}</td>
-                            <td>{{ row.equinox if row.equinox else '' }}</td>
-                            <td>{{ row.shortname if row.shortname else '' }}</td>
-                            <td>{{ row.reference if row.reference else '' }}</td>
-                            <td>{{ row.other_references if row.other_references else '' }}</td>
-                            <td>{{ row.comments if row.comments else '' }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            {% endif %}
-        </div>
-    </main>
-    
-    <footer>
-        <p>&copy; 2025</p>
-    </footer>
-</body>
-</html>
+{% extends "base.html" %}
 
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h2>Welcome to SIMPLE Web</h2>
+    <p>The SIMPLE Database is a cross-matched and curated collection of astrometry, photometry, spectra, and image data for brown dwarf sources from the literature.</p>
+    <p>Use the navigation bar above to explore different sections of the database:</p>
+    <ul style="list-style-position: inside; margin-top: 1rem;">
+        <li><strong>Browse Database:</strong> View and search through all Sources records with interactive table controls</li>
+        <li><strong>Plots:</strong> Visualize the spatial distribution of sources using interactive scatter plots</li>
+    </ul>
+
+</div>
+{% endblock %}

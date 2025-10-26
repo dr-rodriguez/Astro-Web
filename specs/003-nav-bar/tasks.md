@@ -27,9 +27,9 @@
 
 **Purpose**: Create template structure and navigation context
 
-- [ ] T001 Create `src/templates/base.html` with navigation bar structure per Jinja2 template inheritance pattern from research.md
-- [ ] T002 [P] Update `src/static/style.css` to add navigation bar CSS styles (nav bar container, links, active state highlighting)
-- [ ] T003 [P] Create helper function `create_navigation_context(current_page)` in `src/routes/web.py` to generate navigation items with active state
+- [X] T001 Create `src/templates/base.html` with navigation bar structure per Jinja2 template inheritance pattern from research.md
+- [X] T002 [P] Update `src/static/style.css` to add navigation bar CSS styles (nav bar container, links, active state highlighting)
+- [X] T003 [P] Create helper function `create_navigation_context(current_page)` in `src/routes/web.py` to generate navigation items with active state
 
 ---
 
@@ -39,10 +39,10 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T004 Add `get_all_sources()` function to `src/database/sources.py` using `db.query(db.Sources).pandas()` to retrieve all Sources records
-- [ ] T005 Implement error handling in `get_all_sources()` to catch exceptions and return None on database error
-- [ ] T006 Update `src/visualizations/scatter.py` to extract ra/dec from actual Sources data via Astrodbkit query, filter null values, and plot ra on x-axis, dec on y-axis per research.md
-- [ ] T007 Add `routes_browse()` and `routes_plot()` route handlers to `src/routes/web.py` (placeholder implementations initially)
+- [X] T004 Add `get_all_sources()` function to `src/database/sources.py` using `db.query(db.Sources).pandas()` to retrieve all Sources records
+- [X] T005 Implement error handling in `get_all_sources()` to catch exceptions and return None on database error
+- [X] T006 Update `src/visualizations/scatter.py` to extract ra/dec from actual Sources data via Astrodbkit query, filter null values, and plot ra on x-axis, dec on y-axis per research.md
+- [X] T007 Add `routes_browse()` and `routes_plot()` route handlers to `src/routes/web.py` (placeholder implementations initially)
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -63,9 +63,9 @@
 
 ### Implementation for User Story 1
 
-- [ ] T008 [US1] Refactor `src/templates/index.html` to extend `base.html`, move content to Jinja2 block, add introduction text about database per spec.md
-- [ ] T009 [P] [US1] Update homepage route in `src/routes/web.py` to pass `current_page="/"` and call `create_navigation_context("/")` to template context
-- [ ] T010 [US1] Update `src/main.py` to add `/browse` and `/plots` routes connected to route handlers in `src/routes/web.py`
+- [X] T008 [US1] Refactor `src/templates/index.html` to extend `base.html`, move content to Jinja2 block, add introduction text about database per spec.md
+- [X] T009 [P] [US1] Update homepage route in `src/routes/web.py` to pass `current_page="/"` and call `create_navigation_context("/")` to template context
+- [X] T010 [US1] Update `src/main.py` to add `/browse` and `/plots` routes connected to route handlers in `src/routes/web.py`
 - [ ] T011 [US1] Test navigation between all three pages, verify content displays correctly, active page highlighting works
 - [ ] T012 [US1] Verify navigation bar remains visible on all pages without layout disruption
 - [ ] T013 [US1] Test that clicking currently active navigation item refreshes page to show same content
@@ -89,7 +89,7 @@
 
 ### Implementation for User Story 2
 
-- [ ] T014 [US2] Write introductory content for Home page in `src/templates/index.html` block (2-3 paragraphs about astronomical database)
+- [X] T014 [US2] Write introductory content for Home page in `src/templates/index.html` block (2-3 paragraphs about astronomical database)
 - [ ] T015 [US2] Verify Home page loads and displays introduction text without database dependency
 - [ ] T016 [US2] Test that Home page navigation link works from Browse Database and Plots pages
 
@@ -113,12 +113,12 @@
 
 ### Implementation for User Story 3
 
-- [ ] T017 [US3] Create `src/templates/browse.html` extending `base.html` with Sources table structure and all column headers
-- [ ] T018 [US3] Implement `browse()` route handler in `src/routes/web.py` to call `get_all_sources()`, handle errors, pass data to `browse.html` template
-- [ ] T019 [P] [US3] Include DataTables CDN links (CSS and JS) in `browse.html` template head section per research.md decision to use DataTables library
-- [ ] T020 [US3] Initialize DataTables on Sources table in `browse.html` with configuration for sorting (single column, toggle asc/desc), pagination (page size: 10, 25, 50, 100), and global search/filtering
-- [ ] T021 [US3] Configure DataTables to meet spec requirements: single-column sorting (clicking different column clears previous sort), global search box, default 10 rows per page, state resets on page reload
-- [ ] T022 [P] [US3] Add CSS styling for table container and DataTables controls to `src/static/style.css`
+- [X] T017 [US3] Create `src/templates/browse.html` extending `base.html` with Sources table structure and all column headers
+- [X] T018 [US3] Implement `browse()` route handler in `src/routes/web.py` to call `get_all_sources()`, handle errors, pass data to `browse.html` template
+- [X] T019 [P] [US3] Include DataTables CDN links (CSS and JS) in `browse.html` template head section per research.md decision to use DataTables library
+- [X] T020 [US3] Initialize DataTables on Sources table in `browse.html` with configuration for sorting (single column, toggle asc/desc), pagination (page size: 10, 25, 50, 100), and global search/filtering
+- [X] T021 [US3] Configure DataTables to meet spec requirements: single-column sorting (clicking different column clears previous sort), global search box, default 10 rows per page, state resets on page reload
+- [X] T022 [P] [US3] Add CSS styling for table container and DataTables controls to `src/static/style.css`
 - [ ] T023 [US3] Test table displays all Sources with pagination working correctly
 - [ ] T024 [US3] Test column sorting with ascending/descending toggle, previous sort clears when clicking different column
 - [ ] T025 [US3] Test filtering via global search box updates table within 1 second, searches all columns
@@ -143,10 +143,10 @@
 
 ### Implementation for User Story 4
 
-- [ ] T027 [US4] Create `src/templates/plot.html` extending `base.html` with Bokeh plot container
-- [ ] T028 [US4] Update `plot()` route handler in `src/routes/web.py` to call `get_all_sources()`, filter sources with valid ra/dec, generate Bokeh plot via `create_scatter_plot()`, pass to template
-- [ ] T029 [US4] Ensure `create_scatter_plot()` in `src/visualizations/scatter.py` uses actual ra/dec data from Sources, filters nulls, sets proper axis labels
-- [ ] T030 [P] [US4] Add CSS styling for plot container to `src/static/style.css`
+- [X] T027 [US4] Create `src/templates/plot.html` extending `base.html` with Bokeh plot container
+- [X] T028 [US4] Update `plot()` route handler in `src/routes/web.py` to call `get_all_sources()`, filter sources with valid ra/dec, generate Bokeh plot via `create_scatter_plot()`, pass to template
+- [X] T029 [US4] Ensure `create_scatter_plot()` in `src/visualizations/scatter.py` uses actual ra/dec data from Sources, filters nulls, sets proper axis labels
+- [X] T030 [P] [US4] Add CSS styling for plot container to `src/static/style.css`
 - [ ] T031 [US4] Test scatter plot displays all Sources with valid ra/dec coordinates
 - [ ] T032 [US4] Test hover tooltips show source info and coordinates within 100ms
 - [ ] T033 [US4] Test interactive features: pan, zoom, reset buttons work smoothly
@@ -161,7 +161,7 @@
 
 **Purpose**: Final improvements, validation, and quality assurance
 
-- [ ] T036 [P] Update `src/main.py` FastAPI app title and description to reflect multi-page navigation structure
+- [X] T036 [P] Update `src/main.py` FastAPI app title and description to reflect multi-page navigation structure
 - [ ] T037 Run quickstart.md validation - verify all 8 test scenarios pass
 - [ ] T038 [P] Verify page load time < 2 seconds for all three pages (/, /browse, /plots)
 - [ ] T039 [P] Verify table interactions (sorting, filtering, pagination) update within 1 second
