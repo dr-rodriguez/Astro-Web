@@ -10,7 +10,7 @@
 ### Session 2025-01-27
 - Q: How should source inventory URLs be encoded? → A: Always URL-encode all source names before routing, regardless of special characters (Option D)
 - Q: What happens while inventory data is loading? → A: Display loading indicator/skeleton with "Loading source inventory..." message (Option B)
-- Q: How should large datasets with thousands of rows be displayed? → A: Use scrolling with a fixed display limit (e.g., show first 100-500 rows) - reasonable balance (Option C)
+- Q: How should large datasets with thousands of rows be displayed? → A: Display all rows with native browser scrolling to show complete data (Option A)
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -72,7 +72,7 @@ A user attempts to access an inventory page for a source that doesn't exist or h
 - How does system handle database timeout during inventory retrieval? Error is displayed to user indicating temporary unavailability
 - What happens when a source exists but all related table queries return empty results? Only the Sources table with basic information is displayed
 - What is shown to user during the 5-second inventory retrieval? A loading indicator or skeleton screen with "Loading source inventory..." message is displayed while data is fetched
-- How are data tables with thousands of rows displayed? System uses scrolling with a fixed display limit (e.g., first 100-500 rows), allowing users to scroll through all data while maintaining reasonable page performance
+- How are data tables with thousands of rows displayed? System displays all data with native browser scrolling allowing users to view the complete dataset
 
 ## Requirements *(mandatory)*
 
@@ -90,7 +90,7 @@ A user attempts to access an inventory page for a source that doesn't exist or h
 - **FR-010**: System MUST retrieve and display inventory data within 5 seconds of page request
 - **FR-011**: System MUST maintain existing navigation structure (header, footer, navigation bar) on inventory pages
 - **FR-012**: System MUST display a loading indicator (e.g., "Loading source inventory...") while retrieving inventory data from the database
-- **FR-013**: System MUST use scrolling with a fixed display limit (e.g., first 100-500 rows) for data tables with large numbers of rows to maintain reasonable page load performance
+- **FR-013**: System MUST display all data rows for each table, using native browser scrolling to handle large datasets
 
 ### Key Entities *(include if feature involves data)*
 
@@ -124,7 +124,7 @@ A user attempts to access an inventory page for a source that doesn't exist or h
 - Users will navigate to inventory pages either by clicking from the browse page or by typing URLs directly
 - URL encoding will handle all special characters that may appear in source identifiers
 - The database connection and inventory retrieval will typically complete within 5 seconds for sources with moderate amounts of data
-- Data tables will use scrolling with a fixed display limit (e.g., first 100-500 rows visible) for very large datasets to balance full data access with page performance
+- Data tables will display all data with native browser scrolling for full data access
 - Only sources that exist in the Sources table will have accessible inventory pages
 
 ## Out of Scope
