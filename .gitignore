@@ -48,4 +48,4 @@ htmlcov/
 
 # Project-specific
 uv.lock
-
+*.sqlite
