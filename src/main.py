@@ -11,8 +11,8 @@ from fastapi.staticfiles import StaticFiles
 from src.routes import web
 
 app = FastAPI(
-    title="Astro Web - Hello World",
-    description="Hello World website demonstrating FastAPI + Jinja2 + Bokeh stack",
+    title="Astro Web",
+    description="Multi-page astronomy database web application with navigation bar",
     version="0.1.0"
 )
 
@@ -27,6 +27,16 @@ app.mount("/static", StaticFiles(directory="src/static"), name="static")
 async def root(request: Request):
     """Homepage route rendering 'Hello World' content."""
     return await web.homepage(request)
+
+@app.get("/browse", response_class=HTMLResponse)
+async def browse(request: Request):
+    """Browse database page rendering Sources table."""
+    return await web.browse(request)
+
+@app.get("/plots", response_class=HTMLResponse)
+async def plot(request: Request):
+    """Plots page rendering scatter visualization."""
+    return await web.plot(request)
 
 @app.get("/{path:path}", response_class=HTMLResponse)
 async def catch_all(request: Request, path: str):

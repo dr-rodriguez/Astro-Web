@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h2>Browse Database</h2>
+    <p>Browse and search through all Sources records in the database.</p>
+    
+    {% if has_error %}
+    <div class="error-message" style="margin-top: 2rem;">
+        <p>{{ error_message }}</p>
+    </div>
+    {% else %}
+    <div class="sources-table-container" style="margin-top: 2rem;">
+        <table id="sources-table" class="display">
+            <thead>
+                <tr>
+                    <th>Source</th>
+                    <th>RA</th>
+                    <th>Dec</th>
+                    <th>Reference</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in sources_data %}
+                <tr>
+                    <td>{{ row.source if row.source else '' }}</td>
+                    <td>{{ row.ra if row.ra is not none else '' }}</td>
+                    <td>{{ row.dec if row.dec is not none else '' }}</td>
+                    <td>{{ row.reference if row.reference else '' }}</td>
+                    <td>{{ row.comments if row.comments else '' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#sources-table').DataTable({
+                pageLength: 10,
+                lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+                order: [],
+                responsive: true
+            });
+        });
+    </script>
+    {% endif %}
+</div>
+{% endblock %}
+
