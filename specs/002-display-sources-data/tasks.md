@@ -25,9 +25,9 @@
 
 **Purpose**: Project initialization and database module structure
 
-- [ ] T001 Create `src/database/` directory for Astrodbkit database module
-- [ ] T002 [P] Create `src/database/__init__.py` for module initialization
-- [ ] T003 [P] Verify SIMPLE.sqlite exists in repository root
+- [x] T001 Create `src/database/` directory for Astrodbkit database module
+- [x] T002 [P] Create `src/database/__init__.py` for module initialization
+- [x] T003 [P] Verify SIMPLE.sqlite exists in repository root
 
 ---
 
@@ -37,10 +37,10 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T004 [P] Create `src/database/sources.py` with Database connection function following Astrodbkit patterns from research.md
-- [ ] T005 Implement `get_sources_data(limit=10)` function in `src/database/sources.py` using `Database('sqlite:///SIMPLE.sqlite')`
-- [ ] T006 Implement error handling in `get_sources_data()` to catch all exceptions and return None on any database error
-- [ ] T007 Convert query results to list of dictionaries format (.to_dict('records')) in `src/database/sources.py` for Jinja2 template compatibility
+- [x] T004 [P] Create `src/database/sources.py` with Database connection function following Astrodbkit patterns from research.md
+- [x] T005 Implement `get_sources_data(limit=10)` function in `src/database/sources.py` using `Database('sqlite:///SIMPLE.sqlite')`
+- [x] T006 Implement error handling in `get_sources_data()` to catch all exceptions and return None on any database error
+- [x] T007 Convert query results to list of dictionaries format (.to_dict('records')) in `src/database/sources.py` for Jinja2 template compatibility
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -60,15 +60,15 @@
 
 ### Implementation for User Story 1
 
-- [ ] T008 [P] [US1] Import and call `get_sources_data()` in homepage route in `src/routes/web.py`
-- [ ] T009 [US1] Handle `get_sources_data()` returning None by setting error context in homepage route in `src/routes/web.py`
-- [ ] T010 [P] [US1] Replace Bokeh plot with Sources table structure in `src/templates/index.html` template
-- [ ] T011 [US1] Add conditional rendering in `src/templates/index.html` to show table or error message based on data availability
-- [ ] T012 [P] [US1] Add Sources table CSS styling (border, padding, alternating rows) to `src/static/style.css`
-- [ ] T013 [US1] Test homepage displays Sources table with 10 rows within 3 seconds
-- [ ] T014 [US1] Verify all columns visible (source, ra, dec, epoch, equinox, shortname, reference, other_references, comments)
-- [ ] T015 [US1] Verify data displayed at full precision matching database values
-- [ ] T016 [US1] Test error handling by temporarily moving SIMPLE.sqlite and verifying error message displays
+- [x] T008 [P] [US1] Import and call `get_sources_data()` in homepage route in `src/routes/web.py`
+- [x] T009 [US1] Handle `get_sources_data()` returning None by setting error context in homepage route in `src/routes/web.py`
+- [x] T010 [P] [US1] Replace Bokeh plot with Sources table structure in `src/templates/index.html` template
+- [x] T011 [US1] Add conditional rendering in `src/templates/index.html` to show table or error message based on data availability
+- [x] T012 [P] [US1] Add Sources table CSS styling (border, padding, alternating rows) to `src/static/style.css`
+- [x] T013 [US1] Test homepage displays Sources table with 10 rows within 3 seconds
+- [x] T014 [US1] Verify all columns visible (source, ra, dec, epoch, equinox, shortname, reference, other_references, comments)
+- [x] T015 [US1] Verify data displayed at full precision matching database values
+- [x] T016 [US1] Test error handling by temporarily moving SIMPLE.sqlite and verifying error message displays
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently. Homepage displays Sources table with 10 rows.
 
@@ -78,15 +78,15 @@
 
 **Purpose**: Final improvements and validation
 
-- [ ] T017 [P] Run quickstart.md validation - verify all setup instructions work
-- [ ] T018 Test server startup completes within 5 seconds
-- [ ] T019 Verify code follows Constitution principles (Astrodbkit abstraction, FastAPI-first, CSS separate)
-- [ ] T020 Check all directory structure matches plan.md requirements
-- [ ] T021 Validate all endpoints in `contracts/web-api.yaml` are implemented
-- [ ] T022 Verify database connection uses Astrodbkit exclusively (no direct SQL)
-- [ ] T023 [P] Documentation review - ensure `quickstart.md` is accurate and complete
-- [ ] T024 [P] Code cleanup - ensure functions are <50 lines per Constitution principle
-- [ ] T025 Final integration test - verify database query, template rendering, error handling all work together
+- [x] T017 [P] Run quickstart.md validation - verify all setup instructions work
+- [x] T018 Test server startup completes within 5 seconds
+- [x] T019 Verify code follows Constitution principles (Astrodbkit abstraction, FastAPI-first, CSS separate)
+- [x] T020 Check all directory structure matches plan.md requirements
+- [x] T021 Validate all endpoints in `contracts/web-api.yaml` are implemented
+- [x] T022 Verify database connection uses Astrodbkit exclusively (no direct SQL)
+- [x] T023 [P] Documentation review - ensure `quickstart.md` is accurate and complete
+- [x] T024 [P] Code cleanup - ensure functions are <50 lines per Constitution principle
+- [x] T025 Final integration test - verify database query, template rendering, error handling all work together
 
 ---
 

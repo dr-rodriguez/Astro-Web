@@ -114,6 +114,67 @@ code {
     color: var(--accent-purple);
 }
 
+/* Sources table */
+.sources-table-container {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.sources-table-container h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--accent-indigo);
+    margin-bottom: 1.5rem;
+}
+
+.sources-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.sources-table th {
+    background-color: var(--accent-indigo);
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem;
+    text-align: left;
+    font-size: 0.875rem;
+    border-bottom: 2px solid var(--accent-purple);
+}
+
+.sources-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.875rem;
+    color: var(--text-dark);
+}
+
+.sources-table tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+.sources-table tbody tr:hover {
+    background-color: #f3f4f6;
+}
+
+/* Error message */
+.error-message {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #fee2e2;
+    border-left: 4px solid #ef4444;
+    border-radius: 4px;
+}
+
+.error-message p {
+    color: #991b1b;
+    font-weight: 500;
+    margin: 0;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     header, main, footer {
@@ -126,6 +187,15 @@ code {
     
     h2 {
         font-size: 1.5rem;
+    }
+    
+    .sources-table {
+        font-size: 0.75rem;
+    }
+    
+    .sources-table th,
+    .sources-table td {
+        padding: 0.5rem;
     }
 }
 
