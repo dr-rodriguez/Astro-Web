@@ -7,7 +7,6 @@ This module contains all HTML page routes including homepage and error pages.
 from fastapi import Request
 from fastapi.templating import Jinja2Templates
 from src.visualizations.scatter import create_scatter_plot
-from src.database.sources import get_sources_data
 
 # Templates instance - will be imported from main
 templates = None
