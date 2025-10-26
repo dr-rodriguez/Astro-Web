@@ -19,13 +19,13 @@
 
 ### Q2: How should client-side table controls (sorting, filtering, pagination) be implemented?
 
-**Decision**: Pure JavaScript (vanilla JS, no frameworks) within browser DOM. All Sources data loaded once on page load via hidden data container or JSON payload.
+**Decision**: Use DataTables JavaScript library (via CDN). All Sources data loaded once on page load and passed to DataTables initialization. DataTables handles sorting, pagination, and global search functionality.
 
-**Rationale**: Keeps simplicity (Principle V). Avoids dependencies. Meets <1s performance goal for client-side operations.
+**Rationale**: DataTables provides production-quality table controls (sorting, pagination, filtering) with minimal implementation code, meeting <1s performance goals. Library loads via CDN (no build step required). Simpler than implementing vanilla JS equivalents.
 
 **Alternatives Considered**:
-- Datatables.js library: Adds complexity and framework dependency
-- Server-side pagination/filtering: Breaks client-side performance requirements
+- Vanilla JavaScript implementation: Would require significant code for sorting/filtering/pagination logic, violating simplicity principle
+- Server-side pagination/filtering: Breaks client-side performance requirements and doesn't meet spec.md assumptions (L155-156)
 - Web framework (React/Vue): Far too complex for prototype
 
 ### Q3: How should Bokeh scatter plot display actual ra/dec data from Sources?
@@ -64,23 +64,23 @@
 | Decision Area | Chosen Approach | Key Rationale |
 |--------------|----------------|---------------|
 | Navigation Integration | Jinja2 template inheritance with `base.html` | Maintains FastAPI-first, avoids duplication |
-| Table Controls | Vanilla JavaScript client-side | Simplicity, meets <1s performance goals |
+| Table Controls | DataTables library (CDN) client-side | Production-quality controls, minimal code, meets <1s performance goals |
 | Scatter Plot Data | Query Sources via Astrodbkit, filter nulls, plot ra vs dec | Reuses existing patterns, follows principles |
 | Active Page Indicator | Server-side context + CSS highlighting | Simple, no JavaScript needed |
-| Table State Management | Ephemeral client-side arrays | Meets spec requirement for state reset |
+| Table State Management | Ephemeral (reset on navigation) | Meets spec requirement for state reset |
 
 ## Implementation Readiness
 
-✅ **Ready to proceed**: All technical decisions align with Constitution principles. No dependencies beyond existing stack (FastAPI, Jinja2, Bokeh, Astrodbkit, vanilla JS). Implementation approach is clear:
+✅ **Ready to proceed**: All technical decisions align with Constitution principles. DataTables library will be loaded via CDN (no framework or build dependency). Implementation approach is clear:
 
 1. Create `base.html` template with navigation bar structure
 2. Refactor `index.html` to extend base, fill home content
-3. Create `browse.html` extending base, add Sources table + client-side controls
+3. Create `browse.html` extending base, add Sources table + DataTables initialization
 4. Create `plot.html` extending base, embed Bokeh plot
 5. Update `src/routes/web.py` with `/browse` and `/plots` routes
 6. Update `src/database/sources.py` with `get_all_sources()` function
 7. Update `src/visualizations/scatter.py` to use actual ra/dec data
 8. Add navigation CSS to `src/static/style.css`
-9. Write inline JavaScript for table controls in `browse.html`
+9. Initialize DataTables on Sources table in `browse.html` with configuration for sorting, pagination, and global search
 
 

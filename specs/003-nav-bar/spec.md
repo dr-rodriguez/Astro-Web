@@ -3,13 +3,13 @@
 **Feature Branch**: `003-nav-bar`  
 **Created**: 2025-01-27  
 **Status**: Draft  
-**Input**: User description: "Let's make a top navigation bar for our site. The first option, Home, should be the index.html landing page, with brief text about the database. The second option, Browse Database, should include the a table with the full list of Sources. It should have some basic controls like sorting columns, pagination, and filtering. The third option, Visualizations, should include a Bokeh scatter plot with the ra and dec values from the Sources table."
+**Input**: User description: "Let's make a top navigation bar for our site. The first option, Home, should be the index.html landing page, with brief text about the database. The second option, Browse Database, should include the a table with the full list of Sources. It should have some basic controls like sorting columns, pagination, and filtering. The third option, Plots, should include a Bokeh scatter plot with the ra and dec values from the Sources table."
 
 ## Clarifications
 
 ### Session 2025-01-27
 
-- Q: Should sorting, filtering, and pagination on Browse Database page be client-side (in browser) or server-side (API calls per interaction)? → A: Client-side - all Sources data loaded once, filtering/sorting/pagination handled by JavaScript in browser
+- Q: Should sorting, filtering, and pagination on Browse Database page be client-side (in browser) or server-side (API calls per interaction)? → A: Client-side - all Sources data loaded once, filtering/sorting/pagination handled by DataTables JavaScript library in browser
 - Q: How should filtering work on Browse Database page - single global search or separate filters per column? → A: Single global search box that searches across all columns simultaneously
 - Q: Should table sorting support multiple columns simultaneously or single-column only? → A: Single-column only - clicking a different column header clears previous sort and sorts by new column
 - Q: Should navigation use separate URLs for each page (/browse, /plots) or single-page app (SPA) style routing? → A: Separate URLs for each page - /browse and /plots are distinct routes with proper browser navigation
@@ -19,7 +19,7 @@
 
 ### User Story 1 - Navigate Between Pages (Priority: P1)
 
-Users can navigate between different sections of the website using a top navigation bar, allowing them to switch between viewing an introduction (Home), browsing all database records (Browse Database), and exploring visual representations of the data (Visualizations).
+Users can navigate between different sections of the website using a top navigation bar, allowing them to switch between viewing an introduction (Home), browsing all database records (Browse Database), and exploring visual representations of the data (Plots).
 
 **Why this priority**: This is the foundational navigation structure that organizes the application into logical sections. Without this, users cannot efficiently access different views of the database content.
 
@@ -28,7 +28,7 @@ Users can navigate between different sections of the website using a top navigat
 **Acceptance Scenarios**:
 
 1. **Given** the user is on any page, **When** they click a navigation link, **Then** the corresponding page loads and displays without requiring a full browser refresh
-2. **Given** the navigation bar is present on all pages, **When** a user clicks between Home, Browse Database, and Visualizations, **Then** each page displays the appropriate content (brief intro, data table with controls, scatter plot respectively)
+2. **Given** the navigation bar is present on all pages, **When** a user clicks between Home, Browse Database, and Plots, **Then** each page displays the appropriate content (brief intro, data table with controls, scatter plot respectively)
 3. **Given** the navigation bar is displayed, **When** the user views it, **Then** it appears at the top of the page and remains visible and accessible across all pages
 
 ---
@@ -67,20 +67,20 @@ Users can browse the complete Sources table with controls for sorting columns, p
 
 ---
 
-### User Story 4 - View Astronomical Data Visualizations (Priority: P2)
+### User Story 4 - View Astronomical Data Plots (Priority: P2)
 
 Users can view a scatter plot visualization of the Sources data showing the ra (right ascension) and dec (declination) coordinates to understand the spatial distribution of astronomical sources.
 
 **Why this priority**: This provides a visual representation of the database that helps users understand the spatial distribution and relationships between astronomical sources in the sky.
 
-**Independent Test**: Can be tested by navigating to the Visualizations page and verifying that an interactive scatter plot displays with ra on one axis and dec on the other axis using actual data from the Sources table.
+**Independent Test**: Can be tested by navigating to the Plots page and verifying that an interactive scatter plot displays with ra on one axis and dec on the other axis using actual data from the Sources table.
 
 **Acceptance Scenarios**:
 
-1. **Given** the user navigates to the Visualizations page, **When** the page loads, **Then** an interactive scatter plot displays with ra values on the horizontal axis and dec values on the vertical axis
+1. **Given** the user navigates to the Plots page, **When** the page loads, **Then** an interactive scatter plot displays with ra values on the horizontal axis and dec values on the vertical axis
 2. **Given** the scatter plot is displayed, **When** the user hovers over data points, **Then** tooltips or labels show the source identifier and coordinate values
 3. **Given** the scatter plot is displayed, **When** the user interacts with it (pan, zoom, reset), **Then** the visualization responds smoothly to user input
-4. **Given** the Sources table contains data, **When** the Visualizations page loads, **Then** all Sources from the database are represented as points in the scatter plot
+4. **Given** the Sources table contains data, **When** the Plots page loads, **Then** all Sources from the database are represented as points in the scatter plot
 
 ---
 
@@ -90,7 +90,7 @@ Users can view a scatter plot visualization of the Sources data showing the ra (
 - How does pagination handle when there are fewer records than the page size? Only the needed number of pages is shown
 - What happens when filtering returns no results? A message is displayed indicating no records match the filter criteria
 - How does sorting handle null or empty values? They are placed at the end (or beginning) of sorted results in a consistent manner
-- What happens when the database connection fails on Browse Database or Visualizations? An error message is displayed indicating data is temporarily unavailable
+- What happens when the database connection fails on Browse Database or Plots? An error message is displayed indicating data is temporarily unavailable
 - How does the scatter plot handle Sources with missing ra or dec values? Those records are excluded from the visualization with a note or legend indicating how many records were plotted
 - What happens when the user clicks the currently active navigation item? The page content remains unchanged or the page refreshes to show the same content
 - What happens when the user navigates away from Browse Database and returns? Sort, filter, and pagination state resets to defaults (all data visible, no sort/filter, first page)
@@ -100,7 +100,7 @@ Users can view a scatter plot visualization of the Sources data showing the ra (
 
 ### Functional Requirements
 
-- **FR-001**: System MUST display a top navigation bar on all pages with three options: Home, Browse Database, and Visualizations
+- **FR-001**: System MUST display a top navigation bar on all pages with three options: Home, Browse Database, and Plots
 - **FR-002**: System MUST display the current active page visually in the navigation bar (e.g., highlighted, bold, or different color)
 - **FR-003**: System MUST maintain the navigation bar's visibility and accessibility across all pages without layout disruption
 - **FR-004**: System MUST provide a Home page that displays a brief introduction text about the astronomical database
@@ -109,19 +109,19 @@ Users can view a scatter plot visualization of the Sources data showing the ra (
 - **FR-007**: System MUST implement pagination controls allowing users to select different page sizes (e.g., 10, 25, 50, 100 rows per page) and navigate between pages
 - **FR-008**: System MUST provide a single global search/filter capability that searches across all columns simultaneously in the Sources table
 - **FR-009**: System MUST update filtered, sorted, and paginated results within 1 second of user interaction
-- **FR-010**: System MUST provide a Visualizations page with an interactive scatter plot displaying ra values on the horizontal axis and dec values on the vertical axis
+- **FR-010**: System MUST provide a Plots page with an interactive scatter plot displaying ra values on the horizontal axis and dec values on the vertical axis
 - **FR-011**: System MUST display all Sources records as points in the scatter plot using actual data from the Sources table (excluding records with null ra or dec values)
 - **FR-012**: System MUST provide interactive features for the scatter plot including pan, zoom, reset, and hover tooltips showing source identifiers and coordinates
-- **FR-013**: System MUST load all three pages (Home, Browse Database, Visualizations) within 2 seconds of navigation
+- **FR-013**: System MUST load all three pages (Home, Browse Database, Plots) within 2 seconds of navigation
 - **FR-014**: System MUST maintain existing website structure (header, footer, static files) while adding the navigation bar
 - **FR-015**: System MUST handle cases where database queries return no results by displaying appropriate messaging to users
 
 ### Key Entities *(include if feature involves data)*
 
-- **Navigation Bar**: Represents the top navigation component that appears on all pages and allows users to switch between Home, Browse Database, and Visualizations
+- **Navigation Bar**: Represents the top navigation component that appears on all pages and allows users to switch between Home, Browse Database, and Plots
 - **Home Page**: Represents the landing page with introductory text about the astronomical database
 - **Browse Database Page**: Represents the page displaying all Sources records in a sortable, paginatable, and filterable table
-- **Visualizations Page**: Represents the page displaying the interactive scatter plot of ra and dec coordinates
+- **Plots Page**: Represents the page displaying the interactive scatter plot of ra and dec coordinates
 - **Table Controls**: Represents the sorting, pagination, and filtering capabilities for the Sources table
 - **Scatter Plot**: Represents the interactive visualization of astronomical coordinates (ra on x-axis, dec on y-axis)
 
@@ -129,14 +129,14 @@ Users can view a scatter plot visualization of the Sources data showing the ra (
 
 ### Measurable Outcomes
 
-- **SC-001**: Users can navigate between all three pages (Home, Browse Database, Visualizations) and view the correct content within 2 seconds of clicking each navigation link
+- **SC-001**: Users can navigate between all three pages (Home, Browse Database, Plots) and view the correct content within 2 seconds of clicking each navigation link
 - **SC-002**: The Sources table displays all records with pagination, and users can navigate through all pages of results successfully
 - **SC-003**: Users can sort any table column and see results reordered within 1 second of clicking the column header
 - **SC-004**: Users can filter the Sources table and see matching results updated within 1 second of entering filter criteria
 - **SC-005**: All Sources records with valid ra and dec coordinates are displayed as points in the scatter plot visualization
 - **SC-006**: Users can interact with the scatter plot (zoom, pan, hover) and see tooltips showing source information within 100 milliseconds of hovering over points
-- **SC-007**: The navigation bar is visible and functional on all three pages (Home, Browse Database, Visualizations)
-- **SC-008**: Users can complete the workflow of viewing Home → Browse Database → Visualizations and back to Home without errors or missing content
+- **SC-007**: The navigation bar is visible and functional on all three pages (Home, Browse Database, Plots)
+- **SC-008**: Users can complete the workflow of viewing Home → Browse Database → Plots and back to Home without errors or missing content
 
 ## Dependencies
 
@@ -145,18 +145,20 @@ Users can view a scatter plot visualization of the Sources data showing the ra (
 - FastAPI, Jinja2, Bokeh components already integrated
 - Existing route structure and template system
 - Static file serving infrastructure
+- DataTables JavaScript library (CDN) for table controls (sorting, pagination, filtering)
 
 ## Assumptions
 
 - Users want to navigate between three distinct pages rather than having all content on a single page
 - The Home page should have a brief, concise introduction (2-3 paragraphs maximum)
 - Pagination should default to 10-25 rows per page with options for larger page sizes
-- Sorting, filtering, and pagination on Browse Database page are handled client-side using JavaScript (all Sources data loaded once into browser memory)
-- Filtering uses a single global search box that searches all columns simultaneously
+- Sorting, filtering, and pagination on Browse Database page are handled client-side using DataTables JavaScript library (all Sources data loaded once into browser memory)
+- Filtering uses a single global search box that searches all columns simultaneously via DataTables
 - The scatter plot should plot all available Sources with valid coordinates
 - Users understand astronomical coordinate systems (ra and dec) at a basic level
 - Existing header and footer content (from current index.html) will be maintained across all pages
 - The navigation bar should appear consistently positioned at the top of all pages
+- DataTables library will be loaded via CDN for simplicity (no npm/webpack required)
 
 ## Out of Scope
 

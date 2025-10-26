@@ -12,13 +12,13 @@ Add a top navigation bar to the website enabling users to navigate between three
 ## Technical Context
 
 **Language/Version**: Python 3.13  
-**Primary Dependencies**: FastAPI ≥0.120.0, Jinja2 ≥3.1.0, Bokeh 3.8.0, Astrodbkit ≥2.4  
+**Primary Dependencies**: FastAPI ≥0.120.0, Jinja2 ≥3.1.0, Bokeh 3.8.0, Astrodbkit ≥2.4, DataTables (CDN)  
 **Storage**: SQLite (SIMPLE.sqlite) via Astrodbkit  
 **Testing**: pytest ≥8.0.0 (for integration tests)  
 **Target Platform**: Web application (server-side FastAPI with client-side JavaScript)  
 **Project Type**: web  
 **Performance Goals**: Page loads <2s, table filtering/sorting <1s  
-**Constraints**: Client-side processing for table controls, all Sources loaded once, excludes null coordinates from plots  
+**Constraints**: Client-side processing for table controls using DataTables library, all Sources loaded once, excludes null coordinates from plots  
 **Scale/Scope**: Small prototype handling hundreds to low thousands of Sources records
 
 ## Constitution Check
@@ -29,7 +29,7 @@ Add a top navigation bar to the website enabling users to navigate between three
 **II. Astrodbkit Abstraction**: ✅ YES - Database queries via `src/database/sources.py` using Astrodbkit.  
 **III. Bokeh Visualizations**: ✅ YES - Scatter plot on Visualizations page uses Bokeh with ra/dec from Sources.  
 **IV. CSS Styling**: ✅ YES - Navigation bar and table controls styled via `src/static/style.css`. No inline styles.  
-**V. Simplicity**: ✅ YES - Route handlers <50 lines. Client-side JavaScript for table controls (simple, no frameworks).  
+**V. Simplicity**: ⚠️ PARTIAL - Route handlers <50 lines. DataTables library used for table controls (justified: provides production-quality sorting, pagination, filtering with minimal code complexity).  
 **VI. Prototype Reusability**: ✅ YES - Navigation structure and table patterns can be adapted to other astronomical databases.  
 **VII. SQLite Compatibility**: ✅ YES - Uses SIMPLE.sqlite via Astrodbkit.
 
@@ -74,7 +74,7 @@ tests/
 └── [integration tests for route handlers]
 ```
 
-**Structure Decision**: Single web application with existing FastAPI structure. New routes in `src/routes/web.py`. New templates: `browse.html`, `plot.html`. Navigation bar extracted to shared template/partial. Client-side JavaScript for table controls (inline or separate .js file). Bokeh plot generated server-side, embedded in Plot page.
+**Structure Decision**: Single web application with existing FastAPI structure. New routes in `src/routes/web.py`. New templates: `browse.html`, `plot.html`. Navigation bar extracted to shared template/partial. Client-side JavaScript using DataTables library (CDN) for table controls. Bokeh plot generated server-side, embedded in Plot page.
 
 ## Complexity Tracking
 
@@ -90,7 +90,7 @@ No violations detected. All decisions align with Constitution principles.
 **II. Astrodbkit Abstraction**: ✅ Database access via `src/database/sources.py` using Astrodbkit query interface. No direct SQL.  
 **III. Bokeh Visualizations**: ✅ Scatter plot uses Bokeh for ra/dec visualization. Embedded as interactive component.  
 **IV. CSS Styling**: ✅ Navigation bar and table controls styled via `style.css`. No inline styles or framework dependencies.  
-**V. Simplicity**: ✅ Route handlers are straightforward (<50 lines). Client-side JavaScript is vanilla JS (no frameworks).  
+**V. Simplicity**: ✅ Route handlers are straightforward (<50 lines). Client-side JavaScript uses DataTables library loaded via CDN (no framework or build step).  
 **VI. Prototype Reusability**: ✅ Navigation structure and table patterns can be adapted to other astronomical databases. Clear separation of concerns.  
 **VII. SQLite Compatibility**: ✅ Uses SIMPLE.sqlite via Astrodbkit interface.
 
@@ -98,7 +98,7 @@ No violations detected. All decisions align with Constitution principles.
 
 ✅ Generated with decisions for:
 - Navigation bar integration (Jinja2 template inheritance)
-- Client-side table controls (vanilla JavaScript)
+- Client-side table controls (DataTables library via CDN)
 - Bokeh plot data (Astrodbkit query)
 - Active page indicator (server-side context + CSS)
 - Table state management (ephemeral client-side)
