@@ -23,9 +23,9 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create `src/` directory structure (routes/, templates/, static/, visualizations/)
-- [ ] T002 [P] Create `src/main.py` with basic FastAPI app structure
-- [ ] T003 Configure uvicorn in pyproject.toml for development server on port 8000
+- [X] T001 Create `src/` directory structure (routes/, templates/, static/, visualizations/)
+- [X] T002 [P] Create `src/main.py` with basic FastAPI app structure
+- [X] T003 Configure uvicorn in pyproject.toml for development server on port 8000
 
 ---
 
@@ -35,10 +35,10 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T004 Add Jinja2Templates configuration to existing `src/main.py`
-- [ ] T005 Configure static file serving in `src/main.py`
-- [ ] T006 Create `src/routes/web.py` with route module structure
-- [ ] T007 Integrate web routes into main app in `src/main.py`
+- [X] T004 Add Jinja2Templates configuration to existing `src/main.py`
+- [X] T005 Configure static file serving in `src/main.py`
+- [X] T006 Create `src/routes/web.py` with route module structure
+- [X] T007 Integrate web routes into main app in `src/main.py`
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -59,15 +59,15 @@
 
 ### Implementation for User Story 1
 
-- [ ] T008 [P] [US1] Create homepage route in `src/routes/web.py` for root path `/`
-- [ ] T009 [P] [US1] Create `src/templates/index.html` template with header, content, and footer structure
-- [ ] T010 [US1] Link CSS file in `src/templates/index.html`
-- [ ] T011 [P] [US1] Create `src/static/style.css` with clean minimal theme (light background, dark text, astronomy-inspired palette)
-- [ ] T012 [US1] Implement 404 handler route in `src/routes/web.py` for `/{path:path}`
-- [ ] T013 [US1] Create `src/templates/404.html` template for not found page
-- [ ] T014 [US1] Test homepage loads at http://localhost:8000 within 2 seconds
-- [ ] T015 [US1] Verify styling renders correctly (header "Astro Web", footer "© 2025")
-- [ ] T016 [US1] Test 404 page for non-existent URLs
+- [X] T008 [P] [US1] Create homepage route in `src/routes/web.py` for root path `/`
+- [X] T009 [P] [US1] Create `src/templates/index.html` template with header, content, and footer structure
+- [X] T010 [US1] Link CSS file in `src/templates/index.html`
+- [X] T011 [P] [US1] Create `src/static/style.css` with clean minimal theme (light background, dark text, astronomy-inspired palette)
+- [X] T012 [US1] Implement 404 handler route in `src/routes/web.py` for `/{path:path}`
+- [X] T013 [US1] Create `src/templates/404.html` template for not found page
+- [X] T014 [US1] Test homepage loads at http://localhost:8000 within 2 seconds
+- [X] T015 [US1] Verify styling renders correctly (header "Astro Web", footer "© 2025")
+- [X] T016 [US1] Test 404 page for non-existent URLs
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently. Homepage displays "Hello World" with correct styling.
 
@@ -87,14 +87,14 @@
 
 ### Implementation for User Story 2
 
-- [ ] T017 [P] [US2] Create `src/visualizations/scatter.py` with scatter plot generation function
-- [ ] T018 [US2] Implement `get_sample_data()` function generating ~20 random (temperature, magnitude) pairs in `src/visualizations/scatter.py`
-- [ ] T019 [US2] Create Bokeh figure with proper sizing and styling in `src/visualizations/scatter.py`
-- [ ] T020 [US2] Add hover tooltips to scatter plot in `src/visualizations/scatter.py`
-- [ ] T021 [US2] Export plot as embeddable components (script, div) from Bokeh in `src/visualizations/scatter.py`
-- [ ] T022 [US2] Import and call scatter plot generation in homepage route in `src/routes/web.py`
-- [ ] T023 [US2] Pass plot components to `index.html` template in `src/routes/web.py`
-- [ ] T024 [US2] Embed Bokeh plot in `src/templates/index.html` template
+- [X] T017 [P] [US2] Create `src/visualizations/scatter.py` with scatter plot generation function
+- [X] T018 [US2] Implement `get_sample_data()` function generating ~20 random (temperature, magnitude) pairs in `src/visualizations/scatter.py`
+- [X] T019 [US2] Create Bokeh figure with proper sizing and styling in `src/visualizations/scatter.py`
+- [X] T020 [US2] Add hover tooltips to scatter plot in `src/visualizations/scatter.py`
+- [X] T021 [US2] Export plot as embeddable components (script, div) from Bokeh in `src/visualizations/scatter.py`
+- [X] T022 [US2] Import and call scatter plot generation in homepage route in `src/routes/web.py`
+- [X] T023 [US2] Pass plot components to `index.html` template in `src/routes/web.py`
+- [X] T024 [US2] Embed Bokeh plot in `src/templates/index.html` template
 - [ ] T025 [US2] Test visualization displays on homepage
 - [ ] T026 [US2] Verify hover tooltips appear within 100ms
 - [ ] T027 [US2] Confirm data points are visible and interactive
@@ -107,15 +107,15 @@
 
 **Purpose**: Final improvements and validation
 
-- [ ] T028 [P] Run quickstart.md validation - verify all setup instructions work
-- [ ] T029 Test server startup completes within 5 seconds
-- [ ] T030 Verify code follows Constitution principles (FastAPI-first, Bokeh visualizations, CSS separate)
-- [ ] T031 Check all directory structure matches plan.md requirements
-- [ ] T032 Validate all endpoints in `contracts/web-api.yaml` are implemented
+- [X] T028 [P] Run quickstart.md validation - verify all setup instructions work
+- [X] T029 Test server startup completes within 5 seconds
+- [X] T030 Verify code follows Constitution principles (FastAPI-first, Bokeh visualizations, CSS separate)
+- [X] T031 Check all directory structure matches plan.md requirements
+- [X] T032 Validate all endpoints in `contracts/web-api.yaml` are implemented
 - [ ] T033 Test in all specified browsers (Chrome, Firefox, Safari, Edge)
-- [ ] T034 Verify no database dependencies (hard-coded data only)
-- [ ] T035 [P] Documentation review - ensure `quickstart.md` is accurate and complete
-- [ ] T036 [P] Code cleanup - ensure functions are <50 lines per Constitution principle
+- [X] T034 Verify no database dependencies (hard-coded data only)
+- [X] T035 [P] Documentation review - ensure `quickstart.md` is accurate and complete
+- [X] T036 [P] Code cleanup - ensure functions are <50 lines per Constitution principle
 - [ ] T037 Final integration test - all functionality works together
 
 ---

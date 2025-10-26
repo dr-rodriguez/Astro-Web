@@ -16,3 +16,6 @@ dependencies = [
 dev = [
     "pytest>=8.0.0",
 ]
+
+[project.scripts]
+serve = "uvicorn src.main:app --reload --port 8000"
