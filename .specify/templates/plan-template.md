@@ -31,7 +31,14 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+**I. FastAPI-First**: Does this feature use FastAPI endpoints? Jinja2 templates for web pages?  
+**II. Astrodbkit Abstraction**: Are all database queries using Astrodbkit methods?  
+**III. Bokeh Visualizations**: Are any plots generated with Bokeh?  
+**IV. Simplicity**: Are functions under 50 lines? Are complex abstractions avoided?  
+**V. Prototype Reusability**: Will this design work for other astronomical databases?  
+**VI. SQLite Compatibility**: Does the feature work with SQLite as primary storage?
+
+**Any violations MUST be justified in Complexity Tracking section.**
 
 ## Project Structure
 

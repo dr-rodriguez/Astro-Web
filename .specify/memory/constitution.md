@@ -1,50 +1,78 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Astro-Web Constitution
+
+<!--
+Sync Impact Report (v1.0.0):
+Version change: 0.0.0 → 1.0.0 (Initial constitution)
+Modified principles: None (new project)
+Added sections: Core Principles, Technology Stack, Development Approach, Governance
+Removed sections: None
+Templates requiring updates: 
+  ✅ plan-template.md (Constitution check section applicable)
+  ✅ spec-template.md (Constitution principles may influence spec structure)
+  ✅ tasks-template.md (Constitution principles may influence task organization)
+Follow-up TODOs: None
+-->
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. FastAPI-First Architecture
+Every web endpoint MUST be defined via FastAPI. Jinja2 templates MUST be used for all web page rendering. The API layer MUST be clearly separated from the presentation layer to enable future programmatic access and prototype reuse across other astronomical databases.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Astrodbkit Database Abstraction
+Data access MUST use Astrodbkit for SQLite queries. Direct SQL access MUST be avoided. This ensures compatibility with astronomical data standards and facilitates portability to other database backends in future prototypes.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Bokeh for Visualizations
+All data visualizations MUST be generated using Bokeh. Visualizations MUST be embedded as interactive components in Jinja2 templates. Exported visualizations MUST support PNG and HTML formats for documentation and presentations.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Simplicity Over Elegance (NON-NEGOTIABLE)
+Code MUST prioritize clarity and straightforward logic over clever optimizations. Functions MUST be kept small (<50 lines when possible). Complex abstractions and design patterns MUST be avoided unless absolutely necessary. This principle ensures astronomers with intermediate Python skills can maintain and extend the prototype.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Prototype-Driven Development
+Design decisions MUST consider this codebase as a prototype for other astronomical databases. Data models, API endpoints, and UI components MUST be designed with reusability in mind. Clear documentation of data schemas and API contracts is mandatory.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### VI. SQLite-First Storage
+The primary database will initially be SQLite for ease of deployment and distribution. Database files MUST be readable by standard SQLite tools for data inspection and backup.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+## Technology Stack Requirements
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+**Backend Framework**: FastAPI ≥0.120.0  
+**Template Engine**: Jinja2 (via FastAPI templates)  
+**Database**: SQLite with Astrodbkit ≥2.4  
+**Visualization**: Bokeh  
+**Language**: Python ≥3.13  
+**Deployment**: Development server (uvicorn) for prototype phase  
+**Testing**: pytest for integration tests, manual testing for UI flows
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Development Approach
+
+### Code Organization
+- `/src/main.py`: FastAPI application entry point
+- `/src/routes/`: API route definitions
+- `/src/templates/`: Jinja2 HTML templates
+- `/src/database/`: Astrodbkit database connection and queries
+- `/src/visualizations/`: Bokeh plot generation functions
+- `/tests/`: Integration tests for API endpoints
+
+### Documentation Standards
+- All functions MUST have docstrings explaining purpose, parameters, and return values
+- Data models MUST have clear comments explaining astronomical meaning
+- README MUST include setup instructions and database schema overview
+- API endpoints MUST be documented with clear request/response examples
+
+### Testing Requirements
+- Integration tests MUST verify Astrodbkit queries return expected data structures
+- API endpoint tests MUST verify JSON responses for API routes
+- Template rendering tests MUST verify pages load without errors
+- Visualizations MUST be manually verified to display correctly
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other development practices. Amendments require:
+1. Documentation of rationale
+2. Impact assessment on prototype reusability
+3. Update to version number following semantic versioning
+4. Synchronization with template files
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+All code reviews MUST verify compliance with these principles. Complexity beyond intermediate Python must be justified with clear comments explaining necessity. The `/speckit.plan` and `/speckit.spec` commands provide runtime development guidance for implementing features while maintaining constitution compliance.
+
+**Version**: 1.0.0 | **Ratified**: 2025-01-27 | **Last Amended**: 2025-01-27
