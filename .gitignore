@@ -46,6 +46,10 @@ htmlcov/
 *.bak
 *.swp
 
+# AI
+.cursor/
+.specify/scripts/
+
 # Project-specific
 uv.lock
 *.sqlite
