@@ -67,4 +67,4 @@ Changes to templates, routes, or visualizations will automatically reload.
 
 ## License
 
-Copyright © 2025
+Copyright © 2025 David Rodriguez
