@@ -12,7 +12,7 @@
 - Q: Should sorting, filtering, and pagination on Browse Database page be client-side (in browser) or server-side (API calls per interaction)? → A: Client-side - all Sources data loaded once, filtering/sorting/pagination handled by JavaScript in browser
 - Q: How should filtering work on Browse Database page - single global search or separate filters per column? → A: Single global search box that searches across all columns simultaneously
 - Q: Should table sorting support multiple columns simultaneously or single-column only? → A: Single-column only - clicking a different column header clears previous sort and sorts by new column
-- Q: Should navigation use separate URLs for each page (/browse, /visualizations) or single-page app (SPA) style routing? → A: Separate URLs for each page - /browse and /visualizations are distinct routes with proper browser navigation
+- Q: Should navigation use separate URLs for each page (/browse, /plots) or single-page app (SPA) style routing? → A: Separate URLs for each page - /browse and /plots are distinct routes with proper browser navigation
 - Q: Should sort/filter/pagination state reset when leaving and returning to Browse Database page, or persist? → A: State resets - each visit to Browse Database starts with default settings (all data, first page, no sort/filter applied)
 
 ## User Scenarios & Testing *(mandatory)*
@@ -86,7 +86,7 @@ Users can view a scatter plot visualization of the Sources data showing the ra (
 
 ### Edge Cases
 
-- What happens when a navigation link is clicked? The corresponding page loads and displays appropriate content via proper URL navigation (/browse, /visualizations, /)
+- What happens when a navigation link is clicked? The corresponding page loads and displays appropriate content via proper URL navigation (/browse, /plots, /)
 - How does pagination handle when there are fewer records than the page size? Only the needed number of pages is shown
 - What happens when filtering returns no results? A message is displayed indicating no records match the filter criteria
 - How does sorting handle null or empty values? They are placed at the end (or beginning) of sorted results in a consistent manner

@@ -83,7 +83,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /visualizations:
+  /plots:
     get:
       summary: Visualizations Page - Scatter Plot
       description: Displays interactive scatter plot of ra vs dec coordinates for all Sources

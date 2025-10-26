@@ -96,7 +96,7 @@
 
 | Field Name | Type | Description |
 |------------|------|-------------|
-| `current_page` | string | Route of current page ("/", "/browse", "/visualizations") |
+| `current_page` | string | Route of current page ("/", "/browse", "/plots") |
 | `nav_items` | list[NavigationItem] | List of all navigation items |
 
 **Relationships**:
@@ -139,7 +139,7 @@ Template displays table with controls
 ### Visualizations Flow
 
 ```
-User visits /visualizations
+User visits /plots
     ↓
 Route handler retrieves all Sources from database
     ↓
