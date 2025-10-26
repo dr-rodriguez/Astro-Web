@@ -5,6 +5,16 @@
 **Status**: Draft  
 **Input**: User description: "Let's start by building a hello world website with this tech-stack. Let's avoid using a database for the moment, just focus on a simple website so we get the structure set up properly."
 
+## Clarifications
+
+### Session 2025-01-27
+
+- Q: Which port should the development server run on? → A: 8000
+- Q: What type of interactive visualization should be displayed? → A: Scatter plot
+- Q: What sample data should the scatter plot display? → A: Random astronomical-like data (temperature vs magnitude)
+- Q: What styling approach should be used for the page? → A: Clean minimal theme with light background, dark text, astronomy-inspired palette
+- Q: What content should be in header and footer sections? → A: Header with "Astro Web" title, footer with copyright "© 2025"
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - View Hello World Page (Priority: P1)
@@ -48,26 +58,26 @@ A user views a simple interactive data visualization embedded in the page that d
 
 ### Functional Requirements
 
-- **FR-001**: System MUST provide a web server that responds to HTTP requests on a specified port
+- **FR-001**: System MUST provide a web server that responds to HTTP requests on port 8000 (http://localhost:8000)
 - **FR-002**: System MUST render a homepage with "Hello World" content using HTML templates
-- **FR-003**: System MUST apply CSS styling to create a visually appealing layout with colors, fonts, and spacing
-- **FR-004**: System MUST display an interactive data visualization that responds to user mouse interactions
+- **FR-003**: System MUST apply CSS styling with a clean minimal theme: light background, dark text, astronomy-inspired color palette, appropriate fonts and spacing
+- **FR-004**: System MUST display an interactive scatter plot that responds to user mouse interactions (hover tooltips)
 - **FR-005**: System MUST handle 404 errors gracefully with a user-friendly "not found" page
 - **FR-006**: System MUST organize code in separate directories for routes, templates, static files, and visualizations
-- **FR-007**: System MUST use hard-coded sample data for visualization without requiring database access
+- **FR-007**: System MUST use hard-coded sample data for the scatter plot (temperature vs magnitude, ~20 random data points) without requiring database access
 - **FR-008**: System MUST be startable with a single command that launches the web server
 
 ### Key Entities
 
-- **Web Page**: Represents a single HTML page with header, content area, and footer sections
-- **Visualization**: Represents an interactive data visualization component displaying sample astronomical or scientific data
+- **Web Page**: Represents a single HTML page with header (displaying "Astro Web" title), content area, and footer (displaying copyright "© 2025")
+- **Visualization**: Represents an interactive scatter plot displaying sample data with hover tooltips
 - **Static Assets**: CSS files and other resources that are served without server-side processing
 
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 
-- **SC-001**: Users can view the homepage within 2 seconds of entering the URL
+- **SC-001**: Users can view the homepage at http://localhost:8000 within 2 seconds of entering the URL
 - **SC-002**: The page renders with correct styling and layout in modern web browsers (Chrome, Firefox, Safari, Edge)
 - **SC-003**: The interactive visualization responds to mouse hover events within 100 milliseconds
 - **SC-004**: The server starts and becomes accessible within 5 seconds of issuing the start command
@@ -86,11 +96,11 @@ A user views a simple interactive data visualization embedded in the page that d
 ## Assumptions
 
 - Users have Python 3.13+ installed on their development machine
-- The development server runs locally on a configurable port (default assumption)
+- The development server runs locally on port 8000 (http://localhost:8000)
 - Browser JavaScript is enabled for interactive visualizations
 - All required Python packages are listed in project dependencies
-- The sample data for visualizations is hard-coded (no external data files required)
-- CSS styling will be minimalist and focused on demonstrating basic layout principles
+- The sample data for the scatter plot (temperature vs magnitude) is hard-coded with approximately 20 random data points (no external data files required)
+- CSS styling uses a clean minimal theme with light background, dark text, and astronomy-inspired color palette
 - No authentication or user accounts are required for this initial version
 
 ## Out of Scope
