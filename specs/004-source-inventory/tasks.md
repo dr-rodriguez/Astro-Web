@@ -54,7 +54,7 @@
 - [X] T004 [US1] Add `inventory(request, source_name)` route handler to `src/routes/web.py` that calls `get_source_inventory(source_name)` and passes data to template
 - [X] T005 [US1] Handle error case in `inventory()` route handler when `get_source_inventory()` returns None - set error context and display message
 - [X] T006 [P] [US1] Create `src/templates/inventory.html` template extending `base.html` with structure for displaying multiple data tables
-- [ ] T006.5 [US1] Add loading state skeleton structure to `src/templates/inventory.html` that displays "Loading source inventory..." message (shown while data loads server-side) per FR-012
+- [X] T006.5 [US1] Add loading state skeleton structure to `src/templates/inventory.html` that displays "Loading source inventory..." message (shown while data loads server-side) per FR-012
 - [X] T007 [US1] Implement dynamic table generation in `src/templates/inventory.html` - iterate over inventory_data.items() keys (table names) and generate HTML table for each non-empty key
 - [X] T007.5 [US1] Display source identifier prominently at top of `src/templates/inventory.html` using h1 or prominent heading element per FR-006
 - [X] T008 [US1] Add conditional rendering in `src/templates/inventory.html` to only display tables that have data (check if value exists and length > 0)
@@ -112,7 +112,7 @@
 ### Implementation for User Story 3
 
 - [X] T022 [US3] Improve error handling in `inventory()` route handler in `src/routes/web.py` to distinguish between "source not found" (empty inventory) vs database connection errors
-- [ ] T023 [US3] Add error message display section in `src/templates/inventory.html` with "Source not found" message and link back to browse page
+- [X] T023 [US3] Add error message display section in `src/templates/inventory.html` with "Source not found" message and link back to browse page
 - [ ] T024 [US3] Test error message displays when navigating to non-existent source within 2 seconds
 - [ ] T025 [US3] Test URL-encoded identifiers with special characters (spaces, commas, Unicode) are correctly decoded for database queries
 - [ ] T026 [US3] Test database connection error handling - verify appropriate error message displayed when database unavailable
