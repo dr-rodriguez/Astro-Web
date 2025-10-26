@@ -1,0 +1,18 @@
+[project]
+name = "astro-web"
+version = "0.1.0"
+description = "Dynamic website and API to explore astronomical database of brown dwarfs"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "astrodbkit>=2.4",
+    "fastapi>=0.120.0",
+    "bokeh>=3.0.0",
+    "uvicorn>=0.30.0",
+    "jinja2>=3.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+]
