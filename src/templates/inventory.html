@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="inventory-container">
+    <h1>Source Inventory: {{ source_name }}</h1>
+    
+    {% if has_error %}
+    <div class="error-message">
+        <p>{{ error_message }}</p>
+        <a href="/browse">Return to Browse</a>
+    </div>
+    {% else %}
+        {% for table_name, table_data in inventory_data.items() %}
+        {% if table_data and table_data|length > 0 %}
+        <div class="inventory-table-section">
+            <h2>{{ table_name }}</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        {% for column in table_data[0].keys() %}
+                        <th>{{ column }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in table_data %}
+                    <tr>
+                        {% for value in row.values() %}
+                        <td>{{ value if value is not none else '' }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}
+

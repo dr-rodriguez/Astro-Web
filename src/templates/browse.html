@@ -30,7 +30,12 @@
             <tbody>
                 {% for row in sources_data %}
                 <tr>
-                    <td>{{ row.source if row.source else '' }}</td>
+                    <td>
+                        {% if row.source %}
+                        <a href="/source/{{ row.source|urlencode }}">{{ row.source }}</a>
+                        {% else %}
+                        {% endif %}
+                    </td>
                     <td>{{ row.ra if row.ra is not none else '' }}</td>
                     <td>{{ row.dec if row.dec is not none else '' }}</td>
                     <td>{{ row.reference if row.reference else '' }}</td>

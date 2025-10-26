@@ -27,9 +27,9 @@
 
 **Purpose**: Database query function for inventory retrieval
 
-- [ ] T001 Add `get_source_inventory(source_name)` function to `src/database/sources.py` that calls `db.inventory(source_name)` and returns dictionary of table names to lists of dictionaries
-- [ ] T002 [P] Implement error handling in `get_source_inventory()` to catch all exceptions and return None on database error
-- [ ] T003 [P] Filter out empty tables in `get_source_inventory()` function - only return tables that have data (length > 0)
+- [X] T001 Add `get_source_inventory(source_name)` function to `src/database/sources.py` that calls `db.inventory(source_name)` and returns dictionary of table names to lists of dictionaries
+- [X] T002 [P] Implement error handling in `get_source_inventory()` to catch all exceptions and return None on database error
+- [X] T003 [P] Filter out empty tables in `get_source_inventory()` function - only return tables that have data (length > 0)
 
 **Checkpoint**: Setup complete - database query function ready
 
@@ -51,16 +51,16 @@
 
 ### Implementation for User Story 1
 
-- [ ] T004 [US1] Add `inventory(request, source_name)` route handler to `src/routes/web.py` that calls `get_source_inventory(source_name)` and passes data to template
-- [ ] T005 [US1] Handle error case in `inventory()` route handler when `get_source_inventory()` returns None - set error context and display message
-- [ ] T006 [P] [US1] Create `src/templates/inventory.html` template extending `base.html` with structure for displaying multiple data tables
+- [X] T004 [US1] Add `inventory(request, source_name)` route handler to `src/routes/web.py` that calls `get_source_inventory(source_name)` and passes data to template
+- [X] T005 [US1] Handle error case in `inventory()` route handler when `get_source_inventory()` returns None - set error context and display message
+- [X] T006 [P] [US1] Create `src/templates/inventory.html` template extending `base.html` with structure for displaying multiple data tables
 - [ ] T006.5 [US1] Add loading state skeleton structure to `src/templates/inventory.html` that displays "Loading source inventory..." message (shown while data loads server-side) per FR-012
-- [ ] T007 [US1] Implement dynamic table generation in `src/templates/inventory.html` - iterate over inventory_data.items() keys (table names) and generate HTML table for each non-empty key
-- [ ] T007.5 [US1] Display source identifier prominently at top of `src/templates/inventory.html` using h1 or prominent heading element per FR-006
-- [ ] T008 [US1] Add conditional rendering in `src/templates/inventory.html` to only display tables that have data (check if value exists and length > 0)
-- [ ] T009 [P] [US1] Add inventory page CSS styles to `src/static/style.css` - inventory-container, inventory-table-section, data-table styling per quickstart.md
-- [ ] T010 [US1] Add `/source/{source_name}` route to `src/main.py` that connects to `web.inventory()` handler
-- [ ] T011 [US1] Register inventory route in `src/main.py` FastAPI app with proper path parameter handling
+- [X] T007 [US1] Implement dynamic table generation in `src/templates/inventory.html` - iterate over inventory_data.items() keys (table names) and generate HTML table for each non-empty key
+- [X] T007.5 [US1] Display source identifier prominently at top of `src/templates/inventory.html` using h1 or prominent heading element per FR-006
+- [X] T008 [US1] Add conditional rendering in `src/templates/inventory.html` to only display tables that have data (check if value exists and length > 0)
+- [X] T009 [P] [US1] Add inventory page CSS styles to `src/static/style.css` - inventory-container, inventory-table-section, data-table styling per quickstart.md
+- [X] T010 [US1] Add `/source/{source_name}` route to `src/main.py` that connects to `web.inventory()` handler
+- [X] T011 [US1] Register inventory route in `src/main.py` FastAPI app with proper path parameter handling
 - [ ] T012 [US1] Test inventory page displays Sources table plus at least one other table (Photometry, Spectra, Parallaxes, etc.)
 - [ ] T013 [US1] Verify only tables with data are displayed, empty tables are not shown
 - [ ] T014 [US1] Test inventory page loads within 5 seconds for sources with moderate data
@@ -85,8 +85,8 @@
 
 ### Implementation for User Story 2
 
-- [ ] T016 [P] [US2] Make source identifiers clickable in `src/templates/browse.html` by wrapping them in anchor tags with href="/source/{urlencoded_source_name}"
-- [ ] T017 [US2] Import and use `urllib.parse.quote()` or Jinja2 `urlencode` filter to URL-encode source names in browse page links in `src/templates/browse.html`
+- [X] T016 [P] [US2] Make source identifiers clickable in `src/templates/browse.html` by wrapping them in anchor tags with href="/source/{urlencoded_source_name}"
+- [X] T017 [US2] Import and use `urllib.parse.quote()` or Jinja2 `urlencode` filter to URL-encode source names in browse page links in `src/templates/browse.html`
 - [ ] T018 [US2] Test clicking source identifier in browse page navigates to correct inventory page
 - [ ] T019 [US2] Test navigation completes within 2 seconds between browse and inventory pages
 - [ ] T020 [US2] Verify navigation bar allows returning to browse page from inventory page
@@ -111,7 +111,7 @@
 
 ### Implementation for User Story 3
 
-- [ ] T022 [US3] Improve error handling in `inventory()` route handler in `src/routes/web.py` to distinguish between "source not found" (empty inventory) vs database connection errors
+- [X] T022 [US3] Improve error handling in `inventory()` route handler in `src/routes/web.py` to distinguish between "source not found" (empty inventory) vs database connection errors
 - [ ] T023 [US3] Add error message display section in `src/templates/inventory.html` with "Source not found" message and link back to browse page
 - [ ] T024 [US3] Test error message displays when navigating to non-existent source within 2 seconds
 - [ ] T025 [US3] Test URL-encoded identifiers with special characters (spaces, commas, Unicode) are correctly decoded for database queries

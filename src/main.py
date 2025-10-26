@@ -8,6 +8,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from urllib.parse import quote
 from src.routes import web
 
 app = FastAPI(
@@ -18,6 +19,8 @@ app = FastAPI(
 
 # Configure Jinja2 templates
 templates = Jinja2Templates(directory="src/templates")
+# Add urlencode filter for URL encoding source names
+templates.env.filters['urlencode'] = lambda u: quote(str(u), safe='')
 web.set_templates(templates)
 
 # Configure static file serving
@@ -40,6 +43,12 @@ async def browse(request: Request):
 async def plot(request: Request):
     """Plots page rendering scatter visualization."""
     return await web.plot(request)
+
+
+@app.get("/source/{source_name}", response_class=HTMLResponse)
+async def inventory_page(request: Request, source_name: str):
+    """Source inventory page rendering all data for a specific source."""
+    return await web.inventory(request, source_name)
 
 
 @app.get("/{path:path}", response_class=HTMLResponse)
