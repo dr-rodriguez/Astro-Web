@@ -95,9 +95,9 @@
 - [X] T022 [US2] Import and call scatter plot generation in homepage route in `src/routes/web.py`
 - [X] T023 [US2] Pass plot components to `index.html` template in `src/routes/web.py`
 - [X] T024 [US2] Embed Bokeh plot in `src/templates/index.html` template
-- [ ] T025 [US2] Test visualization displays on homepage
-- [ ] T026 [US2] Verify hover tooltips appear within 100ms
-- [ ] T027 [US2] Confirm data points are visible and interactive
+- [X] T025 [US2] Test visualization displays on homepage
+- [X] T026 [US2] Verify hover tooltips appear within 100ms
+- [X] T027 [US2] Confirm data points are visible and interactive
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently. Homepage displays "Hello World" with interactive scatter plot visualization.
 
@@ -112,11 +112,11 @@
 - [X] T030 Verify code follows Constitution principles (FastAPI-first, Bokeh visualizations, CSS separate)
 - [X] T031 Check all directory structure matches plan.md requirements
 - [X] T032 Validate all endpoints in `contracts/web-api.yaml` are implemented
-- [ ] T033 Test in all specified browsers (Chrome, Firefox, Safari, Edge)
+- [X] T033 Test in all specified browsers (Chrome, Firefox, Safari, Edge)
 - [X] T034 Verify no database dependencies (hard-coded data only)
 - [X] T035 [P] Documentation review - ensure `quickstart.md` is accurate and complete
 - [X] T036 [P] Code cleanup - ensure functions are <50 lines per Constitution principle
-- [ ] T037 Final integration test - all functionality works together
+- [X] T037 Final integration test - all functionality works together
 
 ---
 

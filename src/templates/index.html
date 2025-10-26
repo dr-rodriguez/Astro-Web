@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Astro Web - Hello World</title>
     <link rel="stylesheet" href="/static/style.css">
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-3.8.0.min.js"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.8.0.min.js"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.8.0.min.js"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-gl-3.8.0.min.js"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.bokeh.org/bokeh/release/bokeh-mathjax-3.8.0.min.js"
+        crossorigin="anonymous"></script>
+    {{ plot_script|safe }}
 </head>
 <body>
     <header>
@@ -19,7 +30,6 @@
             <div class="visualization">
                 <h3>Sample Data Visualization</h3>
                 {{ plot_div|safe }}
-                {{ plot_script|safe }}
             </div>
         </div>
     </main>
