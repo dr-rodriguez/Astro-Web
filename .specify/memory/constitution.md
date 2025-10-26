@@ -1,15 +1,15 @@
 # Astro-Web Constitution
 
 <!--
-Sync Impact Report (v1.0.0):
-Version change: 0.0.0 → 1.0.0 (Initial constitution)
-Modified principles: None (new project)
-Added sections: Core Principles, Technology Stack, Development Approach, Governance
+Sync Impact Report (v1.1.0):
+Version change: 1.0.0 → 1.1.0 (Added CSS styling principle)
+Modified principles: Renumbered existing principles IV-VI to V-VII
+Added sections: New principle VII (CSS Styling)
 Removed sections: None
 Templates requiring updates: 
-  ✅ plan-template.md (Constitution check section applicable)
-  ✅ spec-template.md (Constitution principles may influence spec structure)
-  ✅ tasks-template.md (Constitution principles may influence task organization)
+  ✅ plan-template.md (Updated constitution check to include all principles)
+  ✅ spec-template.md (Constitution principles applicable)
+  ✅ tasks-template.md (Constitution principles applicable)
 Follow-up TODOs: None
 -->
 
@@ -24,19 +24,23 @@ Data access MUST use Astrodbkit for SQLite queries. Direct SQL access MUST be av
 ### III. Bokeh for Visualizations
 All data visualizations MUST be generated using Bokeh. Visualizations MUST be embedded as interactive components in Jinja2 templates. Exported visualizations MUST support PNG and HTML formats for documentation and presentations.
 
-### IV. Simplicity Over Elegance (NON-NEGOTIABLE)
+### IV. CSS for Styling
+Website styling MUST use CSS. CSS files MUST be kept separate from HTML templates. Inline styles and JavaScript-based styling frameworks are prohibited to maintain simplicity and facilitate maintenance by astronomers with intermediate-level skills. Use vanilla CSS or minimal CSS frameworks that do not require compilation.
+
+### V. Simplicity Over Elegance (NON-NEGOTIABLE)
 Code MUST prioritize clarity and straightforward logic over clever optimizations. Functions MUST be kept small (<50 lines when possible). Complex abstractions and design patterns MUST be avoided unless absolutely necessary. This principle ensures astronomers with intermediate Python skills can maintain and extend the prototype.
 
-### V. Prototype-Driven Development
+### VI. Prototype-Driven Development
 Design decisions MUST consider this codebase as a prototype for other astronomical databases. Data models, API endpoints, and UI components MUST be designed with reusability in mind. Clear documentation of data schemas and API contracts is mandatory.
 
-### VI. SQLite-First Storage
+### VII. SQLite-First Storage
 The primary database will initially be SQLite for ease of deployment and distribution. Database files MUST be readable by standard SQLite tools for data inspection and backup.
 
 ## Technology Stack Requirements
 
 **Backend Framework**: FastAPI ≥0.120.0  
 **Template Engine**: Jinja2 (via FastAPI templates)  
+**Styling**: CSS (vanilla CSS or minimal frameworks)  
 **Database**: SQLite with Astrodbkit ≥2.4  
 **Visualization**: Bokeh  
 **Language**: Python ≥3.13  
@@ -49,6 +53,7 @@ The primary database will initially be SQLite for ease of deployment and distrib
 - `/src/main.py`: FastAPI application entry point
 - `/src/routes/`: API route definitions
 - `/src/templates/`: Jinja2 HTML templates
+- `/src/static/`: CSS files and static assets
 - `/src/database/`: Astrodbkit database connection and queries
 - `/src/visualizations/`: Bokeh plot generation functions
 - `/tests/`: Integration tests for API endpoints
@@ -75,4 +80,4 @@ This constitution supersedes all other development practices. Amendments require
 
 All code reviews MUST verify compliance with these principles. Complexity beyond intermediate Python must be justified with clear comments explaining necessity. The `/speckit.plan` and `/speckit.spec` commands provide runtime development guidance for implementing features while maintaining constitution compliance.
 
-**Version**: 1.0.0 | **Ratified**: 2025-01-27 | **Last Amended**: 2025-01-27
+**Version**: 1.1.0 | **Ratified**: 2025-01-27 | **Last Amended**: 2025-01-27
