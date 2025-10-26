@@ -247,35 +247,6 @@ code {
     margin: 0;
 }
 
-/* Loading skeleton */
-.loading-skeleton {
-    margin-top: 2rem;
-    padding: 2rem;
-    text-align: center;
-}
-
-.loading-skeleton p {
-    color: var(--accent-indigo);
-    font-size: 1.1rem;
-    font-weight: 500;
-    margin-bottom: 1rem;
-}
-
-.loading-spinner {
-    border: 3px solid #f3f4f6;
-    border-top: 3px solid var(--accent-indigo);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    margin: 1rem auto;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
 /* DataTables styling */
 .dataTables_wrapper .dataTables_length,
 .dataTables_wrapper .dataTables_filter,

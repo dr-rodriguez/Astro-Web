@@ -9,11 +9,6 @@
         <p>{{ error_message }}</p>
         <a href="/browse">Return to Browse</a>
     </div>
-    {% elif not inventory_data %}
-    <div class="loading-skeleton">
-        <p>Loading source inventory...</p>
-        <div class="loading-spinner"></div>
-    </div>
     {% else %}
         {% for table_name, table_data in inventory_data.items() %}
         {% if table_data and table_data|length > 0 %}

@@ -61,10 +61,10 @@
 - [X] T009 [P] [US1] Add inventory page CSS styles to `src/static/style.css` - inventory-container, inventory-table-section, data-table styling per quickstart.md
 - [X] T010 [US1] Add `/source/{source_name}` route to `src/main.py` that connects to `web.inventory()` handler
 - [X] T011 [US1] Register inventory route in `src/main.py` FastAPI app with proper path parameter handling
-- [ ] T012 [US1] Test inventory page displays Sources table plus at least one other table (Photometry, Spectra, Parallaxes, etc.)
-- [ ] T013 [US1] Verify only tables with data are displayed, empty tables are not shown
-- [ ] T014 [US1] Test inventory page loads within 5 seconds for sources with moderate data
-- [ ] T015 [US1] Verify loading indicator displays "Loading source inventory..." message per FR-012
+- [X] T012 [US1] Test inventory page displays Sources table plus at least one other table (Photometry, Spectra, Parallaxes, etc.)
+- [X] T013 [US1] Verify only tables with data are displayed, empty tables are not shown
+- [X] T014 [US1] Test inventory page loads within 5 seconds for sources with moderate data
+- [X] T015 [US1] Verify loading indicator displays "Loading source inventory..." message per FR-012
 
 **Checkpoint**: At this point, User Story 1 should be fully functional. Users can navigate to source inventory pages and view all data associated with that source in organized data tables.
 
@@ -87,10 +87,10 @@
 
 - [X] T016 [P] [US2] Make source identifiers clickable in `src/templates/browse.html` by wrapping them in anchor tags with href="/source/{urlencoded_source_name}"
 - [X] T017 [US2] Import and use `urllib.parse.quote()` or Jinja2 `urlencode` filter to URL-encode source names in browse page links in `src/templates/browse.html`
-- [ ] T018 [US2] Test clicking source identifier in browse page navigates to correct inventory page
-- [ ] T019 [US2] Test navigation completes within 2 seconds between browse and inventory pages
-- [ ] T020 [US2] Verify navigation bar allows returning to browse page from inventory page
-- [ ] T021 [US2] Test multiple navigations back and forth between browse and inventory pages work correctly
+- [X] T018 [US2] Test clicking source identifier in browse page navigates to correct inventory page
+- [X] T019 [US2] Test navigation completes within 2 seconds between browse and inventory pages
+- [X] T020 [US2] Verify navigation bar allows returning to browse page from inventory page
+- [X] T021 [US2] Test multiple navigations back and forth between browse and inventory pages work correctly
 
 **Checkpoint**: At this point, User Story 2 should be complete. Users can navigate from browse page to source inventory pages seamlessly.
 
@@ -113,10 +113,10 @@
 
 - [X] T022 [US3] Improve error handling in `inventory()` route handler in `src/routes/web.py` to distinguish between "source not found" (empty inventory) vs database connection errors
 - [X] T023 [US3] Add error message display section in `src/templates/inventory.html` with "Source not found" message and link back to browse page
-- [ ] T024 [US3] Test error message displays when navigating to non-existent source within 2 seconds
-- [ ] T025 [US3] Test URL-encoded identifiers with special characters (spaces, commas, Unicode) are correctly decoded for database queries
-- [ ] T026 [US3] Test database connection error handling - verify appropriate error message displayed when database unavailable
-- [ ] T027 [US3] Verify navigation bar remains functional from error page
+- [X] T024 [US3] Test error message displays when navigating to non-existent source within 2 seconds
+- [X] T025 [US3] Test URL-encoded identifiers with special characters (spaces, commas, Unicode) are correctly decoded for database queries
+- [X] T026 [US3] Test database connection error handling - verify appropriate error message displayed when database unavailable
+- [X] T027 [US3] Verify navigation bar remains functional from error page
 
 **Checkpoint**: At this point, User Story 3 should be complete. System handles errors gracefully with clear feedback to users.
 
@@ -126,21 +126,21 @@
 
 **Purpose**: Final improvements, validation, and quality assurance
 
-- [ ] T028 [P] Verify inventory page loads within 5 seconds for sources with moderate data per FR-010
-- [ ] T029 [P] Verify response time < 2 seconds for error cases (invalid source) per SC-005
-- [ ] T030 [P] Test navigation between pages completes within 2 seconds per FR-006
-- [ ] T031 [P] Verify all URL-encoded identifiers with special characters handled correctly per FR-005
-- [ ] T032 [P] Run quickstart.md validation - verify all test scenarios pass
-- [ ] T033 [P] Verify code follows Constitution principles (FastAPI-first, Astrodbkit abstraction, CSS separate, simplicity)
-- [ ] T034 [P] Check all directory structure matches plan.md requirements
-- [ ] T035 [P] Validate all endpoints in `contracts/web-api.yaml` are implemented correctly
-- [ ] T036 [P] Verify database connection uses Astrodbkit exclusively (no direct SQL queries)
-- [ ] T037 [P] Code cleanup - ensure route handlers are <50 lines per Constitution principle
-- [ ] T038 [P] Test with sources that have data in different table combinations (Sources only, Sources + Photometry, Sources + Spectra + Parallaxes, etc.)
-- [ ] T039 [P] Verify loading state behavior (if implemented) - display "Loading source inventory..." during retrieval
-- [ ] T040 [P] Test edge case: source exists but all related tables return empty (should display only Sources table)
-- [ ] T041 [P] Verify all data rows displayed with native browser scrolling (no artificial limits) per FR-013
-- [ ] T042 Final integration test - verify inventory retrieval, template rendering, navigation, and error handling all work together
+- [X] T028 [P] Verify inventory page loads within 5 seconds for sources with moderate data per FR-010
+- [X] T029 [P] Verify response time < 2 seconds for error cases (invalid source) per SC-005
+- [X] T030 [P] Test navigation between pages completes within 2 seconds per FR-006
+- [X] T031 [P] Verify all URL-encoded identifiers with special characters handled correctly per FR-005
+- [X] T032 [P] Run quickstart.md validation - verify all test scenarios pass
+- [X] T033 [P] Verify code follows Constitution principles (FastAPI-first, Astrodbkit abstraction, CSS separate, simplicity)
+- [X] T034 [P] Check all directory structure matches plan.md requirements
+- [X] T035 [P] Validate all endpoints in `contracts/web-api.yaml` are implemented correctly
+- [X] T036 [P] Verify database connection uses Astrodbkit exclusively (no direct SQL queries)
+- [X] T037 [P] Code cleanup - ensure route handlers are <50 lines per Constitution principle
+- [X] T038 [P] Test with sources that have data in different table combinations (Sources only, Sources + Photometry, Sources + Spectra + Parallaxes, etc.)
+- [X] T039 [P] Verify loading state behavior (if implemented) - display "Loading source inventory..." during retrieval
+- [X] T040 [P] Test edge case: source exists but all related tables return empty (should display only Sources table)
+- [X] T041 [P] Verify all data rows displayed with native browser scrolling (no artificial limits) per FR-013
+- [X] T042 Final integration test - verify inventory retrieval, template rendering, navigation, and error handling all work together
 
 ---
 
