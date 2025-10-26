@@ -96,6 +96,43 @@ async def plot(request: Request):
     )
 
 
+async def inventory(request: Request, source_name: str):
+    """Render the source inventory page."""
+    from src.database.sources import get_source_inventory
+    from urllib.parse import unquote
+    
+    # Get decoded source name for display
+    decoded_source_name = unquote(source_name)
+    
+    # Get inventory data
+    inventory_data = get_source_inventory(source_name)
+    
+    # Handle errors
+    if inventory_data is None:
+        # Source not found
+        has_error = True
+        error_message = f"Source not found: {decoded_source_name}"
+    else:
+        has_error = False
+        error_message = None
+    
+    # Create navigation context with active page
+    nav_context = create_navigation_context(current_page=f"/source/{source_name}")
+    
+    return templates.TemplateResponse(
+        "inventory.html",
+        {
+            "request": request,
+            "source_name": decoded_source_name,
+            "inventory_data": inventory_data if not has_error else {},
+            "has_error": has_error,
+            "error_message": error_message,
+            **nav_context,
+        },
+        status_code=404 if has_error else 200,
+    )
+
+
 async def not_found(request: Request, path: str):
     """Render 404 error page for non-existent routes."""
     return templates.TemplateResponse(
