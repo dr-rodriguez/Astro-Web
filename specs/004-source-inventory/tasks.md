@@ -54,15 +54,17 @@
 - [ ] T004 [US1] Add `inventory(request, source_name)` route handler to `src/routes/web.py` that calls `get_source_inventory(source_name)` and passes data to template
 - [ ] T005 [US1] Handle error case in `inventory()` route handler when `get_source_inventory()` returns None - set error context and display message
 - [ ] T006 [P] [US1] Create `src/templates/inventory.html` template extending `base.html` with structure for displaying multiple data tables
+- [ ] T006.5 [US1] Add loading state skeleton structure to `src/templates/inventory.html` that displays "Loading source inventory..." message (shown while data loads server-side) per FR-012
 - [ ] T007 [US1] Implement dynamic table generation in `src/templates/inventory.html` - iterate over inventory_data.items() keys (table names) and generate HTML table for each non-empty key
+- [ ] T007.5 [US1] Display source identifier prominently at top of `src/templates/inventory.html` using h1 or prominent heading element per FR-006
 - [ ] T008 [US1] Add conditional rendering in `src/templates/inventory.html` to only display tables that have data (check if value exists and length > 0)
 - [ ] T009 [P] [US1] Add inventory page CSS styles to `src/static/style.css` - inventory-container, inventory-table-section, data-table styling per quickstart.md
 - [ ] T010 [US1] Add `/source/{source_name}` route to `src/main.py` that connects to `web.inventory()` handler
 - [ ] T011 [US1] Register inventory route in `src/main.py` FastAPI app with proper path parameter handling
 - [ ] T012 [US1] Test inventory page displays Sources table plus at least one other table (Photometry, Spectra, Parallaxes, etc.)
 - [ ] T013 [US1] Verify only tables with data are displayed, empty tables are not shown
-- [ ] T014 [US1] Verify source identifier displayed prominently at top of inventory page
-- [ ] T015 [US1] Test inventory page loads within 5 seconds for sources with moderate data
+- [ ] T014 [US1] Test inventory page loads within 5 seconds for sources with moderate data
+- [ ] T015 [US1] Verify loading indicator displays "Loading source inventory..." message per FR-012
 
 **Checkpoint**: At this point, User Story 1 should be fully functional. Users can navigate to source inventory pages and view all data associated with that source in organized data tables.
 
@@ -125,7 +127,7 @@
 **Purpose**: Final improvements, validation, and quality assurance
 
 - [ ] T028 [P] Verify inventory page loads within 5 seconds for sources with moderate data per FR-010
-- [ ] T029 [P] Verify response time < 2 seconds for error cases (invalid source) per FR-005
+- [ ] T029 [P] Verify response time < 2 seconds for error cases (invalid source) per SC-005
 - [ ] T030 [P] Test navigation between pages completes within 2 seconds per FR-006
 - [ ] T031 [P] Verify all URL-encoded identifiers with special characters handled correctly per FR-005
 - [ ] T032 [P] Run quickstart.md validation - verify all test scenarios pass
