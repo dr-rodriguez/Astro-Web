@@ -1,0 +1,30 @@
+# astro-web Development Guidelines
+
+Auto-generated from all feature plans. Last updated: 2025-10-26
+
+## Active Technologies
+
+- Python 3.13+ + FastAPI ≥0.120.0, Jinja2, Bokeh, uvicorn (001-hello-world-website)
+
+## Project Structure
+
+```text
+backend/
+frontend/
+tests/
+```
+
+## Commands
+
+cd src; pytest; ruff check .
+
+## Code Style
+
+Python 3.13+: Follow standard conventions
+
+## Recent Changes
+
+- 001-hello-world-website: Added Python 3.13+ + FastAPI ≥0.120.0, Jinja2, Bokeh, uvicorn
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->
