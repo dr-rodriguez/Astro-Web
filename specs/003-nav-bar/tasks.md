@@ -165,7 +165,7 @@
 - [ ] T037 Run quickstart.md validation - verify all 8 test scenarios pass
 - [ ] T038 [P] Verify page load time < 2 seconds for all three pages (/, /browse, /plots)
 - [ ] T039 [P] Verify table interactions (sorting, filtering, pagination) update within 1 second
-- [ ] T040 [P] Verify scatter plot hover tooltips appear within 100ms
+- [ ] T040 [P] Verify scatter plot hover tooltips appear
 - [ ] T041 [P] Test navigation bar visibility and functionality across all pages
 - [ ] T042 Test workflow: Home → Browse → Plots → Home without errors or missing content
 - [ ] T043 [P] Verify code follows Constitution principles (FastAPI-first, Astrodbkit abstraction, Bokeh visualizations, CSS separate, simplicity)

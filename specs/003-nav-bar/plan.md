@@ -7,7 +7,7 @@
 
 ## Summary
 
-Add a top navigation bar to the website enabling users to navigate between three distinct pages: Home (introductory landing page), Browse Database (sortable/filterable/paginated Sources table), and Visualizations (interactive scatter plot of ra/dec coordinates). The navigation bar appears consistently on all pages, highlighting the active page. All Sources data loads client-side for fast table interactions, while the scatter plot displays actual coordinate data from the database.
+Add a top navigation bar to the website enabling users to navigate between three distinct pages: Home (introductory landing page), Browse Database (sortable/filterable/paginated Sources table), and Plots (interactive scatter plot of ra/dec coordinates). The navigation bar appears consistently on all pages, highlighting the active page. All Sources data loads client-side for fast table interactions, while the scatter plot displays actual coordinate data from the database.
 
 ## Technical Context
 
@@ -27,7 +27,7 @@ Add a top navigation bar to the website enabling users to navigate between three
 
 **I. FastAPI-First**: ✅ YES - All three pages (/, /browse, /plots) will be FastAPI routes. Jinja2 templates render each page.  
 **II. Astrodbkit Abstraction**: ✅ YES - Database queries via `src/database/sources.py` using Astrodbkit.  
-**III. Bokeh Visualizations**: ✅ YES - Scatter plot on Visualizations page uses Bokeh with ra/dec from Sources.  
+**III. Bokeh Plots**: ✅ YES - Scatter plot on Plots page uses Bokeh with ra/dec from Sources.  
 **IV. CSS Styling**: ✅ YES - Navigation bar and table controls styled via `src/static/style.css`. No inline styles.  
 **V. Simplicity**: ⚠️ PARTIAL - Route handlers <50 lines. DataTables library used for table controls (justified: provides production-quality sorting, pagination, filtering with minimal code complexity).  
 **VI. Prototype Reusability**: ✅ YES - Navigation structure and table patterns can be adapted to other astronomical databases.  
@@ -88,7 +88,7 @@ No violations detected. All decisions align with Constitution principles.
 
 **I. FastAPI-First**: ✅ All routes defined as FastAPI endpoints (`/`, `/browse`, `/plots`). All pages rendered via Jinja2 templates.  
 **II. Astrodbkit Abstraction**: ✅ Database access via `src/database/sources.py` using Astrodbkit query interface. No direct SQL.  
-**III. Bokeh Visualizations**: ✅ Scatter plot uses Bokeh for ra/dec visualization. Embedded as interactive component.  
+**III. Bokeh Plots**: ✅ Scatter plot uses Bokeh for ra/dec visualization. Embedded as interactive component.  
 **IV. CSS Styling**: ✅ Navigation bar and table controls styled via `style.css`. No inline styles or framework dependencies.  
 **V. Simplicity**: ✅ Route handlers are straightforward (<50 lines). Client-side JavaScript uses DataTables library loaded via CDN (no framework or build step).  
 **VI. Prototype Reusability**: ✅ Navigation structure and table patterns can be adapted to other astronomical databases. Clear separation of concerns.  
@@ -105,7 +105,7 @@ No violations detected. All decisions align with Constitution principles.
 
 ## Phase 1 Output: design artifacts
 
-✅ **data-model.md**: Navigation entities, Browse Database page entity, Visualizations page entity  
+✅ **data-model.md**: Navigation entities, Browse Database page entity, Plots page entity  
 ✅ **contracts/web-api.yaml**: OpenAPI specification for `/`, `/browse`, `/plots` endpoints  
 ✅ **quickstart.md**: Testing guide with 8 test scenarios  
 ✅ **agent context**: Updated Cursor IDE rules with project technology stack
