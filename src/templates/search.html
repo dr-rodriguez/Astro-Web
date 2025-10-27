@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Search Astronomical Objects</h1>
+
+{% if error %}
+<div class="error-message">
+  <p>{{ error }}</p>
+</div>
+{% endif %}
+
+<form method="post" action="/search/results" id="searchForm">
+  <div class="form-group">
+    <label for="query">Search Term:</label>
+    <input type="text" id="query" name="query" placeholder="Enter astronomical object name..." required>
+  </div>
+  <button type="submit">Search</button>
+</form>
+
+<script>
+document.getElementById('searchForm').addEventListener('submit', function(e) {
+  const query = document.getElementById('query').value.trim();
+  if (!query) {
+    e.preventDefault();
+    alert('Please enter a search term');
+  }
+});
+</script>
+{% endblock %}

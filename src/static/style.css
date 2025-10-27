@@ -186,7 +186,70 @@ code {
     color: var(--accent-purple);
 }
 
-/* Sources table */
+/* Default table styling - based on search results */
+.table-container {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.table-container h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--accent-indigo);
+    margin-bottom: 1.5rem;
+}
+
+/* Default table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+table th,
+table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+table th {
+    background-color: var(--accent-indigo);
+    color: white;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+table td {
+    font-size: 0.875rem;
+    color: var(--text-dark);
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+table tbody tr:hover {
+    background-color: #f3f4f6;
+}
+
+table a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+table a:hover {
+    color: var(--accent-purple);
+    text-decoration: underline;
+}
+
+/* Legacy support for existing classes */
 .sources-table-container {
     margin-top: 2rem;
     padding-top: 2rem;
@@ -301,33 +364,97 @@ code {
     color: var(--accent-purple);
 }
 
-.data-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-    background-color: white;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+/* Search form styling */
+.form-group {
+    margin-bottom: 1rem;
 }
 
-.data-table th,
-.data-table td {
-    padding: 0.5rem;
-    text-align: left;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.data-table th {
-    background-color: #f5f5f7;
-    font-weight: 600;
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
     color: var(--accent-indigo);
 }
 
-.data-table tbody tr:nth-child(even) {
-    background-color: #f9fafb;
+.form-group input[type="text"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
 }
 
-.data-table tbody tr:hover {
-    background-color: #f3f4f6;
+.form-group input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent-indigo);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+button[type="submit"] {
+    background-color: var(--accent-indigo);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--accent-purple);
+}
+
+/* Search results specific styling - now uses default table styling */
+
+/* Search results page specific styling */
+.search-results-info {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background-color: #f0f9ff;
+    border-left: 4px solid var(--accent-blue);
+    border-radius: 4px;
+    color: var(--text-dark);
+}
+
+.search-results-info p {
+    margin: 0;
+    font-size: 0.875rem;
+}
+
+.no-results-message {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.no-results-message p {
+    margin: 0;
+    color: #92400e;
+    font-weight: 500;
+}
+
+.new-search-link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--accent-blue);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.new-search-link:hover {
+    background-color: var(--accent-purple);
+    color: white;
 }
 
 /* Responsive design */
@@ -353,6 +480,16 @@ code {
         font-size: 1.5rem;
     }
     
+    /* Responsive table styling */
+    table {
+        font-size: 0.75rem;
+    }
+    
+    table th,
+    table td {
+        padding: 0.5rem;
+    }
+    
     .sources-table {
         font-size: 0.75rem;
     }
@@ -362,13 +499,8 @@ code {
         padding: 0.5rem;
     }
     
-    .data-table {
-        font-size: 0.75rem;
-    }
-    
-    .data-table th,
-    .data-table td {
-        padding: 0.5rem;
+    .form-group input[type="text"] {
+        max-width: 100%;
     }
 }
 
