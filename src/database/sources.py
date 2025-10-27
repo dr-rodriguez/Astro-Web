@@ -2,23 +2,7 @@
 
 from astrodbkit.astrodb import Database
 
-
-def get_sources_data(limit=10):
-    """
-    Retrieve first N rows from Sources table.
-
-    Args:
-        limit (int): Maximum number of rows to retrieve (default: 10)
-
-    Returns:
-        list: List of dictionaries representing Sources rows, or None on error
-    """
-    try:
-        db = Database("sqlite:///SIMPLE.sqlite")
-        df = db.query(db.Sources).limit(limit).pandas()
-        return df.to_dict("records")
-    except Exception:
-        return None
+CONNECTION_STRING = "sqlite:///SIMPLE.sqlite"
 
 
 def get_all_sources():
@@ -29,7 +13,7 @@ def get_all_sources():
         list: List of dictionaries representing all Sources rows, or None on error
     """
     try:
-        db = Database("sqlite:///SIMPLE.sqlite")
+        db = Database(CONNECTION_STRING)
         df = db.query(db.Sources).pandas()
         return df.to_dict("records")
     except Exception:
@@ -49,7 +33,7 @@ def get_source_inventory(source_name):
     """
     try:
         # Connect to database
-        db = Database("sqlite:///SIMPLE.sqlite")
+        db = Database(CONNECTION_STRING)
         
         # Get inventory (returns dict of table name -> list of dicts)
         inventory = db.inventory(source_name)

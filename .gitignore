@@ -51,5 +51,4 @@ htmlcov/
 .specify/scripts/
 
 # Project-specific
-uv.lock
 *.sqlite
