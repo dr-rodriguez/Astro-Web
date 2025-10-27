@@ -54,9 +54,9 @@ This document provides actionable, dependency-ordered tasks for implementing the
 
 ### T013-T016: Results Display Enhancement
 
-- [ ] T013 [US2] Implement JavaScript DataTable initialization in src/templates/search_results.html
-- [ ] T014 [US2] Add DataTable CSS styling for search results table in src/static/style.css
-- [ ] T015 [US2] Configure DataTable pagination and sorting options in src/templates/search_results.html
+- [ ] T013 [US2] Implement JavaScript DataTable initialization with vanilla CSS styling in src/templates/search_results.html
+- [ ] T014 [US2] Add vanilla CSS styling for search results table (no JavaScript-based styling frameworks) in src/static/style.css
+- [ ] T015 [US2] Configure DataTable pagination and sorting options using CSS-only styling in src/templates/search_results.html
 - [ ] T016 [US2] Display all source columns (source, ra, dec, epoch, equinox, shortname, reference, other_references, comments) in src/templates/search_results.html
 
 ## Phase 5: User Story 3 - Handle Empty or No Results (P3)
