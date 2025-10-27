@@ -72,24 +72,22 @@ async def search_api_endpoint(query: str = Form(...)):
 @app.post("/search/cone-results", response_class=HTMLResponse)
 async def cone_search_results_page(
     request: Request,
-    ra: str = Form(...),
-    dec: str = Form(...),
+    coordinates: str = Form(...),
     radius: str = Form(...),
     radius_unit: str = Form(...)
 ):
     """Cone search results page."""
-    return await web.cone_search_results(request, ra, dec, radius, radius_unit)
+    return await web.cone_search_results(request, coordinates, radius, radius_unit)
 
 
 @app.post("/api/search/cone")
 async def cone_search_api_endpoint(
-    ra: str = Form(...),
-    dec: str = Form(...),
+    coordinates: str = Form(...),
     radius: str = Form(...),
     radius_unit: str = Form(...)
 ):
     """API endpoint for programmatic cone search access."""
-    return await web.cone_search_api(ra, dec, radius, radius_unit)
+    return await web.cone_search_api(coordinates, radius, radius_unit)
 
 
 @app.get("/{path:path}", response_class=HTMLResponse)

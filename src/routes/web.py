@@ -11,7 +11,7 @@ from fastapi import Request, Form, HTTPException
 from fastapi.templating import Jinja2Templates
 
 from src.database.sources import get_all_sources, get_source_inventory
-from src.database.query import search_objects, parse_coordinate_to_decimal, convert_radius_to_degrees, cone_search
+from src.database.query import search_objects, parse_coordinates_string, convert_radius_to_degrees, cone_search
 from src.visualizations.scatter import create_scatter_plot
 from src.config import get_source_url
 
@@ -224,8 +224,7 @@ async def search_api(query: str = Form(...)):
 
 async def cone_search_results(
     request: Request,
-    ra: str = Form(...),
-    dec: str = Form(...),
+    coordinates: str = Form(...),
     radius: str = Form(...),
     radius_unit: str = Form(...)
 ):
@@ -236,9 +235,8 @@ async def cone_search_results(
 
 
     try:
-        # Parse coordinates
-        ra_decimal = parse_coordinate_to_decimal(ra, is_ra=True)
-        dec_decimal = parse_coordinate_to_decimal(dec, is_ra=False)
+        # Parse coordinates from single string
+        ra_decimal, dec_decimal = parse_coordinates_string(coordinates)
         
         # Convert and validate radius
         radius_degrees = convert_radius_to_degrees(radius, radius_unit)
@@ -259,13 +257,12 @@ async def cone_search_results(
         
         return templates.TemplateResponse("search_results.html", {
             "request": request,
-            "query_text": f"RA={ra}, Dec={dec}, Radius={radius} {radius_unit}",
+            "query_text": f"Coords={coordinates}, Radius={radius} {radius_unit}",
             "results": formatted_results,
             "total_count": len(formatted_results),
             "execution_time": f"{execution_time:.3f}",
             "warning": warning,
-            "ra_input": ra,
-            "dec_input": dec,
+            "coordinates_input": coordinates,
             "radius_value": radius,
             "radius_unit": radius_unit,
             **nav_context
@@ -282,7 +279,7 @@ async def cone_search_results(
         # Database errors - return results page with error
         return templates.TemplateResponse("search_results.html", {
             "request": request,
-            "query_text": f"RA={ra}, Dec={dec}",
+            "query_text": f"Coords={coordinates}",
             "error": f"An error occurred during search: {e}",
             "results": [],
             "total_count": 0,
@@ -292,16 +289,14 @@ async def cone_search_results(
 
 
 async def cone_search_api(
-    ra: str = Form(...),
-    dec: str = Form(...),
+    coordinates: str = Form(...),
     radius: str = Form(...),
     radius_unit: str = Form(...)
 ):
     """API endpoint for programmatic cone search access"""
     try:
         # Parse and validate inputs
-        ra_decimal = parse_coordinate_to_decimal(ra, is_ra=True)
-        dec_decimal = parse_coordinate_to_decimal(dec, is_ra=False)
+        ra_decimal, dec_decimal = parse_coordinates_string(coordinates)
         radius_degrees = convert_radius_to_degrees(radius, radius_unit)
         
         # Execute search
@@ -318,8 +313,7 @@ async def cone_search_api(
         return {
             "results": formatted_results,
             "total_count": len(formatted_results),
-            "ra_input": ra,
-            "dec_input": dec,
+            "coordinates_input": coordinates,
             "radius_value": radius,
             "radius_unit": radius_unit,
             "search_time": datetime.now().isoformat(),

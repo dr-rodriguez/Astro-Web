@@ -8,7 +8,7 @@ with timing and error handling.
 import time
 from astrodbkit.astrodb import Database
 from astropy.coordinates import SkyCoord
-
+from astropy.units import Quantity
 from src.database import CONNECTION_STRING
 
 
@@ -32,57 +32,40 @@ def search_objects(query: str):
     return results, execution_time
 
 
-def parse_coordinate_to_decimal(coord_str, is_ra=False):
+def parse_coordinates_string(coords_str):
     """
-    Parse coordinate string (sexagesimal or decimal) to decimal degrees.
+    Parse a combined coordinate string (RA and Dec) to decimal degrees.
+    
+    The coordinate string can contain both RA and Dec in various formats.
+    Uses SkyCoord to handle all parsing.
     
     Args:
-        coord_str (str): Coordinate string in sexagesimal or decimal format
-        is_ra (bool): Whether this is a Right Ascension coordinate
+        coords_str (str): Combined coordinate string (e.g., "13h57m12s +14d28m39s" or "209.30 14.48")
         
     Returns:
-        float: Coordinate in decimal degrees
+        tuple: (ra_decimal, dec_decimal) in degrees
         
     Raises:
-        ValueError: If coordinate cannot be parsed or is out of range
+        ValueError: If coordinates cannot be parsed
     """
-    coord_str = coord_str.strip()
+    coords_str = coords_str.strip()
     
     try:
-        # Try to parse as sexagesimal first (spec requirement)
-        if is_ra:
-            # RA format: "13h57m12.37s" or "13h 57m 12s" or "13 57 12.37"
-            # Check if coord_str contains sexagesimal separators
-            if any(char in coord_str.lower() for char in ['h', 'm', 's', 'd']):
-                # Parse as sexagesimal RA
-                skycoord = SkyCoord(coord_str, frame='icrs')
-                coord_value = skycoord.ra.deg
-            else:
-                # Try decimal degrees
-                coord_value = float(coord_str)
-        else:
-            # Dec format: "+14d28m39.8" or "-45d30m" or "+14° 28' 39""
-            # Check if coord_str contains sexagesimal separators
-            if any(char in coord_str for char in ['d', '°', 'm', "'", 's', '"']):
-                # Parse as sexagesimal Dec
-                skycoord = SkyCoord(coord_str, frame='icrs')
-                coord_value = skycoord.dec.deg
-            else:
-                # Try decimal degrees
-                coord_value = float(coord_str)
+        skycoord = SkyCoord(coords_str, frame='icrs')
+        
+        ra_decimal = skycoord.ra.deg
+        dec_decimal = skycoord.dec.deg
         
         # Validate coordinate ranges
-        if is_ra:
-            if not (0 <= coord_value <= 360):
-                raise ValueError(f"RA must be between 0 and 360 degrees, got {coord_value}")
-        else:
-            if not (-90 <= coord_value <= 90):
-                raise ValueError(f"Dec must be between -90 and +90 degrees, got {coord_value}")
+        if not (0 <= ra_decimal <= 360):
+            raise ValueError(f"RA must be between 0 and 360 degrees, got {ra_decimal}")
+        if not (-90 <= dec_decimal <= 90):
+            raise ValueError(f"Dec must be between -90 and +90 degrees, got {dec_decimal}")
         
-        return coord_value
+        return ra_decimal, dec_decimal
         
     except (ValueError, TypeError) as e:
-        raise ValueError(f"Invalid coordinate format: {coord_str}") from e
+        raise ValueError(f"Invalid coordinate format: {coords_str}") from e
 
 
 def convert_radius_to_degrees(radius_value, radius_unit):
@@ -138,7 +121,9 @@ def cone_search(ra, dec, radius_deg):
     """
     start_time = time.time()
     db = Database(CONNECTION_STRING)
-    results = db.query_region(ra, dec, radius_deg, coord_frame='icrs')
+    coords = SkyCoord(ra, dec, unit="deg")
+    radius = Quantity(radius_deg, "deg")
+    results = db.query_region(coords, radius=radius, fmt="pandas")
     execution_time = time.time() - start_time
     
     # Apply 10,000 result cap if needed
