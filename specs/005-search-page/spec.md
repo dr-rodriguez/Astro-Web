@@ -10,7 +10,7 @@
 ### Session 2024-12-19
 
 - Q: How should search results be paginated when there are many matches? → A: Use JavaScript DataTable for pagination
-- Q: Which specific data fields should be shown in the search results table? → A: Source name, RA, Dec, reference, comments
+- Q: Which specific data fields should be shown in the search results table? → A: All columns from the Sources table: source, ra, dec, epoch, equinox, shortname, reference, other_references, comments. The source column should be hyperlinked to individual source inventory pages.
 - Q: How should the system handle empty search form submissions? → A: Show validation error message "Please enter a search term"
 - Q: How should the system handle astrodbkit search_object function errors? → A: Show generic error message "An error occurred during search"
 - Q: How should the system handle potentially malicious search input? → A: Pass input directly to astrodbkit without sanitization
@@ -43,8 +43,8 @@ A user wants to review multiple search results to find the specific astronomical
 
 **Acceptance Scenarios**:
 
-1. **Given** a user has performed a search, **When** multiple results are returned, **Then** each row in the results table displays source name, RA, Dec, reference, and comments
-2. **Given** a user is viewing search results, **When** they see multiple objects, **Then** they can easily distinguish between different objects based on the displayed source name, coordinates, reference, and comments
+1. **Given** a user has performed a search, **When** multiple results are returned, **Then** each row in the results table displays all source columns (source, ra, dec, epoch, equinox, shortname, reference, other_references, comments) with the source column hyperlinked
+2. **Given** a user is viewing search results, **When** they see multiple objects, **Then** they can easily distinguish between different objects based on all displayed source information and click on the source name to view detailed inventory
 
 ---
 
@@ -77,8 +77,8 @@ A user searches for an astronomical object that doesn't exist in the database or
 - **FR-001**: System MUST provide a Search page accessible from the navigation bar
 - **FR-002**: System MUST include a search form with an input field and submit button
 - **FR-003**: System MUST call astrodbkit's search_object function when the search form is submitted
-- **FR-004**: System MUST display search results in a JavaScript DataTable format on a separate results page with built-in pagination, showing columns for source name, RA, Dec, reference, and comments
-- **FR-005**: System MUST make each row in the results table clickable to navigate to individual source inventory pages
+- **FR-004**: System MUST display search results in a JavaScript DataTable format on a separate results page with built-in pagination, showing all columns from the Sources table (source, ra, dec, epoch, equinox, shortname, reference, other_references, comments)
+- **FR-005**: System MUST make the source column in the results table hyperlinked to navigate to individual source inventory pages
 - **FR-006**: System MUST handle cases where no search results are found
 - **FR-007**: System MUST preserve search terms when displaying results
 - **FR-008**: System MUST provide clear navigation back to the search form from results
