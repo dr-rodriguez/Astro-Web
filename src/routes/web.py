@@ -167,8 +167,8 @@ async def search_results(request: Request, query: str = Form(...)):
         # Execute search using astrodbkit
         results, execution_time = search_objects(query.strip())
         
-        # Format results for display
-        formatted_results = [dict(row) for row in results]
+        # Format results for display - convert pandas DataFrame to list of dicts
+        formatted_results = results.to_dict('records')
 
         # Apply source URL conversion
         formatted_results = get_source_url(formatted_results)
@@ -207,7 +207,8 @@ async def search_api(query: str = Form(...)):
         
         results, execution_time = search_objects(query.strip())
         
-        formatted_results = [dict(row) for row in results]
+        # Convert pandas DataFrame to list of dicts
+        formatted_results = results.to_dict('records')
         
         return {
             "results": formatted_results,
