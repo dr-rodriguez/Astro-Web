@@ -11,7 +11,7 @@ from fastapi import Request, Form, HTTPException
 from fastapi.templating import Jinja2Templates
 
 from src.database.sources import get_all_sources, get_source_inventory
-from src.database.query import search_objects
+from src.database.query import search_objects, parse_coordinate_to_decimal, convert_radius_to_degrees, cone_search
 from src.visualizations.scatter import create_scatter_plot
 from src.config import get_source_url
 
@@ -218,6 +218,117 @@ async def search_api(query: str = Form(...)):
             "execution_time": execution_time
         }
         
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An error occurred during search: {e}")
+
+
+async def cone_search_results(
+    request: Request,
+    ra: str = Form(...),
+    dec: str = Form(...),
+    radius: str = Form(...),
+    radius_unit: str = Form(...)
+):
+    """Process cone search query and display results"""
+
+    # Create navigation context
+    nav_context = create_navigation_context(current_page="/search")
+
+
+    try:
+        # Parse coordinates
+        ra_decimal = parse_coordinate_to_decimal(ra, is_ra=True)
+        dec_decimal = parse_coordinate_to_decimal(dec, is_ra=False)
+        
+        # Convert and validate radius
+        radius_degrees = convert_radius_to_degrees(radius, radius_unit)
+        
+        # Execute cone search
+        results, execution_time = cone_search(ra_decimal, dec_decimal, radius_degrees)
+        
+        # Check if results were truncated
+        warning = None
+        if len(results) >= 10000:
+            warning = "Results limited to 10,000 objects. Refine search to see all results."
+        
+        # Format results for display
+        formatted_results = results.to_dict('records')
+        
+        # Apply source URL conversion
+        formatted_results = get_source_url(formatted_results)
+        
+        return templates.TemplateResponse("search_results.html", {
+            "request": request,
+            "query_text": f"RA={ra}, Dec={dec}, Radius={radius} {radius_unit}",
+            "results": formatted_results,
+            "total_count": len(formatted_results),
+            "execution_time": f"{execution_time:.3f}",
+            "warning": warning,
+            "ra_input": ra,
+            "dec_input": dec,
+            "radius_value": radius,
+            "radius_unit": radius_unit,
+            **nav_context
+        })
+        
+    except ValueError as e:
+        # Validation errors - return to search page with error
+        return templates.TemplateResponse("search.html", {
+            "request": request,
+            "error": str(e),
+            **nav_context
+        })
+    except Exception as e:
+        # Database errors - return results page with error
+        return templates.TemplateResponse("search_results.html", {
+            "request": request,
+            "query_text": f"RA={ra}, Dec={dec}",
+            "error": f"An error occurred during search: {e}",
+            "results": [],
+            "total_count": 0,
+            "execution_time": "0.000",
+            **nav_context
+        })
+
+
+async def cone_search_api(
+    ra: str = Form(...),
+    dec: str = Form(...),
+    radius: str = Form(...),
+    radius_unit: str = Form(...)
+):
+    """API endpoint for programmatic cone search access"""
+    try:
+        # Parse and validate inputs
+        ra_decimal = parse_coordinate_to_decimal(ra, is_ra=True)
+        dec_decimal = parse_coordinate_to_decimal(dec, is_ra=False)
+        radius_degrees = convert_radius_to_degrees(radius, radius_unit)
+        
+        # Execute search
+        results, execution_time = cone_search(ra_decimal, dec_decimal, radius_degrees)
+        
+        # Check for truncation
+        warning = None
+        if len(results) >= 10000:
+            warning = "Results limited to 10,000 objects. Refine search to see all results."
+        
+        # Format results
+        formatted_results = results.to_dict('records')
+        
+        return {
+            "results": formatted_results,
+            "total_count": len(formatted_results),
+            "ra_input": ra,
+            "dec_input": dec,
+            "radius_value": radius,
+            "radius_unit": radius_unit,
+            "search_time": datetime.now().isoformat(),
+            "execution_time": execution_time,
+            "warning": warning
+        }
+        
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An error occurred during search: {e}")
 

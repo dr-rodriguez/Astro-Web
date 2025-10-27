@@ -9,11 +9,45 @@
 </div>
 {% endif %}
 
+<h2>Object Search</h2>
+<p>Search for objects by name.</p>
+
 <form method="post" action="/search/results" id="searchForm">
   <div class="form-group">
     <label for="query">Search Term:</label>
-    <input type="text" id="query" name="query" placeholder="Enter astronomical object name..." required>
+    <input type="text" id="query" name="query" placeholder="Enter object name..." required>
   </div>
+  <button type="submit">Search</button>
+</form>
+
+<h2>Cone Search</h2>
+<p>Search for objects within a specified region of the sky by coordinates.</p>
+
+<form method="post" action="/search/cone-results" id="coneSearchForm">
+  <div class="form-group">
+    <label for="ra">Right Ascension (RA):</label>
+    <input type="text" id="ra" name="ra" placeholder="e.g., 209.30 or 13h57m12s" required>
+    <small>Enter as decimal degrees (209.30) or sexagesimal (13h57m12s)</small>
+  </div>
+  
+  <div class="form-group">
+    <label for="dec">Declination (Dec):</label>
+    <input type="text" id="dec" name="dec" placeholder="e.g., 14.48 or +14d28m39s" required>
+    <small>Enter as decimal degrees (14.48) or sexagesimal (+14d28m39s)</small>
+  </div>
+  
+  <div class="form-group">
+    <label for="radius">Search Radius:</label>
+    <div style="display: flex; gap: 0.5rem; align-items: center;">
+      <input type="number" id="radius" name="radius" step="0.001" min="0" required style="max-width: 150px;" value="0.5">
+      <select id="radius_unit" name="radius_unit" required>
+        <option value="arcseconds">Arcseconds</option>
+        <option value="arcminutes">Arcminutes</option>
+        <option value="degrees" selected>Degrees</option>
+      </select>
+    </div>
+  </div>
+  
   <button type="submit">Search</button>
 </form>
 
@@ -23,6 +57,17 @@ document.getElementById('searchForm').addEventListener('submit', function(e) {
   if (!query) {
     e.preventDefault();
     alert('Please enter a search term');
+  }
+});
+
+document.getElementById('coneSearchForm').addEventListener('submit', function(e) {
+  const ra = document.getElementById('ra').value.trim();
+  const dec = document.getElementById('dec').value.trim();
+  const radius = document.getElementById('radius').value.trim();
+  
+  if (!ra || !dec || !radius) {
+    e.preventDefault();
+    alert('Please fill in all required fields');
   }
 });
 </script>

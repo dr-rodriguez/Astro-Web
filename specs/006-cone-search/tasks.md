@@ -40,7 +40,7 @@ No setup tasks required. Feature extends existing application infrastructure.
 
 **Goal**: Implement coordinate parsing and radius conversion utilities required for all cone search operations.
 
-### T001 [P] Add coordinate parsing utility function to src/database/query.py
+### T001 [P] ✓ Add coordinate parsing utility function to src/database/query.py
 Implement `parse_coordinate_to_decimal()` function that:
 - Accepts coordinate string in sexagesimal or decimal format
 - Accepts `is_ra` parameter to distinguish RA from Dec parsing
@@ -52,7 +52,7 @@ Implement `parse_coordinate_to_decimal()` function that:
 
 **File**: `src/database/query.py`
 
-### T002 [P] Add radius unit conversion utility function to src/database/query.py
+### T002 [P] ✓ Add radius unit conversion utility function to src/database/query.py
 Implement `convert_radius_to_degrees()` function that:
 - Accepts radius value (float) and radius_unit string
 - Converts arcseconds to degrees (divide by 3600)
@@ -65,7 +65,7 @@ Implement `convert_radius_to_degrees()` function that:
 
 **File**: `src/database/query.py`
 
-### T003 [P] Add cone search query function to src/database/query.py
+### T003 [P] ✓ Add cone search query function to src/database/query.py
 Implement `cone_search()` function that:
 - Accepts ra (float), dec (float), radius_deg (float) parameters
 - Connects to database using CONNECTION_STRING
@@ -77,7 +77,7 @@ Implement `cone_search()` function that:
 
 **File**: `src/database/query.py`
 
-### T004 Add import statements for astropy.coordinates to src/database/query.py
+### T004 ✓ Add import statements for astropy.coordinates to src/database/query.py
 Add `from astropy.coordinates import SkyCoord, Angle` import at top of file for coordinate parsing support.
 
 **File**: `src/database/query.py`
@@ -88,7 +88,7 @@ Add `from astropy.coordinates import SkyCoord, Angle` import at top of file for 
 
 **Independent Test**: Navigate to /search page, enter valid decimal degree coordinates (RA and Dec), specify radius in arcminutes, submit form, and verify results are returned in table format with clickable source links.
 
-### T005 [P] [US1] Add cone search form section to src/templates/search.html
+### T005 [P] [US1] ✓ Add cone search form section to src/templates/search.html
 Add HTML form below existing text search form:
 - Add `<h2>` heading: "Cone Search" with margin-top: 2rem styling
 - Add descriptive paragraph about cone search functionality
@@ -105,7 +105,7 @@ Add HTML form below existing text search form:
 
 **File**: `src/templates/search.html`
 
-### T006 [US1] Implement cone_search_results route handler in src/routes/web.py
+### T006 [US1] ✓ Implement cone_search_results route handler in src/routes/web.py
 Add async function `cone_search_results()` that:
 - Accepts Request and form parameters: ra, dec, radius, radius_unit (all str)
 - Parses coordinates using parse_coordinate_to_decimal(ra, is_ra=True) and parse_coordinate_to_decimal(dec, is_ra=False)
@@ -121,19 +121,19 @@ Add async function `cone_search_results()` that:
 
 **File**: `src/routes/web.py`
 
-### T007 [US1] Add cone_search_results route to src/main.py
+### T007 [US1] ✓ Add cone_search_results route to src/main.py
 Import cone_search_results from src.routes.web  
 Add route decorator: @app.post("/search/cone-results", response_class=HTMLResponse)  
 Add route function: async def cone_search_results_page() that calls web.cone_search_results()
 
 **File**: `src/main.py`
 
-### T008 [P] [US1] Add import statements for coordinate parsing functions in src/routes/web.py
+### T008 [P] [US1] ✓ Add import statements for coordinate parsing functions in src/routes/web.py
 Add imports: parse_coordinate_to_decimal, convert_radius_to_degrees, cone_search from src.database.query
 
 **File**: `src/routes/web.py`
 
-### T009 [P] [US1] Add CSS styling for cone search form section to src/static/style.css
+### T009 [P] [US1] ✓ Add CSS styling for cone search form section to src/static/style.css
 Add CSS rules for:
 - h2 with margin-top: 2rem, border-top: 2px solid #ddd, padding-top: 1rem
 - .form-group small with display: block, margin-top: 0.25rem, color: #666, font-size: 0.875rem
@@ -143,7 +143,7 @@ Add CSS rules for:
 
 **File**: `src/static/style.css`
 
-### T010 [US1] Add client-side form validation JavaScript to src/templates/search.html
+### T010 [US1] ✓ Add client-side form validation JavaScript to src/templates/search.html
 Add event listener for coneSearchForm submit:
 - Get ra, dec, radius values and trim whitespace
 - Check all three fields are non-empty
@@ -219,7 +219,7 @@ Verify cone_search() properly handles 10,000 object cap:
 
 **Independent Test**: Perform cone search and verify results display in DataTable format with clickable source links, execution time, and result count matching text search behavior.
 
-### T016 [US4] Update search_results.html to support cone search warning messages
+### T016 [US4] ✓ Update search_results.html to support cone search warning messages
 Modify search_results.html template to:
 - Add conditional block checking if warning variable exists
 - Display warning-message div with warning text if warning is set
@@ -239,7 +239,7 @@ Ensure search_results.html works for both search types:
 
 **File**: `src/templates/search_results.html`
 
-### T018 [US4] Add API endpoint for cone search in src/routes/web.py
+### T018 [US4] ✓ Add API endpoint for cone search in src/routes/web.py
 Implement cone_search_api() function that:
 - Accepts form parameters: ra, dec, radius, radius_unit (all str)
 - Performs same parsing, validation, and query execution as cone_search_results
@@ -249,7 +249,7 @@ Implement cone_search_api() function that:
 
 **File**: `src/routes/web.py`
 
-### T019 [US4] Add cone search API route to src/main.py
+### T019 [US4] ✓ Add cone search API route to src/main.py
 Import cone_search_api from src.routes.web  
 Add route decorator: @app.post("/api/search/cone")  
 Add route function: async def cone_search_api_endpoint() that calls web.cone_search_api()  
