@@ -50,11 +50,23 @@ def parse_coordinates_string(coords_str):
     """
     coords_str = coords_str.strip()
     
+    # Check if the string contains sexagesimal indicators (h, m, s, d, etc.)
+    has_sexagesimal = any(char in coords_str.lower() for char in ['h', 'm', 's', 'd', '°', "'", '"'])
+    
     try:
-        skycoord = SkyCoord(coords_str, frame='icrs')
-        
-        ra_decimal = skycoord.ra.deg
-        dec_decimal = skycoord.dec.deg
+        if has_sexagesimal:
+            # For sexagesimal format, SkyCoord can auto-detect
+            skycoord = SkyCoord(coords_str, frame='icrs')
+            ra_decimal = skycoord.ra.deg
+            dec_decimal = skycoord.dec.deg
+        else:
+            # For decimal format, split and parse manually
+            parts = coords_str.split()
+            if len(parts) != 2:
+                raise ValueError("Expected two space-separated values for decimal coordinates (e.g., '209.30 14.48')")
+            
+            ra_decimal = float(parts[0])
+            dec_decimal = float(parts[1])
         
         # Validate coordinate ranges
         if not (0 <= ra_decimal <= 360):
@@ -64,7 +76,10 @@ def parse_coordinates_string(coords_str):
         
         return ra_decimal, dec_decimal
         
-    except (ValueError, TypeError) as e:
+    except ValueError as e:
+        # Re-raise ValueError to preserve the error message
+        raise e from None
+    except (TypeError, KeyError) as e:
         raise ValueError(f"Invalid coordinate format: {coords_str}") from e
 
 
