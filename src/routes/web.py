@@ -4,8 +4,12 @@ Web page routes for Hello World website.
 This module contains all HTML page routes including homepage and error pages.
 """
 
+from urllib.parse import unquote
+
 from fastapi import Request
 from fastapi.templating import Jinja2Templates
+
+from src.database.sources import get_all_sources, get_source_inventory
 from src.visualizations.scatter import create_scatter_plot
 
 # Templates instance - will be imported from main
@@ -14,7 +18,7 @@ templates = None
 
 def set_templates(templates_instance: Jinja2Templates):
     """Set the templates instance from main module."""
-    global templates
+    global templates  # noqa: PLW0603
     templates = templates_instance
 
 
@@ -51,7 +55,6 @@ async def homepage(request: Request):
 
 async def browse(request: Request):
     """Render the browse database page with Sources table."""
-    from src.database.sources import get_all_sources
 
     # Get all Sources from database
     sources_data = get_all_sources()
@@ -98,8 +101,6 @@ async def plot(request: Request):
 
 async def inventory(request: Request, source_name: str):
     """Render the source inventory page."""
-    from src.database.sources import get_source_inventory
-    from urllib.parse import unquote
     
     # Get decoded source name for display
     decoded_source_name = unquote(source_name)
