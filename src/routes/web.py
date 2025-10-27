@@ -5,14 +5,13 @@ This module contains all HTML page routes including homepage and error pages.
 """
 
 from urllib.parse import unquote
-import time
 from datetime import datetime
 
 from fastapi import Request, Form, HTTPException
 from fastapi.templating import Jinja2Templates
-from astrodbkit.astrodb import Database
 
 from src.database.sources import get_all_sources, get_source_inventory
+from src.database.query import search_objects
 from src.visualizations.scatter import create_scatter_plot
 
 # Templates instance - will be imported from main
@@ -162,10 +161,7 @@ async def search_results(request: Request, query: str = Form(...)):
             })
         
         # Execute search using astrodbkit
-        start_time = time.time()
-        db = Database("sqlite:///SIMPLE.sqlite")
-        results = db.search_object(query.strip())
-        execution_time = time.time() - start_time
+        results, execution_time = search_objects(query.strip())
         
         # Format results for display
         formatted_results = []
@@ -214,10 +210,7 @@ async def search_api(query: str = Form(...)):
         if not query.strip():
             raise HTTPException(status_code=400, detail="Query parameter is required")
         
-        start_time = time.time()
-        db = Database("sqlite:///SIMPLE.sqlite")
-        results = db.search_object(query.strip())
-        execution_time = time.time() - start_time
+        results, execution_time = search_objects(query.strip())
         
         formatted_results = []
         for result in results:
