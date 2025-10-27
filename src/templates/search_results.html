@@ -23,29 +23,17 @@
   <table id="resultsTable" class="display">
     <thead>
       <tr>
-        <th>Source</th>
-        <th>RA</th>
-        <th>Dec</th>
-        <th>Epoch</th>
-        <th>Equinox</th>
-        <th>Shortname</th>
-        <th>Reference</th>
-        <th>Other References</th>
-        <th>Comments</th>
+        {% for column in results[0].keys() %}
+        <th>{{ column }}</th>
+        {% endfor %}
       </tr>
     </thead>
     <tbody>
       {% for result in results %}
       <tr>
-        <td><a href="/source/{{ result.source|urlencode }}">{{ result.source }}</a></td>
-        <td>{{ "%.2f"|format(result.ra) if result.ra else '' }}</td>
-        <td>{{ "%.2f"|format(result.dec) if result.dec else '' }}</td>
-        <td>{{ "%.1f"|format(result.epoch) if result.epoch else '' }}</td>
-        <td>{{ result.equinox or '' }}</td>
-        <td>{{ result.shortname or '' }}</td>
-        <td>{{ result.reference or '' }}</td>
-        <td>{{ result.other_references or '' }}</td>
-        <td>{{ result.comments or '' }}</td>
+        {% for value in result.values() %}
+        <td>{{ value|safe if value is not none else '' }}</td>
+        {% endfor %}
       </tr>
       {% endfor %}
     </tbody>

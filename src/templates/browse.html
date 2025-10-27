@@ -20,26 +20,17 @@
         <table id="sources-table" class="display">
             <thead>
                 <tr>
-                    <th>Source</th>
-                    <th>RA</th>
-                    <th>Dec</th>
-                    <th>Reference</th>
-                    <th>Comments</th>
+                    {% for column in sources_data[0].keys() %}
+                    <th>{{ column }}</th>
+                    {% endfor %}
                 </tr>
             </thead>
             <tbody>
                 {% for row in sources_data %}
                 <tr>
-                    <td>
-                        {% if row.source %}
-                        <a href="/source/{{ row.source|urlencode }}">{{ row.source }}</a>
-                        {% else %}
-                        {% endif %}
-                    </td>
-                    <td>{{ row.ra if row.ra is not none else '' }}</td>
-                    <td>{{ row.dec if row.dec is not none else '' }}</td>
-                    <td>{{ row.reference if row.reference else '' }}</td>
-                    <td>{{ row.comments if row.comments else '' }}</td>
+                    {% for value in row.values() %}
+                    <td>{{ value|safe if value is not none else '' }}</td>
+                    {% endfor %}
                 </tr>
                 {% endfor %}
             </tbody>

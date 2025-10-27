@@ -13,6 +13,7 @@ from fastapi.templating import Jinja2Templates
 from src.database.sources import get_all_sources, get_source_inventory
 from src.database.query import search_objects
 from src.visualizations.scatter import create_scatter_plot
+from src.config import get_source_url
 
 # Templates instance - will be imported from main
 templates = None
@@ -61,6 +62,9 @@ async def browse(request: Request):
 
     # Get all Sources from database
     sources_data = get_all_sources()
+
+    # Apply source URL conversion
+    sources_data = get_source_url(sources_data)
 
     # Handle errors
     has_error = sources_data is None
@@ -165,6 +169,9 @@ async def search_results(request: Request, query: str = Form(...)):
         
         # Format results for display
         formatted_results = [dict(row) for row in results]
+
+        # Apply source URL conversion
+        formatted_results = get_source_url(formatted_results)
         
         # Create navigation context with active page
         nav_context = create_navigation_context(current_page="/search")

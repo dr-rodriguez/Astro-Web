@@ -25,7 +25,7 @@ def search_objects(query: str):
     """
     start_time = time.time()
     db = Database(CONNECTION_STRING)
-    results = db.search_object(query.strip(), resolve_simbad=True)
+    results = db.search_object(query.strip(), resolve_simbad=True, format="pandas")
     execution_time = time.time() - start_time
 
     return results, execution_time
