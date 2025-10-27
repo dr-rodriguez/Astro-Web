@@ -13,10 +13,12 @@ from urllib.parse import quote
 # Default to SQLite database in project root
 DATABASE_CONNECTION_STRING = os.getenv("ASTRO_WEB_DATABASE_URL", "sqlite:///SIMPLE.sqlite")
 
-# Source URL Configuration
 # Base URL for source detail pages - can be customized for different deployments
 ASTRO_WEB_SOURCE_URL_BASE = os.getenv("ASTRO_WEB_SOURCE_URL_BASE", "/source/")
 ASTRO_WEB_SOURCE_COLUMN = os.getenv("ASTRO_WEB_SOURCE_COLUMN", "source")
+# RA/Dec column names
+RA_COLUMN = os.getenv("ASTRO_WEB_RA_COLUMN", "ra")
+DEC_COLUMN = os.getenv("ASTRO_WEB_DEC_COLUMN", "dec")
 
 
 def get_source_url(results):

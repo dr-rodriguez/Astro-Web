@@ -10,6 +10,7 @@ from astrodbkit.astrodb import Database
 from astropy.coordinates import SkyCoord
 from astropy.units import Quantity
 from src.database import CONNECTION_STRING
+from src.config import RA_COLUMN, DEC_COLUMN
 
 
 def search_objects(query: str):
@@ -138,7 +139,7 @@ def cone_search(ra, dec, radius_deg):
     db = Database(CONNECTION_STRING)
     coords = SkyCoord(ra, dec, unit="deg")
     radius = Quantity(radius_deg, "deg")
-    results = db.query_region(coords, radius=radius, fmt="pandas")
+    results = db.query_region(coords, radius=radius, fmt="pandas", ra_col=RA_COLUMN, dec_col=DEC_COLUMN)
     execution_time = time.time() - start_time
     
     # Apply 10,000 result cap if needed
