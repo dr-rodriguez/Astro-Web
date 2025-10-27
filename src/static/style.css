@@ -376,7 +376,9 @@ table a:hover {
     color: var(--accent-indigo);
 }
 
-.form-group input[type="text"] {
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group select {
     width: 100%;
     max-width: 400px;
     padding: 0.75rem;
@@ -386,10 +388,19 @@ table a:hover {
     transition: border-color 0.2s ease;
 }
 
-.form-group input[type="text"]:focus {
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus,
+.form-group select:focus {
     outline: none;
     border-color: var(--accent-indigo);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-group small {
+    display: block;
+    margin-top: 0.25rem;
+    color: #666;
+    font-size: 0.875rem;
 }
 
 button[type="submit"] {
@@ -406,6 +417,26 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
     background-color: var(--accent-purple);
+}
+
+/* Cone search specific styles */
+h2 {
+    margin-top: 2rem;
+    border-top: 2px solid #ddd;
+    padding-top: 1rem;
+}
+
+.warning-message {
+    background-color: #fff3cd;
+    border: 1px solid #ffc107;
+    color: #856404;
+    padding: 1rem;
+    border-radius: 4px;
+    margin: 1rem 0;
+}
+
+.warning-message p {
+    margin: 0;
 }
 
 /* Search results specific styling - now uses default table styling */

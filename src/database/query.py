@@ -7,8 +7,10 @@ with timing and error handling.
 
 import time
 from astrodbkit.astrodb import Database
-
+from astropy.coordinates import SkyCoord
+from astropy.units import Quantity
 from src.database import CONNECTION_STRING
+from src.config import RA_COLUMN, DEC_COLUMN
 
 
 def search_objects(query: str):
@@ -28,4 +30,120 @@ def search_objects(query: str):
     results = db.search_object(query.strip(), resolve_simbad=True, format="pandas")
     execution_time = time.time() - start_time
 
+    return results, execution_time
+
+
+def parse_coordinates_string(coords_str):
+    """
+    Parse a combined coordinate string (RA and Dec) to decimal degrees.
+    
+    The coordinate string can contain both RA and Dec in various formats.
+    Uses SkyCoord to handle all parsing.
+    
+    Args:
+        coords_str (str): Combined coordinate string (e.g., "13h57m12s +14d28m39s" or "209.30 14.48")
+        
+    Returns:
+        tuple: (ra_decimal, dec_decimal) in degrees
+        
+    Raises:
+        ValueError: If coordinates cannot be parsed
+    """
+    coords_str = coords_str.strip()
+    
+    # Check if the string contains sexagesimal indicators (h, m, s, d, etc.)
+    has_sexagesimal = any(char in coords_str.lower() for char in ['h', 'm', 's', 'd', '°', "'", '"'])
+    
+    try:
+        if has_sexagesimal:
+            # For sexagesimal format, SkyCoord can auto-detect
+            skycoord = SkyCoord(coords_str, frame='icrs')
+            ra_decimal = skycoord.ra.deg
+            dec_decimal = skycoord.dec.deg
+        else:
+            # For decimal format, split and parse manually
+            parts = coords_str.split()
+            if len(parts) != 2:
+                raise ValueError("Expected two space-separated values for decimal coordinates (e.g., '209.30 14.48')")
+            
+            ra_decimal = float(parts[0])
+            dec_decimal = float(parts[1])
+        
+        # Validate coordinate ranges
+        if not (0 <= ra_decimal <= 360):
+            raise ValueError(f"RA must be between 0 and 360 degrees, got {ra_decimal}")
+        if not (-90 <= dec_decimal <= 90):
+            raise ValueError(f"Dec must be between -90 and +90 degrees, got {dec_decimal}")
+        
+        return ra_decimal, dec_decimal
+        
+    except ValueError as e:
+        # Re-raise ValueError to preserve the error message
+        raise e from None
+    except (TypeError, KeyError) as e:
+        raise ValueError(f"Invalid coordinate format: {coords_str}") from e
+
+
+def convert_radius_to_degrees(radius_value, radius_unit):
+    """
+    Convert radius from user-selected unit to degrees.
+    
+    Args:
+        radius_value (str or float): Radius value as number
+        radius_unit (str): Unit of radius ("degrees", "arcminutes", "arcseconds")
+        
+    Returns:
+        float: Radius in degrees
+        
+    Raises:
+        ValueError: If radius_unit is invalid or radius exceeds 10 degrees
+    """
+    # Convert to float
+    radius_val = float(radius_value)
+    
+    # Validate radius is positive
+    if radius_val <= 0:
+        raise ValueError("Radius must be a positive number")
+    
+    # Convert based on unit
+    if radius_unit == "degrees":
+        radius_deg = radius_val
+    elif radius_unit == "arcminutes":
+        radius_deg = radius_val / 60.0
+    elif radius_unit == "arcseconds":
+        radius_deg = radius_val / 3600.0
+    else:
+        raise ValueError(f"Invalid radius unit: {radius_unit}. Must be degrees, arcminutes, or arcseconds")
+    
+    # Validate radius does not exceed 10 degrees
+    if radius_deg > 10.0:
+        raise ValueError("Radius must not exceed 10 degrees after unit conversion")
+    
+    return radius_deg
+
+
+def cone_search(ra, dec, radius_deg):
+    """
+    Perform a cone search for objects within a specified region of the sky.
+    
+    Args:
+        ra (float): Right Ascension in decimal degrees (0-360)
+        dec (float): Declination in decimal degrees (-90 to +90)
+        radius_deg (float): Search radius in degrees
+        
+    Returns:
+        tuple: (results, execution_time) where results is a DataFrame
+               and execution_time is the time taken in seconds
+    """
+    start_time = time.time()
+    db = Database(CONNECTION_STRING)
+    coords = SkyCoord(ra, dec, unit="deg")
+    radius = Quantity(radius_deg, "deg")
+    results = db.query_region(coords, radius=radius, fmt="pandas", ra_col=RA_COLUMN, dec_col=DEC_COLUMN)
+    execution_time = time.time() - start_time
+    
+    # Apply 10,000 result cap if needed
+    if len(results) > 10000:
+        results = results.head(10000)
+    
     return results, execution_time

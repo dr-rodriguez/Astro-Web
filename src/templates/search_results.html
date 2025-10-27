@@ -15,6 +15,12 @@
 </div>
 {% endif %}
 
+{% if warning %}
+<div class="warning-message">
+  <p>{{ warning }}</p>
+</div>
+{% endif %}
+
 {% if results %}
   <div class="search-results-info">
     <p>Found {{ total_count }} result(s) in {{ execution_time }} seconds</p>

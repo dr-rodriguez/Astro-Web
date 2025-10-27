@@ -13,13 +13,17 @@ You can customize the application behavior by setting these environment variable
     - PostgreSQL: `postgresql://username:password@localhost:5432/astrodb`
     - MySQL: `mysql://username:password@localhost:3306/astrodb`
 
-### Source URL Configuration
+### Additional Configuration
 
 - `ASTRO_WEB_SOURCE_URL_BASE`: Base URL for source detail pages
   - Default: `/source/`
   - Example: `/astro/sources/` (for custom deployment)
 - `ASTRO_WEB_SOURCE_COLUMN`: Column name for the source identifier
   - Default: `source`
+- `ASTRO_WEB_RA_COLUMN`: Column name for the right ascension
+  - Default: `ra`
+- `ASTRO_WEB_DEC_COLUMN`: Column name for the declination
+  - Default: `dec`
 
 ## Usage
 
@@ -29,5 +33,7 @@ Set environment variables before running the application:
 export ASTRO_WEB_DATABASE_URL="postgresql://user:pass@localhost:5432/astrodb"
 export ASTRO_WEB_SOURCE_URL_BASE="/astro/sources/"
 export ASTRO_WEB_SOURCE_COLUMN="source_id"
+export ASTRO_WEB_RA_COLUMN="ra"
+export ASTRO_WEB_DEC_COLUMN="dec"
 uvicorn src.main:app --reload --port 8000
 ```
