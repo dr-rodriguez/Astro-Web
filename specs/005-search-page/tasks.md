@@ -19,17 +19,17 @@ This document provides actionable, dependency-ordered tasks for implementing the
 
 ### T001-T003: Project Structure and Dependencies
 
-- [ ] T001 Verify astrodbkit ≥2.4 installation and database connection in src/database/sources.py
-- [ ] T002 Confirm FastAPI ≥0.120.0 with Jinja2 templates configured in src/main.py
-- [ ] T003 Validate JavaScript DataTable CDN accessibility for search results display
+- [x] T001 Verify astrodbkit ≥2.4 installation and database connection in src/database/sources.py
+- [x] T002 Confirm FastAPI ≥0.120.0 with Jinja2 templates configured in src/main.py
+- [x] T003 Validate JavaScript DataTable CDN accessibility for search results display
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
 ### T004-T006: Core Infrastructure
 
-- [ ] T004 [P] Add Search link to navigation bar in src/templates/base.html
-- [ ] T005 [P] Create search form template structure in src/templates/search.html
-- [ ] T006 [P] Create search results template structure in src/templates/search_results.html
+- [x] T004 [P] Add Search link to navigation bar in src/templates/base.html
+- [x] T005 [P] Create search form template structure in src/templates/search.html
+- [x] T006 [P] Create search results template structure in src/templates/search_results.html
 
 ## Phase 3: User Story 1 - Search for Astronomical Objects (P1)
 
@@ -39,12 +39,12 @@ This document provides actionable, dependency-ordered tasks for implementing the
 
 ### T007-T012: Core Search Functionality
 
-- [ ] T007 [US1] Implement search form route handler in src/routes/web.py
-- [ ] T008 [US1] Implement search results route handler with astrodbkit integration in src/routes/web.py
-- [ ] T009 [US1] Add client-side form validation for empty search terms in src/templates/search.html
-- [ ] T010 [US1] Implement astrodbkit search_object function call in src/routes/web.py
-- [ ] T011 [US1] Format search results for template display in src/routes/web.py
-- [ ] T012 [US1] Add hyperlinks from search results to individual source inventory pages in src/templates/search_results.html
+- [x] T007 [US1] Implement search form route handler in src/routes/web.py
+- [x] T008 [US1] Implement search results route handler with astrodbkit integration in src/routes/web.py
+- [x] T009 [US1] Add client-side form validation for empty search terms in src/templates/search.html
+- [x] T010 [US1] Implement astrodbkit search_object function call in src/routes/web.py
+- [x] T011 [US1] Format search results for template display in src/routes/web.py
+- [x] T012 [US1] Add hyperlinks from search results to individual source inventory pages in src/templates/search_results.html
 
 ## Phase 4: User Story 2 - Browse Search Results (P2)
 
@@ -54,10 +54,10 @@ This document provides actionable, dependency-ordered tasks for implementing the
 
 ### T013-T016: Results Display Enhancement
 
-- [ ] T013 [US2] Implement JavaScript DataTable initialization with vanilla CSS styling in src/templates/search_results.html
-- [ ] T014 [US2] Add vanilla CSS styling for search results table (no JavaScript-based styling frameworks) in src/static/style.css
-- [ ] T015 [US2] Configure DataTable pagination and sorting options using CSS-only styling in src/templates/search_results.html
-- [ ] T016 [US2] Display all source columns (source, ra, dec, epoch, equinox, shortname, reference, other_references, comments) in src/templates/search_results.html
+- [x] T013 [US2] Implement JavaScript DataTable initialization with vanilla CSS styling in src/templates/search_results.html
+- [x] T014 [US2] Add vanilla CSS styling for search results table (no JavaScript-based styling frameworks) in src/static/style.css
+- [x] T015 [US2] Configure DataTable pagination and sorting options using CSS-only styling in src/templates/search_results.html
+- [x] T016 [US2] Display all source columns (source, ra, dec, epoch, equinox, shortname, reference, other_references, comments) in src/templates/search_results.html
 
 ## Phase 5: User Story 3 - Handle Empty or No Results (P3)
 
@@ -67,25 +67,25 @@ This document provides actionable, dependency-ordered tasks for implementing the
 
 ### T017-T020: Error Handling and User Feedback
 
-- [ ] T017 [US3] Implement server-side validation for empty search queries in src/routes/web.py
-- [ ] T018 [US3] Add "no results found" message display in src/templates/search_results.html
-- [ ] T019 [US3] Implement astrodbkit error handling with generic error message in src/routes/web.py
-- [ ] T020 [US3] Add "New Search" navigation link in search results template in src/templates/search_results.html
+- [x] T017 [US3] Implement server-side validation for empty search queries in src/routes/web.py
+- [x] T018 [US3] Add "no results found" message display in src/templates/search_results.html
+- [x] T019 [US3] Implement astrodbkit error handling with generic error message in src/routes/web.py
+- [x] T020 [US3] Add "New Search" navigation link in search results template in src/templates/search_results.html
 
 ## Phase 6: API Endpoint (Cross-Cutting)
 
 ### T021-T022: Programmatic Access
 
-- [ ] T021 [P] Implement programmatic search API endpoint in src/routes/web.py
-- [ ] T022 [P] Add API endpoint error handling and response formatting in src/routes/web.py
+- [x] T021 [P] Implement programmatic search API endpoint in src/routes/web.py
+- [x] T022 [P] Add API endpoint error handling and response formatting in src/routes/web.py
 
 ## Phase 7: Polish & Cross-Cutting Concerns
 
 ### T023-T025: Final Integration and Styling
 
-- [ ] T023 Add comprehensive CSS styling for search form and results in src/static/style.css
-- [ ] T024 Implement responsive design for search results table in src/static/style.css
-- [ ] T025 Add search execution time display in search results template in src/templates/search_results.html
+- [x] T023 Add comprehensive CSS styling for search form and results in src/static/style.css
+- [x] T024 Implement responsive design for search results table in src/static/style.css
+- [x] T025 Add search execution time display in search results template in src/templates/search_results.html
 
 ## Dependencies
 

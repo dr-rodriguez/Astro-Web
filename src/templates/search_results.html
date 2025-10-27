@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<h1>Search Results for "{{ query_text }}"</h1>
+
+{% if error %}
+<div class="error-message">
+  <p>{{ error }}</p>
+</div>
+{% endif %}
+
+{% if results %}
+  <div class="search-results-info">
+    <p>Found {{ total_count }} result(s) in {{ execution_time }} seconds</p>
+  </div>
+  
+  <table id="resultsTable" class="display">
+    <thead>
+      <tr>
+        <th>Source</th>
+        <th>RA</th>
+        <th>Dec</th>
+        <th>Epoch</th>
+        <th>Equinox</th>
+        <th>Shortname</th>
+        <th>Reference</th>
+        <th>Other References</th>
+        <th>Comments</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in results %}
+      <tr>
+        <td><a href="/source/{{ result.source|urlencode }}">{{ result.source }}</a></td>
+        <td>{{ "%.2f"|format(result.ra) if result.ra else '' }}</td>
+        <td>{{ "%.2f"|format(result.dec) if result.dec else '' }}</td>
+        <td>{{ "%.1f"|format(result.epoch) if result.epoch else '' }}</td>
+        <td>{{ result.equinox or '' }}</td>
+        <td>{{ result.shortname or '' }}</td>
+        <td>{{ result.reference or '' }}</td>
+        <td>{{ result.other_references or '' }}</td>
+        <td>{{ result.comments or '' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <div class="no-results-message">
+    <p>No results found for "{{ query_text }}"</p>
+  </div>
+{% endif %}
+
+<a href="/search" class="new-search-link">New Search</a>
+
+<!-- DataTable CSS and JS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+
+<script>
+$(document).ready(function() {
+  $('#resultsTable').DataTable({
+    "pageLength": 25,
+    "order": [[ 0, "asc" ]],
+    "responsive": true,
+    "language": {
+      "search": "Filter results:",
+      "lengthMenu": "Show _MENU_ entries",
+      "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+      "paginate": {
+        "first": "First",
+        "last": "Last",
+        "next": "Next",
+        "previous": "Previous"
+      }
+    }
+  });
+});
+</script>
+{% endblock %}

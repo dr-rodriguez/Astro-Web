@@ -5,9 +5,12 @@ This module contains all HTML page routes including homepage and error pages.
 """
 
 from urllib.parse import unquote
+import time
+from datetime import datetime
 
-from fastapi import Request
+from fastapi import Request, Form, HTTPException
 from fastapi.templating import Jinja2Templates
+from astrodbkit.astrodb import Database
 
 from src.database.sources import get_all_sources, get_source_inventory
 from src.visualizations.scatter import create_scatter_plot
@@ -39,6 +42,7 @@ def create_navigation_context(current_page="/"):
             "route": "/browse",
             "is_active": current_page == "/browse",
         },
+        {"label": "Search", "route": "/search", "is_active": current_page == "/search"},
         {"label": "Plots", "route": "/plots", "is_active": current_page == "/plots"},
     ]
     return {"nav_items": nav_items}
@@ -132,6 +136,113 @@ async def inventory(request: Request, source_name: str):
         },
         status_code=404 if has_error else 200,
     )
+
+
+async def search_form(request: Request):
+    """Display search form page"""
+    # Create navigation context with active page
+    nav_context = create_navigation_context(current_page="/search")
+    
+    return templates.TemplateResponse("search.html", {
+        "request": request, 
+        **nav_context
+    })
+
+
+async def search_results(request: Request, query: str = Form(...)):
+    """Process search query and display results"""
+    try:
+        # Validate query
+        if not query.strip():
+            nav_context = create_navigation_context(current_page="/search")
+            return templates.TemplateResponse("search.html", {
+                "request": request,
+                "error": "Please enter a search term",
+                **nav_context
+            })
+        
+        # Execute search using astrodbkit
+        start_time = time.time()
+        db = Database("sqlite:///SIMPLE.sqlite")
+        results = db.search_object(query.strip())
+        execution_time = time.time() - start_time
+        
+        # Format results for display
+        formatted_results = []
+        for result in results:
+            formatted_results.append({
+                "source": result.get("source", ""),
+                "ra": result.get("ra", 0.0),
+                "dec": result.get("dec", 0.0),
+                "epoch": result.get("epoch"),
+                "equinox": result.get("equinox", ""),
+                "shortname": result.get("shortname", ""),
+                "reference": result.get("reference", ""),
+                "other_references": result.get("other_references", ""),
+                "comments": result.get("comments", "")
+            })
+        
+        # Create navigation context with active page
+        nav_context = create_navigation_context(current_page="/search")
+        
+        return templates.TemplateResponse("search_results.html", {
+            "request": request,
+            "query_text": query.strip(),
+            "results": formatted_results,
+            "total_count": len(formatted_results),
+            "execution_time": f"{execution_time:.3f}",
+            **nav_context
+        })
+        
+    except Exception as e:
+        # Handle astrodbkit errors
+        nav_context = create_navigation_context(current_page="/search")
+        return templates.TemplateResponse("search_results.html", {
+            "request": request,
+            "query_text": query.strip() if query else "",
+            "error": f"An error occurred during search: {e}",
+            "results": [],
+            "total_count": 0,
+            "execution_time": "0.000",
+            **nav_context
+        })
+
+
+async def search_api(query: str = Form(...)):
+    """API endpoint for programmatic search access"""
+    try:
+        if not query.strip():
+            raise HTTPException(status_code=400, detail="Query parameter is required")
+        
+        start_time = time.time()
+        db = Database("sqlite:///SIMPLE.sqlite")
+        results = db.search_object(query.strip())
+        execution_time = time.time() - start_time
+        
+        formatted_results = []
+        for result in results:
+            formatted_results.append({
+                "source": result.get("source", ""),
+                "ra": result.get("ra", 0.0),
+                "dec": result.get("dec", 0.0),
+                "epoch": result.get("epoch"),
+                "equinox": result.get("equinox", ""),
+                "shortname": result.get("shortname", ""),
+                "reference": result.get("reference", ""),
+                "other_references": result.get("other_references", ""),
+                "comments": result.get("comments", "")
+            })
+        
+        return {
+            "results": formatted_results,
+            "total_count": len(formatted_results),
+            "query_text": query.strip(),
+            "search_time": datetime.now().isoformat(),
+            "execution_time": execution_time
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An error occurred during search: {e}")
 
 
 async def not_found(request: Request, path: str):

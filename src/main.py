@@ -4,7 +4,7 @@ Main FastAPI application entry point for Hello World website.
 This module initializes the FastAPI app with basic configuration.
 """
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -49,6 +49,24 @@ async def plot(request: Request):
 async def inventory_page(request: Request, source_name: str):
     """Source inventory page rendering all data for a specific source."""
     return await web.inventory(request, source_name)
+
+
+@app.get("/search", response_class=HTMLResponse)
+async def search_page(request: Request):
+    """Search form page."""
+    return await web.search_form(request)
+
+
+@app.post("/search/results", response_class=HTMLResponse)
+async def search_results_page(request: Request, query: str = Form(...)):
+    """Search results page."""
+    return await web.search_results(request, query)
+
+
+@app.post("/api/search")
+async def search_api_endpoint(query: str = Form(...)):
+    """API endpoint for programmatic search access."""
+    return await web.search_api(query)
 
 
 @app.get("/{path:path}", response_class=HTMLResponse)
