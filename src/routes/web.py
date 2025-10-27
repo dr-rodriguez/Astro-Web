@@ -164,19 +164,7 @@ async def search_results(request: Request, query: str = Form(...)):
         results, execution_time = search_objects(query.strip())
         
         # Format results for display
-        formatted_results = []
-        for result in results:
-            formatted_results.append({
-                "source": result.get("source", ""),
-                "ra": result.get("ra", 0.0),
-                "dec": result.get("dec", 0.0),
-                "epoch": result.get("epoch"),
-                "equinox": result.get("equinox", ""),
-                "shortname": result.get("shortname", ""),
-                "reference": result.get("reference", ""),
-                "other_references": result.get("other_references", ""),
-                "comments": result.get("comments", "")
-            })
+        formatted_results = [dict(row) for row in results]
         
         # Create navigation context with active page
         nav_context = create_navigation_context(current_page="/search")
@@ -212,19 +200,7 @@ async def search_api(query: str = Form(...)):
         
         results, execution_time = search_objects(query.strip())
         
-        formatted_results = []
-        for result in results:
-            formatted_results.append({
-                "source": result.get("source", ""),
-                "ra": result.get("ra", 0.0),
-                "dec": result.get("dec", 0.0),
-                "epoch": result.get("epoch"),
-                "equinox": result.get("equinox", ""),
-                "shortname": result.get("shortname", ""),
-                "reference": result.get("reference", ""),
-                "other_references": result.get("other_references", ""),
-                "comments": result.get("comments", "")
-            })
+        formatted_results = [dict(row) for row in results]
         
         return {
             "results": formatted_results,

@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Search Results{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+{% endblock %}
 
 {% block content %}
 <h1>Search Results for "{{ query_text }}"</h1>
@@ -53,11 +57,6 @@
 {% endif %}
 
 <a href="/search" class="new-search-link">New Search</a>
-
-<!-- DataTable CSS and JS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css">
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 
 <script>
 $(document).ready(function() {
