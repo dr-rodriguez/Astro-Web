@@ -53,6 +53,7 @@
                         <th>Regime</th>
                         <th>Telescope</th>
                         <th>Instrument</th>
+                        <th>Reference</th>
                         <th>Access URL</th>
                     </tr>
                 </thead>
@@ -70,6 +71,7 @@
                         <td>{{ metadata.regime }}</td>
                         <td>{{ metadata.telescope }}</td>
                         <td>{{ metadata.instrument }}</td>
+                        <td>{{ metadata.reference }}</td>
                         <td>
                             {% if metadata.access_url %}
                                 <a href="{{ metadata.access_url }}" target="_blank">View Data</a>

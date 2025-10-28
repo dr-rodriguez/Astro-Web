@@ -70,6 +70,7 @@ def generate_spectra_plot(spectra_df):
         regime = str(row.get("regime", "-"))
         telescope = str(row.get("telescope", "-"))
         instrument = str(row.get("instrument", "-"))
+        reference = str(row.get("reference", "-"))
         legend_label = f"{obs_date} | {regime} | {telescope}/{instrument}"
         
         # Store metadata for all spectra (will update display_status later)
@@ -78,6 +79,7 @@ def generate_spectra_plot(spectra_df):
             "regime": regime,
             "telescope": telescope,
             "instrument": instrument,
+            "reference": reference,
             "access_url": row.get(SPECTRA_URL_COLUMN, ""),
             "legend_label": legend_label,
             "display_status": "failed",  # Default to failed, will update if successful
