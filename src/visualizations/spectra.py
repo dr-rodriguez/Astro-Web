@@ -45,7 +45,7 @@ def generate_spectra_plot(spectra_df):
         title="Spectra",
         x_axis_label="Wavelength (μm)",
         y_axis_label="Flux",
-        tools="pan,box_zoom,wheel_zoom,reset,save,legend",
+        tools="pan,box_zoom,wheel_zoom,reset,save",
     )
 
     # Plot each spectrum
