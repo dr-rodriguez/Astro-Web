@@ -8,10 +8,14 @@ and URL generation parameters.
 import os
 import pandas as pd
 from urllib.parse import quote
+from dotenv import load_dotenv
+
+# Load .env file if present
+load_dotenv()
 
 # Database Configuration
 # Default to SQLite database in project root
-DATABASE_CONNECTION_STRING = os.getenv("ASTRO_WEB_DATABASE_URL", "sqlite:///SIMPLE.sqlite")
+CONNECTION_STRING = os.getenv("ASTRO_WEB_DATABASE_URL", "sqlite:///SIMPLE.sqlite")
 
 # Base URL for source detail pages - can be customized for different deployments
 ASTRO_WEB_SOURCE_URL_BASE = os.getenv("ASTRO_WEB_SOURCE_URL_BASE", "/source/")
@@ -58,13 +62,3 @@ def get_source_url(results):
     # Fallback for other types
     else:
         return results
-
-
-def get_database_connection_string() -> str:
-    """
-    Get the database connection string.
-
-    Returns:
-        str: Database connection string
-    """
-    return DATABASE_CONNECTION_STRING
