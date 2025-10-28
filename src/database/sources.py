@@ -47,3 +47,27 @@ def get_source_inventory(source_name):
         return result if result else None
     except Exception:
         return None
+
+
+def get_source_spectra(source_name):
+    """
+    Retrieve all spectra for a specific source using astrodbkit's spectra method.
+
+    Args:
+        source_name (str): Source identifier
+
+    Returns:
+        pandas.DataFrame: DataFrame with spectrum records (source, access_url, observation_date,
+                         regime, telescope, instrument, etc.) or None on error
+    """
+    try:
+        # Connect to database
+        db = Database(CONNECTION_STRING)
+        
+        # Query spectra for the source using astrodbkit's spectra method
+        # This returns a DataFrame with wavelength and flux data already formatted
+        spectra_df = db.query(db.Spectra).filter(db.Spectra.source == source_name).spectra(fmt='pandas')
+        
+        return spectra_df
+    except Exception:
+        return None

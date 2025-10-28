@@ -51,6 +51,12 @@ async def inventory_page(request: Request, source_name: str):
     return await web.inventory(request, source_name)
 
 
+@app.get("/source/{source_name}/spectra", response_class=HTMLResponse)
+async def spectra_page(request: Request, source_name: str):
+    """Spectra visualization page for a specific source."""
+    return await web.spectra_display(request, source_name)
+
+
 @app.get("/search", response_class=HTMLResponse)
 async def search_page(request: Request):
     """Search form page."""

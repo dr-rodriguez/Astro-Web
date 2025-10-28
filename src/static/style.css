@@ -488,6 +488,108 @@ h2 {
     color: white;
 }
 
+/* Spectra page styling */
+.spectra-container {
+    padding: 2rem;
+}
+
+.spectra-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.spectra-header h1 {
+    margin-bottom: 0;
+    font-size: 1.8rem;
+    color: var(--accent-indigo);
+}
+
+.spectra-count {
+    font-weight: normal;
+    color: var(--accent-purple);
+    font-size: 1.2rem;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.back-link:hover {
+    background-color: #e5e7eb;
+    color: var(--accent-purple);
+}
+
+.no-spectra-message {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.no-spectra-message p {
+    margin: 0;
+    color: #92400e;
+    font-weight: 500;
+}
+
+.metadata-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--border-color);
+}
+
+.metadata-section h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    color: var(--accent-purple);
+}
+
+/* Inventory page spectra link styling */
+.spectra-link {
+    margin-bottom: 2rem;
+}
+
+.view-spectra-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--accent-indigo);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.view-spectra-link:hover {
+    background-color: var(--accent-purple);
+    color: white;
+}
+
+/* Spectra plot container */
+.spectra-container .visualization {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--border-color);
+}
+
+.spectra-container .visualization h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--accent-indigo);
+    margin-bottom: 1.5rem;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     header, main, footer {
