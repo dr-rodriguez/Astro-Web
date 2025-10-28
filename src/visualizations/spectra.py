@@ -5,6 +5,7 @@ This module generates interactive Bokeh plots displaying multiple spectra for a 
 with formatted legends and metadata.
 """
 
+import astropy.units as u
 from bokeh.plotting import figure
 from bokeh.embed import components
 from src.config import SPECTRA_URL_COLUMN
@@ -72,7 +73,7 @@ def generate_spectra_plot(spectra_df):
         instrument = str(row.get("instrument", "-"))
         reference = str(row.get("reference", "-"))
         legend_label = f"{obs_date} | {regime} | {telescope}/{instrument}"
-        
+
         # Store metadata for all spectra (will update display_status later)
         metadata = {
             "observation_date": obs_date,
@@ -92,8 +93,8 @@ def generate_spectra_plot(spectra_df):
         try:
             spec = row.get("processed_spectrum")
             # Get wavelength and flux data
-            wavelength = spec.wavelength
-            flux = spec.flux
+            wavelength = spec.spectral_axis.to(u.micron).value
+            flux = spec.flux.value
 
             # Skip if data is missing or invalid
             if wavelength is None or flux is None:
@@ -127,7 +128,7 @@ def generate_spectra_plot(spectra_df):
     # Configure plot styling
     p.background_fill_color = "#f5f5f7"
     p.border_fill_color = "white"
-    
+
     # Only configure legend if we have spectra plotted
     if spectra_count > 0:
         p.legend.location = "top_left"
@@ -150,4 +151,3 @@ def generate_spectra_plot(spectra_df):
         "has_spectra": has_spectra,
         "spectra_metadata": spectra_metadata,
     }
-
