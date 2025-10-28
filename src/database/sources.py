@@ -1,8 +1,9 @@
 """Sources table database queries."""
 
 from astrodbkit.astrodb import Database
+from specutils import Spectrum
 
-from src.config import CONNECTION_STRING
+from src.config import CONNECTION_STRING, SPECTRA_URL_COLUMN
 
 
 def get_all_sources():
@@ -49,25 +50,40 @@ def get_source_inventory(source_name):
         return None
 
 
-def get_source_spectra(source_name):
+def get_source_spectra(source_name, convert_to_spectrum=False):
     """
-    Retrieve all spectra for a specific source using astrodbkit's spectra method.
+    Retrieve all spectra for a specific source using db.query() with manual specutils conversion.
 
     Args:
         source_name (str): Source identifier
 
     Returns:
-        pandas.DataFrame: DataFrame with spectrum records (source, access_url, observation_date,
-                         regime, telescope, instrument, etc.) or None on error
+        pandas.DataFrame: DataFrame with spectrum records including wavelength and flux arrays,
+                         plus metadata (source, access_url, observation_date, regime, telescope, 
+                         instrument, etc.) or None on error
     """
     try:
+
         # Connect to database
         db = Database(CONNECTION_STRING)
         
-        # Query spectra for the source using astrodbkit's spectra method
-        # This returns a DataFrame with wavelength and flux data already formatted
-        spectra_df = db.query(db.Spectra).filter(db.Spectra.c.source == source_name).spectra(fmt='pandas')
+        # Query spectra table for the source using astrodbkit's pandas method
+        spectra_df = db.query(db.Spectra).filter(db.Spectra.c.source == source_name).pandas()
         
+        if spectra_df.empty:
+            return None
+
+        spectra_df['processed_spectrum'] = None
+
+        # Convert spectra URLs to spectra objects
+        for index, row in spectra_df.iterrows():
+            try:
+                spectrum = Spectrum.read(row[SPECTRA_URL_COLUMN], cache=True)
+                spectra_df.at[index, 'processed_spectrum'] = spectrum
+            except Exception:
+                continue
+
         return spectra_df
+        
     except Exception:
         return None

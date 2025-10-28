@@ -48,6 +48,7 @@
             <table>
                 <thead>
                     <tr>
+                        <th>Status</th>
                         <th>Observation Date</th>
                         <th>Regime</th>
                         <th>Telescope</th>
@@ -58,6 +59,13 @@
                 <tbody>
                     {% for metadata in spectra_metadata %}
                     <tr>
+                        <td>
+                            {% if metadata.display_status == "displayed" %}
+                                <span class="status-displayed">✓ Displayed</span>
+                            {% else %}
+                                <span class="status-failed">✗ Failed to load</span>
+                            {% endif %}
+                        </td>
                         <td>{{ metadata.observation_date }}</td>
                         <td>{{ metadata.regime }}</td>
                         <td>{{ metadata.telescope }}</td>

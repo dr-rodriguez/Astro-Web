@@ -117,7 +117,7 @@ async def inventory(request: Request, source_name: str):
     inventory_data = get_source_inventory(source_name)
     
     # Check if spectra exist for this source
-    spectra_df = get_source_spectra(source_name)
+    spectra_df = get_source_spectra(source_name, convert_to_spectrum=False)
     has_spectra = spectra_df is not None and not spectra_df.empty
     
     # Handle errors
@@ -154,7 +154,7 @@ async def spectra_display(request: Request, source_name: str):
     decoded_source_name = unquote(source_name)
     
     # Get spectra data from database
-    spectra_df = get_source_spectra(source_name)
+    spectra_df = get_source_spectra(source_name, convert_to_spectrum=True)
     
     # Generate the plot
     plot_data = generate_spectra_plot(spectra_df)

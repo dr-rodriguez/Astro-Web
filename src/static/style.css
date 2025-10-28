@@ -576,6 +576,17 @@ h2 {
     color: white;
 }
 
+/* Status indicators for spectra metadata */
+.status-displayed {
+    color: #059669;
+    font-weight: 500;
+}
+
+.status-failed {
+    color: #dc2626;
+    font-weight: 500;
+}
+
 /* Spectra plot container */
 .spectra-container .visualization {
     margin-top: 2rem;

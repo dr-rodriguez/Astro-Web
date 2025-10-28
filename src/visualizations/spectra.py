@@ -62,12 +62,35 @@ def generate_spectra_plot(spectra_df):
         "#f97316",  # orange
     ]
 
+    # First pass: Extract metadata for ALL spectra
+    for idx, (_, row) in enumerate(spectra_df.iterrows()):
+        # Format basic metadata for all spectra
+        obs_date = str(row.get("observation_date", "-"))
+        regime = str(row.get("regime", "-"))
+        telescope = str(row.get("telescope", "-"))
+        instrument = str(row.get("instrument", "-"))
+        legend_label = f"{obs_date} | {regime} | {telescope}/{instrument}"
+        
+        # Store metadata for all spectra (will update display_status later)
+        metadata = {
+            "observation_date": obs_date,
+            "regime": regime,
+            "telescope": telescope,
+            "instrument": instrument,
+            "access_url": row.get("access_url", ""),
+            "legend_label": legend_label,
+            "display_status": "failed",  # Default to failed, will update if successful
+        }
+        spectra_metadata.append(metadata)
+
+    # Second pass: Attempt to plot each spectrum and update status
     spectra_count = 0
     for idx, (_, row) in enumerate(spectra_df.iterrows()):
         try:
+            spec = row.get("processed_spectrum")
             # Get wavelength and flux data
-            wavelength = row.get("wavelength")
-            flux = row.get("flux")
+            wavelength = spec.wavelength
+            flux = spec.flux
 
             # Skip if data is missing or invalid
             if wavelength is None or flux is None:
@@ -79,39 +102,23 @@ def generate_spectra_plot(spectra_df):
             if hasattr(flux, "values"):
                 flux = flux.values
 
-            # Format legend label
-            obs_date = str(row.get("observation_date", "-"))
-            regime = str(row.get("regime", "-"))
-            telescope = str(row.get("telescope", "-"))
-            instrument = str(row.get("instrument", "-"))
-            legend_label = f"{obs_date} | {regime} | {telescope}/{instrument}"
-
             # Plot the spectrum with color cycling
             color = colors[idx % len(colors)]
             p.line(
                 wavelength,
                 flux,
-                legend_label=legend_label,
+                legend_label=spectra_metadata[idx]["legend_label"],
                 line_width=2,
                 color=color,
                 alpha=0.8,
             )
 
-            # Store metadata for successfully plotted spectrum
-            metadata = {
-                "observation_date": obs_date,
-                "regime": regime,
-                "telescope": telescope,
-                "instrument": instrument,
-                "access_url": row.get("access_url", ""),
-                "legend_label": legend_label,
-            }
-            spectra_metadata.append(metadata)
-            
+            # Update metadata status to displayed
+            spectra_metadata[idx]["display_status"] = "displayed"
             spectra_count += 1
 
         except Exception:
-            # Skip invalid spectra silently
+            # Keep display_status as "failed" for this spectrum
             continue
 
     # Configure plot styling
@@ -126,6 +133,9 @@ def generate_spectra_plot(spectra_df):
         script, div = components(p)
         plot_script = script
         plot_div = div
+    elif len(spectra_metadata) > 0:
+        # Even if no spectra could be plotted, we have metadata to show
+        has_spectra = True
 
     return {
         "script": plot_script,
