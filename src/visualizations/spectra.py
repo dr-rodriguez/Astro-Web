@@ -7,6 +7,7 @@ with formatted legends and metadata.
 
 from bokeh.plotting import figure
 from bokeh.embed import components
+from src.config import SPECTRA_URL_COLUMN
 
 
 def generate_spectra_plot(spectra_df):
@@ -77,7 +78,7 @@ def generate_spectra_plot(spectra_df):
             "regime": regime,
             "telescope": telescope,
             "instrument": instrument,
-            "access_url": row.get("access_url", ""),
+            "access_url": row.get(SPECTRA_URL_COLUMN, ""),
             "legend_label": legend_label,
             "display_status": "failed",  # Default to failed, will update if successful
         }
