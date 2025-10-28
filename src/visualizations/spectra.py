@@ -124,8 +124,11 @@ def generate_spectra_plot(spectra_df):
     # Configure plot styling
     p.background_fill_color = "#f5f5f7"
     p.border_fill_color = "white"
-    p.legend.location = "top_left"
-    p.legend.click_policy = "hide"
+    
+    # Only configure legend if we have spectra plotted
+    if spectra_count > 0:
+        p.legend.location = "top_left"
+        p.legend.click_policy = "hide"
 
     # Export as embeddable components
     if spectra_count > 0:
