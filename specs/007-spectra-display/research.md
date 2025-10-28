@@ -54,31 +54,32 @@ spectrum_urls = spectra_df[url_column].tolist()
 - Hardcoded column name: ❌ Reduces flexibility across database schemas
 - Database-specific configuration files: ❌ Over-engineered for single column name
 
-### Specutils for Spectrum File Loading
+### Spectrum Data Format from astrodbkit
 
-**Decision**: Rely on astrodbkit to return `specutils.Spectrum` objects for spectra
+**Decision**: Use spectrum data directly from astrodbkit - it returns spectra already formatted  
 **Rationale**:
-- Standard astronomy library for spectrum I/O
-- Automatic format detection (FITS, ASCII, etc.)
-- Handles common astronomical spectrum formats transparently
-- Returns standardized Spectrum object with wavelength and flux arrays
-- Widely used in astronomical software ecosystem
+- astrodbkit handles spectrum format detection and conversion automatically
+- Returns wavelength and flux arrays directly accessible
+- No need to install or use specutils separately
+- Handles common astronomical spectrum formats transparently (FITS, ASCII, etc.)
+- Standardized access to spectrum data through astrodbkit API
 
 **API Usage**:
 ```python
-# Database response is automatically in specutils Spectrum format
-for spec in spectrum_urls:
-    wavelength = spec.wavelength.value    # microns
-    flux = spec.flux.value                # flux units
+# astrodbkit returns spectra already formatted with wavelength and flux arrays
+spectra_df = db.query(db.Spectra).filter(db.Spectra.source == source_name).spectra(fmt='pandas')
+# Access wavelength and flux from the DataFrame directly
+# Format varies by spectrum, but arrays are accessible as spec.wavelength, spec.flux, etc.
 ```
 
-**Supported Formats**: FITS files (.fits), ASCII text files (.txt, .dat, .csv), automatically detected by specutils
+**Supported Formats**: FITS files (.fits), ASCII text files (.txt, .dat, .csv), automatically handled by astrodbkit
 
 **Error Handling**: Gracefully skip spectra that cannot be loaded (invalid URL, unsupported format, corrupt data) without showing error messages to users
 
 **Alternatives Considered**:
-- Direct FITS file reading with `astropy.io.fits`: ❌ Limited to FITS only
-- Manual ASCII parsing: ❌ Reimplements functionality available in specutils
+- Manual format conversion with specutils: ❌ Unnecessary - astrodbkit already handles this
+- Direct FITS file reading with `astropy.io.fits`: ❌ Limited to FITS only, astrodbkit is more flexible
+- Manual ASCII parsing: ❌ Reimplements functionality already in astrodbkit
 - Raw URL reading: ❌ No format abstraction or standardization
 
 ### Bokeh for Interactive Spectrum Visualization
@@ -253,9 +254,10 @@ if 'Spectra' in inventory_data:
 
 **Dependencies already available**:
 - `bokeh ≥3.0`: Interactive plot generation (already in use)
-- `astrodbkit ≥2.4`: Database access (already in use)
-- `astropy`: Astronomical data handling (installed with specutils)
+- `astrodbkit ≥2.4`: Database access and spectrum format handling (already in use)
 - `pandas`: Data manipulation (already in use)
+
+**Note**: No need for separate specutils installation - astrodbkit returns spectra already formatted
 
 ## Performance Considerations
 

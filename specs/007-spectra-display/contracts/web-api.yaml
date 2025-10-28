@@ -15,7 +15,7 @@ paths:
         Renders an interactive Bokeh plot displaying all spectra for a specified source,
         along with a metadata table showing observation details and clickable links to
         spectrum data files. Spectra are retrieved from the database via astrodbkit and
-        loaded using specutils for FITS and ASCII formats.
+        returned already formatted - no additional format conversion needed.
       parameters:
         - name: source_name
           in: path

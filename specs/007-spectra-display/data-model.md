@@ -35,10 +35,13 @@ The spectra display feature extends the existing source inventory functionality 
 
 **Properties** (from astrodbkit query result):
 - `source` (str): Source identifier this spectrum belongs to
-- `access_url` (Spectrum): spectrum data file (or configured column name)
-  - Format: specutils.Spectrum object
-  - Usage: Fetch spectrum data from this location
+- `access_url` (str): Spectrum data URL or path (or configured column name)
+  - Format: URL string pointing to spectrum file
+  - Usage: astrodbkit fetches and formats spectrum data automatically
   - Configuration: Column name customizable via environment variable
+- Spectrum data: Wavelength and flux arrays already formatted by astrodbkit
+  - Format: Direct access to wavelength and flux data
+  - Usage: Plot spectra directly without additional conversion
 - `observation_date` (str/datetime): Date of observation
   - Format: ISO 8601 date string or datetime object
   - Display: Show in metadata table and legend, "-" if missing
@@ -226,9 +229,9 @@ The spectra display feature extends the existing source inventory functionality 
 - Network timeout: 10 seconds maximum
 
 **Format Validation**:
-- File must be readable by specutils
-- Supported formats: FITS, ASCII (auto-detected)
-- Must contain wavelength and flux arrays
+- File must be readable by astrodbkit
+- Supported formats: FITS, ASCII (auto-detected by astrodbkit)
+- Must contain wavelength and flux arrays accessible after astrodbkit processing
 
 **Data Validation**:
 - Wavelength and flux arrays must have same length

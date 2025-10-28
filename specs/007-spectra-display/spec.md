@@ -136,17 +136,17 @@ A user is viewing a spectrum visualization and wants to return to the full sourc
 ### Session 2025-01-28
 
 - Q: Which metadata columns should the spectra table display? → A: Observation Date, Regime, Telescope, Instrument, Access URL (link)
-- Q: How should spectrum data be loaded from access_url? → A: Fetch URL with requests library, convert with specutils to Spectrum object, extract wavelength/flux arrays
-- Q: Which spectrum file formats should the system support? → A: FITS files and ASCII text files
+- Q: How should spectrum data be loaded from access_url? → A: astrodbkit returns spectrum data already formatted with wavelength and flux arrays accessible directly - no need to use specutils separately
+- Q: Which spectrum file formats should the system support? → A: FITS files and ASCII text files (astrodbkit handles format detection automatically)
 - Q: What should the legend identify for each spectrum? → A: Observation date, regime, telescope/instrument combined (e.g., "2020-03-15 | NIR | JWST/NIRSpec")
 - Q: How should missing metadata be displayed? → A: Display "-" for any missing metadata fields (observation_date, regime, telescope, instrument)
 
 ## Assumptions
 
 - Spectra data will be accessed via the `access_url` column (or configured equivalent) which contains URLs or file paths
-- Spectrum data will be loaded by astrodbkit and converted to Spectrum object
-- Supported spectrum file formats are FITS and ASCII text files (specutils will handle format detection)
-- The database query `db.query(db.Spectra).filter(db.Spectra.source == source_name).pandas()` will return all spectra for a given source
+- astrodbkit returns spectrum data already formatted with wavelength and flux arrays accessible directly - no manual format conversion needed
+- Supported spectrum file formats are FITS and ASCII text files (astrodbkit handles format detection automatically)
+- The database query `db.query(db.Spectra).filter(db.Spectra.source == source_name).spectra(fmt='pandas')` will return all spectra for a given source with data already formatted
 - Invalid or unreadable spectra will be a small minority (less than 20% of spectra)
 - Users will typically view spectra for sources with 1-10 spectra at a time
 - The configured column name (default: `access_url`) will contain valid URLs or file paths to spectrum data

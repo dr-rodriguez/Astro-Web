@@ -71,6 +71,9 @@ Create new module for spectrum loading and plot generation:
 ```python
 """
 Spectrum visualization functions using Bokeh.
+
+Note: astrodbkit returns spectra already formatted with wavelength and flux arrays 
+accessible directly - no additional format conversion needed.
 """
 
 import os
@@ -111,10 +114,12 @@ def generate_spectra_plot(source_name: str, spectra_df: pd.DataFrame) -> Tuple[s
     loaded_count = 0
     
     for idx, row in spectra_df.iterrows():
-        spectrum_data = row[SPECTRA_URL_COLUMN]
+        # astrodbkit returns spectrum data already formatted
+        # Access wavelength and flux arrays directly
+        spectrum_data = row.get(SPECTRA_URL_COLUMN) # Pre-formatted by astrodbkit
         
         # Skip if no data
-        if pd.isna(spectrum_url) or not spectrum_url:
+        if spectrum_data is None or isinstance(spectrum_data, str):
             continue
         
         # Extract metadata for legend and table

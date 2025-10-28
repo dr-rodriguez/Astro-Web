@@ -10,7 +10,7 @@
 Add a spectra display page accessible from source inventory pages that visualizes all spectra for a given source using an interactive Bokeh plot. The implementation includes:
 1. A new route `/source/{source_name}/spectra` accessible from inventory pages when spectra exist
 2. Database query using astrodbkit to retrieve spectrum data with configurable column name (default: `access_url`)
-3. Spectrum data loading using `specutils` library for FITS and ASCII formats
+3. Spectrum data is already formatted by astrodbkit - wavelength and flux arrays are accessible directly
 4. Interactive Bokeh plot displaying all spectra with legend showing observation details
 5. Metadata table showing spectrum information with clickable links to original data
 6. Graceful handling of non-displayable spectra by skipping invalid entries
@@ -19,7 +19,8 @@ Add a spectra display page accessible from source inventory pages that visualize
 ## Technical Context
 
 **Language/Version**: Python ≥3.13  
-**Primary Dependencies**: FastAPI ≥0.120.0, Astrodbkit ≥2.4, Bokeh ≥3.0, specutils ≥1.13, requests ≥2.0, astropy  
+**Primary Dependencies**: FastAPI ≥0.120.0, Astrodbkit ≥2.4, Bokeh ≥3.0, requests ≥2.0  
+**Note**: specutils is not needed separately - astrodbkit returns spectra already formatted  
 **Storage**: SQLite database with Spectra table accessed via astrodbkit  
 **Testing**: pytest for integration tests, manual testing for UI flows  
 **Target Platform**: Web application (development server with uvicorn)  
@@ -89,8 +90,8 @@ src/
 - Display loading indicator during spectrum data retrieval
 
 **Research Findings**:
-- astrodbkit provides `spectra()` method that returns pandas DataFrame
-- astrodbkit automatically converts spectrum formats (using specutils)
+- astrodbkit provides `spectra()` method that returns pandas DataFrame with wavelength and flux arrays already formatted
+- astrodbkit handles spectrum format detection and conversion automatically (no need for separate specutils installation)
 - Bokeh supports overlay plots with legends
 - Configuration pattern consistent with existing ASTRO_WEB environment variables
 - No database schema changes needed
@@ -107,7 +108,7 @@ src/
 
 **Key Design Decisions**:
 - Extract spectrum metadata from astrodbkit query results
-- Load spectra using specutils with error handling
+- astrodbkit returns spectra already formatted - access wavelength and flux arrays directly (no specutils needed)
 - Generate Bokeh plot with multiple spectrum lines and legend
 - Display metadata table alongside plot
 - Configure spectrum URL column via environment variable
