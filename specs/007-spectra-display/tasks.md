@@ -24,7 +24,7 @@
 
 **Purpose**: Add configuration support for spectra functionality
 
-- [ ] T001 Add SPECTRA_URL_COLUMN configuration variable to src/config.py
+- [ ] T001 [FR-009] Add SPECTRA_URL_COLUMN configuration variable to src/config.py
 
 ---
 
@@ -34,7 +34,7 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T003 [P] Implement get_source_spectra function in src/database/sources.py
+- [ ] T003 [P] [FR-002, FR-002a, FR-010] Implement get_source_spectra function in src/database/sources.py
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -48,12 +48,12 @@
 
 ### Implementation for User Story 1
 
-- [ ] T004 [P] [US1] Create generate_spectra_plot function in src/visualizations/spectra.py
-- [ ] T006 [US1] Add Bokeh plot generation with legend formatting in src/visualizations/spectra.py
-- [ ] T007 [P] [US1] Create spectra.html template in src/templates/spectra.html
-- [ ] T008 [US1] Implement spectra_display route in src/routes/web.py
-- [ ] T009 [US1] Add spectra route registration in src/main.py
-- [ ] T010 [US1] Add conditional spectra link to inventory.html in src/templates/inventory.html
+- [ ] T004 [P] [US1] [FR-003] Create generate_spectra_plot function in src/visualizations/spectra.py
+- [ ] T006 [US1] [FR-004, FR-014, FR-015] Add Bokeh plot generation with legend formatting in src/visualizations/spectra.py
+- [ ] T007 [P] [US1] [FR-001] Create spectra.html template in src/templates/spectra.html
+- [ ] T008 [US1] [FR-001] Implement spectra_display route in src/routes/web.py
+- [ ] T009 [US1] [FR-001] Add spectra route registration in src/main.py
+- [ ] T010 [US1] [FR-008] Add conditional spectra link to inventory.html in src/templates/inventory.html
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently - users can navigate from inventory to spectra page and see all spectra in an interactive plot
 
@@ -67,9 +67,9 @@
 
 ### Implementation for User Story 2
 
-- [ ] T011 [US2] Extract spectrum metadata from database results in src/database/sources.py
-- [ ] T012 [US2] Format metadata for table display with clickable URLs in src/visualizations/spectra.py
-- [ ] T013 [US2] Add metadata table section to spectra.html template in src/templates/spectra.html
+- [ ] T011 [US2] [FR-005] Extract spectrum metadata from database results in src/database/sources.py
+- [ ] T012 [US2] [FR-006] Format metadata for table display with clickable URLs in src/visualizations/spectra.py
+- [ ] T013 [US2] [FR-005] Add metadata table section to spectra.html template in src/templates/spectra.html
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently - users can view spectra visualization and see detailed metadata table with clickable links
 
@@ -83,10 +83,10 @@
 
 ### Implementation for User Story 3
 
-- [ ] T014 [US3] Implement graceful error handling for spectrum loading failures in src/visualizations/spectra.py
-- [ ] T015 [US3] Add skip logic for invalid spectrum URLs in src/visualizations/spectra.py
-- [ ] T016 [US3] Handle corrupt or unreadable spectrum files gracefully in src/visualizations/spectra.py
-- [ ] T017 [US3] Display "No spectra available" message when no valid spectra load in src/templates/spectra.html
+- [ ] T014 [US3] [FR-007, FR-010] Implement graceful error handling for spectrum loading failures in src/visualizations/spectra.py
+- [ ] T015 [US3] [FR-007] Add skip logic for invalid spectrum URLs in src/visualizations/spectra.py
+- [ ] T016 [US3] [FR-010] Handle corrupt or unreadable spectrum files gracefully in src/visualizations/spectra.py
+- [ ] T017 [US3] [FR-010] Display "No spectra available" message when no valid spectra load in src/templates/spectra.html
 
 **Checkpoint**: At this point, User Stories 1, 2 AND 3 should all work independently - system handles real-world data issues gracefully
 
@@ -100,8 +100,8 @@
 
 ### Implementation for User Story 4
 
-- [ ] T018 [US4] Add "Back to Inventory" link to spectra.html template in src/templates/spectra.html
-- [ ] T019 [US4] Ensure navigation context is properly maintained in src/routes/web.py
+- [ ] T018 [US4] [FR-013] Add "Back to Inventory" link to spectra.html template in src/templates/spectra.html
+- [ ] T019 [US4] [FR-016] Ensure navigation context is properly maintained in src/routes/web.py by passing `create_navigation_context(current_page="/source/{source_name}/spectra")` to the template context
 
 **Checkpoint**: All user stories should now be independently functional - users can navigate seamlessly between inventory and spectra views
 
@@ -111,11 +111,11 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T020 [P] Add CSS styling for spectra page to src/static/style.css
-- [ ] T021 [P] Add CSS styling for spectra link in inventory page to src/static/style.css
+- [ ] T020 [P] [FR-016] Add CSS styling for spectra page to src/static/style.css
+- [ ] T021 [P] [FR-016] Add CSS styling for spectra link in inventory page to src/static/style.css
 - [ ] T022 Code cleanup and refactoring for spectra.py and related files
 - [ ] T023 Validate quickstart.md implementation steps match actual code
-- [ ] T024 Add loading indicator support during spectrum data retrieval (if not already implemented)
+- [ ] T024 [P] [FR-012] Add loading indicator support during spectrum data retrieval by modifying src/templates/spectra.html to show a loading spinner while spectrum data is being fetched. The indicator should be hidden once the plot is generated and displayed.
 - [ ] T025 [P] Update documentation in README.md if needed
 - [ ] T026 Run quickstart.md validation and verify all acceptance scenarios work
 

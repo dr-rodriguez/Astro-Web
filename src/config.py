@@ -23,6 +23,8 @@ ASTRO_WEB_SOURCE_COLUMN = os.getenv("ASTRO_WEB_SOURCE_COLUMN", "source")
 # RA/Dec column names
 RA_COLUMN = os.getenv("ASTRO_WEB_RA_COLUMN", "ra")
 DEC_COLUMN = os.getenv("ASTRO_WEB_DEC_COLUMN", "dec")
+# Spectra URL column name
+SPECTRA_URL_COLUMN = os.getenv("ASTRO_WEB_SPECTRA_URL_COLUMN", "access_url")
 
 
 def get_source_url(results):

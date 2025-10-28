@@ -24,6 +24,9 @@ You can customize the application behavior by setting these environment variable
   - Default: `ra`
 - `ASTRO_WEB_DEC_COLUMN`: Column name for the declination
   - Default: `dec`
+- `ASTRO_WEB_SPECTRA_URL_COLUMN`: Column name for the spectrum data URL/path
+  - Default: `access_url`
+  - Used when retrieving spectra for visualization
 
 ## Usage
 

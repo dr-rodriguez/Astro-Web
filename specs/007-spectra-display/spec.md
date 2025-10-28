@@ -88,13 +88,14 @@ A user is viewing a spectrum visualization and wants to return to the full sourc
 
 - **FR-001**: System MUST provide a route accessible from the inventory page to display spectra visualization (e.g., `/source/{source_name}/spectra`)
 - **FR-002**: System MUST retrieve all spectra for a given source using astrodbkit query methods (e.g., `db.query(db.Spectra).filter(Source.source == source_name).spectra(fmt='pandas')`)
+- **FR-002a**: System MUST retrieve spectrum data from access_url using astrodbkit's built-in spectrum retrieval. astrodbkit's `.spectra(fmt='pandas')` method returns wavelength and flux arrays directly accessible for plotting. No additional format conversion or external library (specutils) is required. Spectra are loaded asynchronously with individual spectrum failures not affecting successful spectra.
 - **FR-003**: System MUST generate a single interactive Bokeh plot displaying all spectra for the source on one plot
 - **FR-004**: System MUST display a legend on the plot with each spectrum labeled as "Observation_Date | Regime | Telescope/Instrument" (e.g., "2020-03-15 | NIR | JWST/NIRSpec")
 - **FR-005**: System MUST display a metadata table showing observation_date, regime, telescope, instrument, and access_url (as clickable link) for each spectrum
 - **FR-006**: System MUST provide clickable links in the metadata table to access the original spectrum data (via the access_url or configured column)
 - **FR-007**: System MUST skip spectra that cannot be loaded or displayed without showing error messages to users
 - **FR-008**: System MUST only display the spectra link on the inventory page when spectra data exists for that source
-- **FR-009**: System MUST make the spectrum URL column name configurable (default: `access_url`) to support different database schemas
+- **FR-009**: System MUST make the spectrum URL column name configurable via `ASTRO_WEB_SPECTRA_URL_COLUMN` environment variable (default: `access_url`) to support different database schemas
 - **FR-010**: System MUST handle spectrum loading failures gracefully, displaying valid spectra while silently skipping invalid ones
 - **FR-011**: System MUST retrieve and display all valid spectra within 10 seconds of page load
 - **FR-012**: System MUST display a loading indicator while spectrum data is being retrieved and the plot is being generated
