@@ -10,9 +10,10 @@ from datetime import datetime
 from fastapi import Request, Form, HTTPException
 from fastapi.templating import Jinja2Templates
 
-from src.database.sources import get_all_sources, get_source_inventory
+from src.database.sources import get_all_sources, get_source_inventory, get_source_spectra
 from src.database.query import search_objects, parse_coordinates_string, convert_radius_to_degrees, cone_search
 from src.visualizations.scatter import create_scatter_plot
+from src.visualizations.spectra import generate_spectra_plot
 from src.config import get_source_url
 
 # Templates instance - will be imported from main
@@ -115,6 +116,10 @@ async def inventory(request: Request, source_name: str):
     # Get inventory data
     inventory_data = get_source_inventory(source_name)
     
+    # Check if spectra exist for this source
+    spectra_df = get_source_spectra(source_name, convert_to_spectrum=False)
+    has_spectra = spectra_df is not None and not spectra_df.empty
+    
     # Handle errors
     if inventory_data is None:
         # Source not found
@@ -133,6 +138,47 @@ async def inventory(request: Request, source_name: str):
             "request": request,
             "source_name": decoded_source_name,
             "inventory_data": inventory_data if not has_error else {},
+            "has_error": has_error,
+            "error_message": error_message,
+            "has_spectra": has_spectra,
+            **nav_context,
+        },
+        status_code=404 if has_error else 200,
+    )
+
+
+async def spectra_display(request: Request, source_name: str):
+    """Render the spectra visualization page for a specific source."""
+    
+    # Get decoded source name for display
+    decoded_source_name = unquote(source_name)
+    
+    # Get spectra data from database
+    spectra_df = get_source_spectra(source_name, convert_to_spectrum=True)
+    
+    # Generate the plot
+    plot_data = generate_spectra_plot(spectra_df)
+    
+    # Handle errors
+    has_error = spectra_df is None
+    if has_error:
+        error_message = f"Could not load spectra for: {decoded_source_name}"
+    else:
+        error_message = None
+    
+    # Create navigation context with active page
+    nav_context = create_navigation_context(current_page=f"/source/{source_name}/spectra")
+    
+    return templates.TemplateResponse(
+        "spectra.html",
+        {
+            "request": request,
+            "source_name": decoded_source_name,
+            "plot_script": plot_data.get("script", ""),
+            "plot_div": plot_data.get("div", ""),
+            "spectra_count": plot_data.get("spectra_count", 0),
+            "has_spectra": plot_data.get("has_spectra", False),
+            "spectra_metadata": plot_data.get("spectra_metadata", []),
             "has_error": has_error,
             "error_message": error_message,
             **nav_context,

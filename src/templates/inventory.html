@@ -10,6 +10,12 @@
 <div class="inventory-container">
     <h1>Source Inventory: {{ source_name }}</h1>
     
+    {% if has_spectra %}
+    <div class="spectra-link">
+        <a href="/source/{{ source_name|urlencode }}/spectra" class="view-spectra-link">View Spectra →</a>
+    </div>
+    {% endif %}
+    
     {% if has_error %}
     <div class="error-message">
         <p>{{ error_message }}</p>
