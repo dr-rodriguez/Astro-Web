@@ -66,7 +66,7 @@ def get_source_spectra(source_name):
         
         # Query spectra for the source using astrodbkit's spectra method
         # This returns a DataFrame with wavelength and flux data already formatted
-        spectra_df = db.query(db.Spectra).filter(db.Spectra.source == source_name).spectra(fmt='pandas')
+        spectra_df = db.query(db.Spectra).filter(db.Spectra.c.source == source_name).spectra(fmt='pandas')
         
         return spectra_df
     except Exception:
