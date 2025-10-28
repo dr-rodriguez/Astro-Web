@@ -8,6 +8,7 @@ coordinates from the Sources table.
 from bokeh.plotting import figure
 from bokeh.embed import components
 from src.database.sources import get_all_sources
+from src.config import RA_COLUMN, DEC_COLUMN
 
 
 def create_scatter_plot():
@@ -25,8 +26,8 @@ def create_scatter_plot():
         s
         for s in sources_data
         if sources_data is not None
-        and s.get("ra") is not None
-        and s.get("dec") is not None
+        and s.get(RA_COLUMN) is not None
+        and s.get(DEC_COLUMN) is not None
     ]
 
     if not valid_sources:
@@ -41,8 +42,8 @@ def create_scatter_plot():
         )
     else:
         # Extract ra and dec values
-        ras = [s["ra"] for s in valid_sources]
-        decs = [s["dec"] for s in valid_sources]
+        ras = [s[RA_COLUMN] for s in valid_sources]
+        decs = [s[DEC_COLUMN] for s in valid_sources]
         source_ids = [s.get("source", "") for s in valid_sources]
 
         # Create figure
@@ -50,8 +51,8 @@ def create_scatter_plot():
             width=800,
             height=400,
             title="Coordinates",
-            x_axis_label="Right Ascension (ra)",
-            y_axis_label="Declination (dec)",
+            x_axis_label="Right Ascension (deg)",
+            y_axis_label="Declination (deg)",
             tools="hover,pan,box_zoom,wheel_zoom,reset,save",
         )
 

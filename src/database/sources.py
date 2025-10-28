@@ -2,7 +2,7 @@
 
 from astrodbkit.astrodb import Database
 
-from src.database import CONNECTION_STRING
+from src.config import CONNECTION_STRING
 
 
 def get_all_sources():

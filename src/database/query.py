@@ -9,8 +9,7 @@ import time
 from astrodbkit.astrodb import Database
 from astropy.coordinates import SkyCoord
 from astropy.units import Quantity
-from src.database import CONNECTION_STRING
-from src.config import RA_COLUMN, DEC_COLUMN
+from src.config import RA_COLUMN, DEC_COLUMN, CONNECTION_STRING
 
 
 def search_objects(query: str):
