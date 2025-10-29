@@ -26,7 +26,7 @@
         {% if table_data and table_data|length > 0 %}
         <div class="inventory-table-section">
             <h2>{{ table_name }}</h2>
-            <table>
+            <table id="table-{{ loop.index }}" class="display">
                 <thead>
                     <tr>
                         {% for column in table_data[0].keys() %}
@@ -49,5 +49,28 @@
         {% endfor %}
     {% endif %}
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    // Initialize DataTables for all tables with class 'display'
+    $('table.display').each(function() {
+        $(this).DataTable({
+            "paging": false,
+            "scrollX": false,
+            "scrollCollapse": true,
+            "info": false,
+            "order": [],
+            "columnDefs": [
+                { "orderable": false, "targets": -1 } // Make last column non-sortable if needed
+            ],
+            "language": {
+                "search": "Search:"
+            }
+        });
+    });
+});
+</script>
 {% endblock %}
 
