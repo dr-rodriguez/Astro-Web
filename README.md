@@ -96,6 +96,7 @@ The application provides both web pages and API endpoints:
 ### API Endpoints
 - `POST /api/search` - Text-based object search
 - `POST /api/search/cone` - Cone search by coordinates and radius
+- `POST /api/inventory` - Get inventory data for a specific source
 
 #### Example: Text-based Search
 
@@ -115,7 +116,15 @@ curl -X POST "http://localhost:8000/api/search/cone" \
   -d "radius_unit=degrees"
 ```
 
-Both endpoints return JSON responses with search results, execution time, and metadata.
+#### Example: Inventory Lookup
+
+```bash
+curl -X POST "http://localhost:8000/api/inventory" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "source=2MASS J05395200-0059019"
+```
+
+All endpoints return JSON responses with search results, execution time, and metadata.
 
 ## Development
 

@@ -96,6 +96,12 @@ async def cone_search_api_endpoint(
     return await web.cone_search_api(coordinates, radius, radius_unit)
 
 
+@app.post("/api/inventory")
+async def inventory_api_endpoint(source: str = Form(...)):
+    """API endpoint for programmatic inventory access."""
+    return await web.inventory_api(source)
+
+
 @app.get("/{path:path}", response_class=HTMLResponse)
 async def catch_all(request: Request, path: str):
     """404 handler for non-existent pages."""

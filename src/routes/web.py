@@ -373,6 +373,29 @@ async def cone_search_api(
         raise HTTPException(status_code=500, detail=f"An error occurred during search: {e}")
 
 
+async def inventory_api(source_name: str = Form(...)):
+    """API endpoint for programmatic inventory access"""
+    try:
+        if not source_name.strip():
+            raise HTTPException(status_code=400, detail="source_name parameter is required")
+        
+        inventory_data = get_source_inventory(source_name.strip())
+        
+        if inventory_data is None:
+            raise HTTPException(status_code=404, detail=f"Source not found: {source_name.strip()}")
+        
+        return {
+            "source_name": source_name.strip(),
+            "inventory": inventory_data,
+            "retrieval_time": datetime.now().isoformat()
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"An error occurred: {e}")
+
+
 async def not_found(request: Request, path: str):
     """Render 404 error page for non-existent routes."""
     return templates.TemplateResponse(
