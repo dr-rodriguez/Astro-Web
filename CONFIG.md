@@ -38,5 +38,6 @@ export ASTRO_WEB_SOURCE_URL_BASE="/astro/sources/"
 export ASTRO_WEB_SOURCE_COLUMN="source_id"
 export ASTRO_WEB_RA_COLUMN="ra"
 export ASTRO_WEB_DEC_COLUMN="dec"
+export ASTRO_WEB_SPECTRA_URL_COLUMN="access_url"
 uvicorn src.main:app --reload --port 8000
 ```
