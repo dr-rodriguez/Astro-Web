@@ -58,7 +58,8 @@ $(document).ready(function() {
     $('table.display').each(function() {
         $(this).DataTable({
             "paging": false,
-            "scrollX": false,
+            "scrollX": true,
+            "autoWidth": false,
             "scrollCollapse": true,
             "info": false,
             "order": [],
