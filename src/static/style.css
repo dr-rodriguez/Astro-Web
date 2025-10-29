@@ -186,7 +186,7 @@ code {
     color: var(--accent-purple);
 }
 
-/* Default table styling - based on search results */
+/* Table styling */
 .table-container {
     margin-top: 2rem;
     padding-top: 2rem;
@@ -200,7 +200,6 @@ code {
     margin-bottom: 1.5rem;
 }
 
-/* Default table styling */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -249,52 +248,6 @@ table a:hover {
     text-decoration: underline;
 }
 
-/* Legacy support for existing classes */
-.sources-table-container {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border-color);
-}
-
-.sources-table-container h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--accent-indigo);
-    margin-bottom: 1.5rem;
-}
-
-.sources-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.sources-table th {
-    background-color: var(--accent-indigo);
-    color: white;
-    font-weight: 600;
-    padding: 0.75rem;
-    text-align: left;
-    font-size: 0.875rem;
-    border-bottom: 2px solid var(--accent-purple);
-}
-
-.sources-table td {
-    padding: 0.75rem;
-    border-bottom: 1px solid var(--border-color);
-    font-size: 0.875rem;
-    color: var(--text-dark);
-}
-
-.sources-table tbody tr:nth-child(even) {
-    background-color: #f9fafb;
-}
-
-.sources-table tbody tr:hover {
-    background-color: #f3f4f6;
-}
-
 /* Error message */
 .error-message {
     margin-top: 2rem;
@@ -329,12 +282,16 @@ table a:hover {
     padding: 0.5rem 1rem;
     border: 1px solid var(--border-color);
     margin: 0 0.25rem;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
+    background-color: white;
+    color: var(--text-dark);
+    transition: all 0.2s ease;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     background-color: #e5e7eb;
+    color: var(--accent-purple);
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current {
@@ -403,10 +360,15 @@ table a:hover {
     font-size: 0.875rem;
 }
 
-button[type="submit"] {
+/* Button styling */
+button[type="submit"],
+.new-search-link,
+.view-spectra-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
     background-color: var(--accent-indigo);
     color: white;
-    padding: 0.75rem 1.5rem;
+    text-decoration: none;
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -415,16 +377,29 @@ button[type="submit"] {
     transition: background-color 0.2s ease;
 }
 
-button[type="submit"]:hover {
+button[type="submit"]:hover,
+.new-search-link:hover,
+.view-spectra-link:hover {
     background-color: var(--accent-purple);
+    color: white;
 }
 
-/* Cone search specific styles */
-h2 {
-    margin-top: 2rem;
-    border-top: 2px solid #ddd;
-    padding-top: 1rem;
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
 }
+
+.back-link:hover {
+    background-color: #e5e7eb;
+    color: var(--accent-purple);
+}
+
 
 .warning-message {
     background-color: #fff3cd;
@@ -438,8 +413,6 @@ h2 {
 .warning-message p {
     margin: 0;
 }
-
-/* Search results specific styling - now uses default table styling */
 
 /* Search results page specific styling */
 .search-results-info {
@@ -471,22 +444,6 @@ h2 {
     font-weight: 500;
 }
 
-.new-search-link {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 0.75rem 1.5rem;
-    background-color: var(--accent-blue);
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: background-color 0.2s ease;
-}
-
-.new-search-link:hover {
-    background-color: var(--accent-purple);
-    color: white;
-}
 
 /* Spectra page styling */
 .spectra-container {
@@ -510,22 +467,6 @@ h2 {
     font-weight: normal;
     color: var(--accent-purple);
     font-size: 1.2rem;
-}
-
-.back-link {
-    display: inline-flex;
-    align-items: center;
-    color: var(--accent-blue);
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-}
-
-.back-link:hover {
-    background-color: #e5e7eb;
-    color: var(--accent-purple);
 }
 
 .no-spectra-message {
@@ -560,22 +501,6 @@ h2 {
     margin-bottom: 2rem;
 }
 
-.view-spectra-link {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background-color: var(--accent-indigo);
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: background-color 0.2s ease;
-}
-
-.view-spectra-link:hover {
-    background-color: var(--accent-purple);
-    color: white;
-}
-
 /* Status indicators for spectra metadata */
 .status-displayed {
     color: #059669;
@@ -587,19 +512,7 @@ h2 {
     font-weight: 500;
 }
 
-/* Spectra plot container */
-.spectra-container .visualization {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 2px solid var(--border-color);
-}
-
-.spectra-container .visualization h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--accent-indigo);
-    margin-bottom: 1.5rem;
-}
+/* Spectra plot container - inherits from .visualization */
 
 /* Responsive design */
 @media (max-width: 768px) {
@@ -631,15 +544,6 @@ h2 {
     
     table th,
     table td {
-        padding: 0.5rem;
-    }
-    
-    .sources-table {
-        font-size: 0.75rem;
-    }
-    
-    .sources-table th,
-    .sources-table td {
         padding: 0.5rem;
     }
     
