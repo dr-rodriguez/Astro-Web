@@ -50,6 +50,7 @@ htmlcov/
 # AI
 .cursor/
 .specify/scripts/
+.specify/templates/
 
 # Project-specific
 *.sqlite
