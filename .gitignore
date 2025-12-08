@@ -29,6 +29,7 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+uv.lock
 
 # Testing
 .pytest_cache/

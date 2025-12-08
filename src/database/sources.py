@@ -1,5 +1,6 @@
 """Sources table database queries."""
 
+import logging
 from astrodbkit.astrodb import Database
 from specutils import Spectrum
 
@@ -80,7 +81,8 @@ def get_source_spectra(source_name, convert_to_spectrum=False):
             try:
                 spectrum = Spectrum.read(row[SPECTRA_URL_COLUMN], cache=True)
                 spectra_df.at[index, 'processed_spectrum'] = spectrum
-            except Exception:
+            except Exception as e:
+                logging.error(f"Error converting spectrum {row[SPECTRA_URL_COLUMN]} to Spectrum object: {e}")
                 continue
 
         return spectra_df
