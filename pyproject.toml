@@ -5,14 +5,14 @@ description = "Dynamic website and API to explore astronomical database of brown
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "astrodbkit>=2.4",
+    "astrodbkit>=2.5",
     "fastapi>=0.120.0",
     "bokeh==3.8.0",
     "uvicorn>=0.30.0",
     "jinja2>=3.1.0",
     "python-multipart>=0.0.6",
     "python-dotenv>=1.0.0",
-    "specutils>=1.12.0",
+    "specutils>=2.0",
 ]
 
 [project.optional-dependencies]
