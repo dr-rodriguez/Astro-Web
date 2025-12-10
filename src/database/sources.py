@@ -4,7 +4,7 @@ import logging
 from astrodbkit.astrodb import Database
 from specutils import Spectrum
 
-from src.config import CONNECTION_STRING, SPECTRA_URL_COLUMN, LOOKUP_TABLES, PRIMARY_TABLE, SOURCE_COLUMN
+from src.config import CONNECTION_STRING, SPECTRA_URL_COLUMN, LOOKUP_TABLES, PRIMARY_TABLE, SOURCE_COLUMN, SCHEMA, FOREIGN_KEY
 
 
 def get_all_sources():
@@ -15,7 +15,7 @@ def get_all_sources():
         list: List of dictionaries representing all Sources rows, or None on error
     """
     try:
-        db = Database(CONNECTION_STRING, primary_table=PRIMARY_TABLE, primary_table_key=SOURCE_COLUMN, lookup_tables=LOOKUP_TABLES)
+        db = Database(CONNECTION_STRING, primary_table=PRIMARY_TABLE, primary_table_key=SOURCE_COLUMN, lookup_tables=LOOKUP_TABLES, schema=SCHEMA, foreign_key=FOREIGN_KEY)
         df = db.query(db.metadata.tables[PRIMARY_TABLE]).pandas()
         return df.to_dict("records")
     except Exception as e:
@@ -36,10 +36,10 @@ def get_source_inventory(source_name):
     """
     try:
         # Connect to database
-        db = Database(CONNECTION_STRING, primary_table=PRIMARY_TABLE, primary_table_key=SOURCE_COLUMN, lookup_tables=LOOKUP_TABLES)
+        db = Database(CONNECTION_STRING, primary_table=PRIMARY_TABLE, primary_table_key=SOURCE_COLUMN, lookup_tables=LOOKUP_TABLES, schema=SCHEMA, foreign_key=FOREIGN_KEY)
 
         # Get inventory (returns dict of table name -> list of dicts)
-        inventory = db.inventory(source_name, pretty_print=True)
+        inventory = db.inventory(source_name)
 
         # Filter out empty tables - only return tables that have data
         result = {}
@@ -67,7 +67,7 @@ def get_source_spectra(source_name, convert_to_spectrum=False):
     """
 
     # Connect to database
-    db = Database(CONNECTION_STRING, primary_table=PRIMARY_TABLE, primary_table_key=SOURCE_COLUMN, lookup_tables=LOOKUP_TABLES)
+    db = Database(CONNECTION_STRING, primary_table=PRIMARY_TABLE, primary_table_key=SOURCE_COLUMN, lookup_tables=LOOKUP_TABLES, schema=SCHEMA, foreign_key=FOREIGN_KEY)
     
     try:
         # Query spectra table for the source using astrodbkit's pandas method

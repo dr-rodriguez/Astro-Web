@@ -18,10 +18,15 @@ You can customize the application behavior by setting these environment variable
 - `ASTRO_WEB_SOURCE_URL_BASE`: Base URL for source detail pages
   - Default: `/source/`
   - Example: `/astro/sources/` (for custom deployment)
+- `ASTRO_WEB_SCHEMA`: Schema name for the database
+  - Default: None (for SQLite databases)
+  - Example: `public`
 - `ASTRO_WEB_PRIMARY_TABLE`: Primary table name for the database (usually Sources)
   - Default: `Sources`
   - Example: `galaxies`
 - `ASTRO_WEB_SOURCE_COLUMN`: Column name for the source identifier
+  - Default: `source`
+- `ASTRO_WEB_FOREIGN_KEY`: Foreign key column name for the primary table
   - Default: `source`
 - `ASTRO_WEB_RA_COLUMN`: Column name for the right ascension
   - Default: `ra`

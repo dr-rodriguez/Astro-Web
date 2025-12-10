@@ -22,11 +22,17 @@ CONNECTION_STRING = os.getenv("ASTRO_WEB_DATABASE_URL", "sqlite:///SIMPLE.sqlite
 ASTRO_WEB_SOURCE_URL_BASE = os.getenv("ASTRO_WEB_SOURCE_URL_BASE", "/source/")
 PRIMARY_TABLE = os.getenv("ASTRO_WEB_PRIMARY_TABLE", "Sources")
 SOURCE_COLUMN = os.getenv("ASTRO_WEB_SOURCE_COLUMN", "source")
+FOREIGN_KEY = os.getenv("ASTRO_WEB_FOREIGN_KEY", "source")  # typically the same as SOURCE_COLUMN
 # RA/Dec column names
 RA_COLUMN = os.getenv("ASTRO_WEB_RA_COLUMN", "ra")
 DEC_COLUMN = os.getenv("ASTRO_WEB_DEC_COLUMN", "dec")
 # Spectra URL column name
 SPECTRA_URL_COLUMN = os.getenv("ASTRO_WEB_SPECTRA_URL_COLUMN", "access_url")
+
+# Schema (for postgres and other databases)
+SCHEMA = os.getenv("ASTRO_WEB_SCHEMA", None)
+if SCHEMA is not None and SCHEMA == "":
+    SCHEMA = None
 
 # Lookup tables for proper inventory management
 default_lookup_tables = [
