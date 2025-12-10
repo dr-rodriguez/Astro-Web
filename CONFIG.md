@@ -45,5 +45,8 @@ export ASTRO_WEB_SOURCE_COLUMN="source_id"
 export ASTRO_WEB_RA_COLUMN="ra"
 export ASTRO_WEB_DEC_COLUMN="dec"
 export ASTRO_WEB_SPECTRA_URL_COLUMN="access_url"
+export ASTRO_WEB_LOOKUP_TABLES="Publications,Telescopes,Instruments,PhotometryFilters,Versions,RegimeList,SourceTypeList,ParameterList,AssociationList,CompanionList"
 uvicorn src.main:app --reload --port 8000
 ```
+
+It is recommended to create a `.env` file in the root directory and add the environment variables to it. See `.env.example` for an example.
