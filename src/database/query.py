@@ -9,7 +9,7 @@ import time
 from astrodbkit.astrodb import Database
 from astropy.coordinates import SkyCoord
 from astropy.units import Quantity
-from src.config import RA_COLUMN, DEC_COLUMN, CONNECTION_STRING, LOOKUP_TABLES
+from src.config import RA_COLUMN, DEC_COLUMN, CONNECTION_STRING, LOOKUP_TABLES, PRIMARY_TABLE, SOURCE_COLUMN
 
 
 def search_objects(query: str):
@@ -25,7 +25,7 @@ def search_objects(query: str):
                and execution_time is the time taken in seconds
     """
     start_time = time.time()
-    db = Database(CONNECTION_STRING, lookup_tables=LOOKUP_TABLES)
+    db = Database(CONNECTION_STRING, primary_table=PRIMARY_TABLE, primary_table_key=SOURCE_COLUMN, lookup_tables=LOOKUP_TABLES)
     results = db.search_object(query.strip(), resolve_simbad=True, format="pandas")
     execution_time = time.time() - start_time
 
@@ -135,7 +135,7 @@ def cone_search(ra, dec, radius_deg):
                and execution_time is the time taken in seconds
     """
     start_time = time.time()
-    db = Database(CONNECTION_STRING, lookup_tables=LOOKUP_TABLES)
+    db = Database(CONNECTION_STRING, primary_table=PRIMARY_TABLE, primary_table_key=SOURCE_COLUMN, lookup_tables=LOOKUP_TABLES)
     coords = SkyCoord(ra, dec, unit="deg")
     radius = Quantity(radius_deg, "deg")
     results = db.query_region(coords, radius=radius, fmt="pandas", ra_col=RA_COLUMN, dec_col=DEC_COLUMN)

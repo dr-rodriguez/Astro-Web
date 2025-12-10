@@ -18,6 +18,9 @@ You can customize the application behavior by setting these environment variable
 - `ASTRO_WEB_SOURCE_URL_BASE`: Base URL for source detail pages
   - Default: `/source/`
   - Example: `/astro/sources/` (for custom deployment)
+- `ASTRO_WEB_PRIMARY_TABLE`: Primary table name for the database (usually Sources)
+  - Default: `Sources`
+  - Example: `galaxies`
 - `ASTRO_WEB_SOURCE_COLUMN`: Column name for the source identifier
   - Default: `source`
 - `ASTRO_WEB_RA_COLUMN`: Column name for the right ascension
@@ -41,6 +44,7 @@ Set environment variables before running the application:
 ```bash
 export ASTRO_WEB_DATABASE_URL="postgresql://user:pass@localhost:5432/astrodb"
 export ASTRO_WEB_SOURCE_URL_BASE="/astro/sources/"
+export ASTRO_WEB_PRIMARY_TABLE="galaxies"
 export ASTRO_WEB_SOURCE_COLUMN="source_id"
 export ASTRO_WEB_RA_COLUMN="ra"
 export ASTRO_WEB_DEC_COLUMN="dec"

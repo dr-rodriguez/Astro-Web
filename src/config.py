@@ -20,7 +20,8 @@ CONNECTION_STRING = os.getenv("ASTRO_WEB_DATABASE_URL", "sqlite:///SIMPLE.sqlite
 
 # Base URL for source detail pages - can be customized for different deployments
 ASTRO_WEB_SOURCE_URL_BASE = os.getenv("ASTRO_WEB_SOURCE_URL_BASE", "/source/")
-ASTRO_WEB_SOURCE_COLUMN = os.getenv("ASTRO_WEB_SOURCE_COLUMN", "source")
+PRIMARY_TABLE = os.getenv("ASTRO_WEB_PRIMARY_TABLE", "Sources")
+SOURCE_COLUMN = os.getenv("ASTRO_WEB_SOURCE_COLUMN", "source")
 # RA/Dec column names
 RA_COLUMN = os.getenv("ASTRO_WEB_RA_COLUMN", "ra")
 DEC_COLUMN = os.getenv("ASTRO_WEB_DEC_COLUMN", "dec")
@@ -72,9 +73,9 @@ def get_source_url(results):
         new_results = []
         for record in results:
             new_record = record.copy()
-            if ASTRO_WEB_SOURCE_COLUMN in new_record:
-                new_record[ASTRO_WEB_SOURCE_COLUMN] = (
-                    f"<a href='{ASTRO_WEB_SOURCE_URL_BASE}{quote(str(new_record[ASTRO_WEB_SOURCE_COLUMN]))}'>{new_record[ASTRO_WEB_SOURCE_COLUMN]}</a>"
+            if SOURCE_COLUMN in new_record:
+                new_record[SOURCE_COLUMN] = (
+                    f"<a href='{ASTRO_WEB_SOURCE_URL_BASE}{quote(str(new_record[SOURCE_COLUMN]))}'>{new_record[SOURCE_COLUMN]}</a>"
                 )
             new_results.append(new_record)
         return new_results
@@ -82,8 +83,8 @@ def get_source_url(results):
     # Handle pandas DataFrame
     elif isinstance(results, pd.DataFrame):
         new_results = results.copy()
-        if ASTRO_WEB_SOURCE_COLUMN in new_results.columns:
-            new_results[ASTRO_WEB_SOURCE_COLUMN] = new_results[ASTRO_WEB_SOURCE_COLUMN].apply(
+        if SOURCE_COLUMN in new_results.columns:
+            new_results[SOURCE_COLUMN] = new_results[SOURCE_COLUMN].apply(
                 lambda x: f"<a href='{ASTRO_WEB_SOURCE_URL_BASE}{quote(str(x))}'>{x}</a>"
             )
         return new_results
