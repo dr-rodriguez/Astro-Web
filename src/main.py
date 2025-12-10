@@ -20,7 +20,7 @@ app = FastAPI(
 # Configure Jinja2 templates
 templates = Jinja2Templates(directory="src/templates")
 # Add urlencode filter for URL encoding source names
-templates.env.filters['urlencode'] = lambda u: quote(str(u), safe='')
+templates.env.filters["urlencode"] = lambda u: quote(str(u), safe="")
 web.set_templates(templates)
 
 # Configure static file serving
@@ -77,21 +77,14 @@ async def search_api_endpoint(query: str = Form(...)):
 
 @app.post("/search/cone-results", response_class=HTMLResponse)
 async def cone_search_results_page(
-    request: Request,
-    coordinates: str = Form(...),
-    radius: str = Form(...),
-    radius_unit: str = Form(...)
+    request: Request, coordinates: str = Form(...), radius: str = Form(...), radius_unit: str = Form(...)
 ):
     """Cone search results page."""
     return await web.cone_search_results(request, coordinates, radius, radius_unit)
 
 
 @app.post("/api/search/cone")
-async def cone_search_api_endpoint(
-    coordinates: str = Form(...),
-    radius: str = Form(...),
-    radius_unit: str = Form(...)
-):
+async def cone_search_api_endpoint(coordinates: str = Form(...), radius: str = Form(...), radius_unit: str = Form(...)):
     """API endpoint for programmatic cone search access."""
     return await web.cone_search_api(coordinates, radius, radius_unit)
 

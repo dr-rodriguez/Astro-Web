@@ -25,9 +25,7 @@ def create_scatter_plot():
     valid_sources = [
         s
         for s in sources_data
-        if sources_data is not None
-        and s.get(RA_COLUMN) is not None
-        and s.get(DEC_COLUMN) is not None
+        if sources_data is not None and s.get(RA_COLUMN) is not None and s.get(DEC_COLUMN) is not None
     ]
 
     if not valid_sources:

@@ -4,7 +4,15 @@ import logging
 from astrodbkit.astrodb import Database
 from specutils import Spectrum
 
-from src.config import CONNECTION_STRING, SPECTRA_URL_COLUMN, LOOKUP_TABLES, PRIMARY_TABLE, SOURCE_COLUMN, SCHEMA, FOREIGN_KEY
+from src.config import (
+    CONNECTION_STRING,
+    SPECTRA_URL_COLUMN,
+    LOOKUP_TABLES,
+    PRIMARY_TABLE,
+    SOURCE_COLUMN,
+    SCHEMA,
+    FOREIGN_KEY,
+)
 
 
 def get_all_sources():
@@ -15,7 +23,14 @@ def get_all_sources():
         list: List of dictionaries representing all Sources rows, or None on error
     """
     try:
-        db = Database(CONNECTION_STRING, primary_table=PRIMARY_TABLE, primary_table_key=SOURCE_COLUMN, lookup_tables=LOOKUP_TABLES, schema=SCHEMA, foreign_key=FOREIGN_KEY)
+        db = Database(
+            CONNECTION_STRING,
+            primary_table=PRIMARY_TABLE,
+            primary_table_key=SOURCE_COLUMN,
+            lookup_tables=LOOKUP_TABLES,
+            schema=SCHEMA,
+            foreign_key=FOREIGN_KEY,
+        )
         df = db.query(db.metadata.tables[PRIMARY_TABLE]).pandas()
         return df.to_dict("records")
     except Exception as e:
@@ -36,7 +51,14 @@ def get_source_inventory(source_name):
     """
     try:
         # Connect to database
-        db = Database(CONNECTION_STRING, primary_table=PRIMARY_TABLE, primary_table_key=SOURCE_COLUMN, lookup_tables=LOOKUP_TABLES, schema=SCHEMA, foreign_key=FOREIGN_KEY)
+        db = Database(
+            CONNECTION_STRING,
+            primary_table=PRIMARY_TABLE,
+            primary_table_key=SOURCE_COLUMN,
+            lookup_tables=LOOKUP_TABLES,
+            schema=SCHEMA,
+            foreign_key=FOREIGN_KEY,
+        )
 
         # Get inventory (returns dict of table name -> list of dicts)
         inventory = db.inventory(source_name)
@@ -62,32 +84,38 @@ def get_source_spectra(source_name, convert_to_spectrum=False):
 
     Returns:
         pandas.DataFrame: DataFrame with spectrum records including wavelength and flux arrays,
-                         plus metadata (source, access_url, observation_date, regime, telescope, 
+                         plus metadata (source, access_url, observation_date, regime, telescope,
                          instrument, etc.) or None on error
     """
 
     # Connect to database
-    db = Database(CONNECTION_STRING, primary_table=PRIMARY_TABLE, primary_table_key=SOURCE_COLUMN, lookup_tables=LOOKUP_TABLES, schema=SCHEMA, foreign_key=FOREIGN_KEY)
-    
+    db = Database(
+        CONNECTION_STRING,
+        primary_table=PRIMARY_TABLE,
+        primary_table_key=SOURCE_COLUMN,
+        lookup_tables=LOOKUP_TABLES,
+        schema=SCHEMA,
+        foreign_key=FOREIGN_KEY,
+    )
+
     try:
         # Query spectra table for the source using astrodbkit's pandas method
         spectra_df = db.query(db.Spectra).filter(db.Spectra.c.source == source_name).pandas()
     except Exception:
         return None
-    
+
     if spectra_df.empty:
         return None
 
-    spectra_df['processed_spectrum'] = None
+    spectra_df["processed_spectrum"] = None
 
     # Convert spectra URLs to spectra objects
     for index, row in spectra_df.iterrows():
         try:
             spectrum = Spectrum.read(row[SPECTRA_URL_COLUMN], cache=True)
-            spectra_df.at[index, 'processed_spectrum'] = spectrum
+            spectra_df.at[index, "processed_spectrum"] = spectrum
         except Exception as e:
             logging.error(f"Error converting spectrum {row[SPECTRA_URL_COLUMN]} to Spectrum object: {e}")
             continue
 
     return spectra_df
-        
