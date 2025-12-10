@@ -29,7 +29,7 @@ DEC_COLUMN = os.getenv("ASTRO_WEB_DEC_COLUMN", "dec")
 SPECTRA_URL_COLUMN = os.getenv("ASTRO_WEB_SPECTRA_URL_COLUMN", "access_url")
 
 # Lookup tables for proper inventory management
-LOOKUP_TABLES = [
+default_lookup_tables = [
     "Publications",
     "Telescopes",
     "Instruments",
@@ -46,13 +46,14 @@ LOOKUP_TABLES = [
     "CompanionList",
     "SourceTypeList",
 ]
+LOOKUP_TABLES = os.getenv("ASTRO_WEB_LOOKUP_TABLES", None)
 # If database.toml exists, use the lookup tables from the file
-if os.path.exists("database.toml"):
+if os.path.exists("database.toml") and LOOKUP_TABLES is None:
     with open("database.toml", "rb") as f:
         database_config = tomllib.load(f)
     LOOKUP_TABLES = database_config.get("lookup_tables", LOOKUP_TABLES)
 else:
-    LOOKUP_TABLES = os.getenv("ASTRO_WEB_LOOKUP_TABLES", LOOKUP_TABLES)
+    LOOKUP_TABLES = default_lookup_tables
 
 
 def get_source_url(results):

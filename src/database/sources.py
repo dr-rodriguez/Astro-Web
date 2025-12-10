@@ -39,7 +39,7 @@ def get_source_inventory(source_name):
         db = Database(CONNECTION_STRING, primary_table=PRIMARY_TABLE, primary_table_key=SOURCE_COLUMN, lookup_tables=LOOKUP_TABLES)
 
         # Get inventory (returns dict of table name -> list of dicts)
-        inventory = db.inventory(source_name)
+        inventory = db.inventory(source_name, pretty_print=True)
 
         # Filter out empty tables - only return tables that have data
         result = {}
