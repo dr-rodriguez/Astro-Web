@@ -13,9 +13,3 @@ lookup_tables = [
     "AssociationList",
     "CompanionList",
 ]
-ra_column = "ra_deg"
-dec_column = "dec_deg"
-spectra_url_column = ""
-database_url = "sqlite:///galaxy_local_group.sqlite"
-source_url_base = "/source/"
-source_column = "source"

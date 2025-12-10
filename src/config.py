@@ -50,6 +50,8 @@ if os.path.exists("database.toml"):
     with open("database.toml", "rb") as f:
         database_config = tomllib.load(f)
     LOOKUP_TABLES = database_config.get("lookup_tables", LOOKUP_TABLES)
+else:
+    LOOKUP_TABLES = os.getenv("ASTRO_WEB_LOOKUP_TABLES", LOOKUP_TABLES)
 
 
 def get_source_url(results):

@@ -30,8 +30,9 @@ You can customize the application behavior by setting these environment variable
 
 ### Lookup Tables
 
-  - If `database.toml` exists, use the lookup tables from the file
-  - Otherwise, use the default lookup tables defined in `src/config.py`
+- `ASTRO_WEB_LOOKUP_TABLES`: Lookup tables to use for the database (as comma-separated string)
+  - Default: `Publications,Telescopes,Instruments,PhotometryFilters,Versions,RegimeList,SourceTypeList,ParameterList,AssociationList,CompanionList`
+  - If `database.toml` exists, use the lookup tables from the file, otherwise use the default lookup tables
 
 ## Usage
 

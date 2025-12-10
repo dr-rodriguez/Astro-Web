@@ -34,14 +34,11 @@ def get_source_inventory(source_name):
               Only tables with data are returned. Empty tables are filtered out.
     """
     try:
-        print(f"Getting inventory for source {source_name}")
         # Connect to database
         db = Database(CONNECTION_STRING, lookup_tables=LOOKUP_TABLES)
 
         # Get inventory (returns dict of table name -> list of dicts)
         inventory = db.inventory(source_name)
-
-        print(f"Inventory: {inventory}")
 
         # Filter out empty tables - only return tables that have data
         result = {}
@@ -73,8 +70,7 @@ def get_source_spectra(source_name, convert_to_spectrum=False):
     try:
         # Query spectra table for the source using astrodbkit's pandas method
         spectra_df = db.query(db.Spectra).filter(db.Spectra.c.source == source_name).pandas()
-    except Exception as e:
-        logging.warning(f"Error querying spectra table for source {source_name}: {e}")
+    except Exception:
         return None
     
     if spectra_df.empty:
