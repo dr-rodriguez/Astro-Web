@@ -16,9 +16,10 @@ def get_all_sources():
     """
     try:
         db = Database(CONNECTION_STRING, primary_table=PRIMARY_TABLE, primary_table_key=SOURCE_COLUMN, lookup_tables=LOOKUP_TABLES)
-        df = db.query(db.Sources).pandas()
+        df = db.query(db.metadata.tables[PRIMARY_TABLE]).pandas()
         return df.to_dict("records")
-    except Exception:
+    except Exception as e:
+        logging.error(f"Error getting all sources: {e}")
         return None
 
 
@@ -47,7 +48,8 @@ def get_source_inventory(source_name):
                 result[table_name] = table_data
 
         return result if result else None
-    except Exception:
+    except Exception as e:
+        logging.error(f"Error getting inventory for source {source_name}: {e}")
         return None
 
 

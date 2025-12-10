@@ -57,13 +57,13 @@ else:
 
 def get_source_url(results):
     """
-    Given a pandas DataFrame or list of dictionaries, convert the ASTRO_WEB_SOURCE_COLUMN to a complete URL for the source detail page.
+    Given a pandas DataFrame or list of dictionaries, convert the SOURCE_COLUMN to a complete URL for the source detail page.
 
     Args:
         results: Either a pandas DataFrame or list of dictionaries to convert
 
     Returns:
-        Same type as input: DataFrame or list of dictionaries with the ASTRO_WEB_SOURCE_COLUMN converted to a complete URL for the source detail page
+        Same type as input: DataFrame or list of dictionaries with the SOURCE_COLUMN converted to a complete URL for the source detail page
     """
     if results is None:
         return None
