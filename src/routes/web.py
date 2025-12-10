@@ -112,13 +112,21 @@ async def inventory(request: Request, source_name: str):
     
     # Get decoded source name for display
     decoded_source_name = unquote(source_name)
+
+    print(f"Decoded source name: {decoded_source_name}")
+    print(f"Source name: {source_name}")
     
     # Get inventory data
     inventory_data = get_source_inventory(source_name)
+
+    print(f"Inventory data: {inventory_data}")
     
     # Check if spectra exist for this source
     spectra_df = get_source_spectra(source_name, convert_to_spectrum=False)
-    has_spectra = spectra_df is not None and not spectra_df.empty
+    if spectra_df is None:
+        has_spectra = False
+    else:
+        has_spectra = spectra_df is not None and not spectra_df.empty
     
     # Handle errors
     if inventory_data is None:

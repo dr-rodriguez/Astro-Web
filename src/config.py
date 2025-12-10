@@ -7,6 +7,7 @@ and URL generation parameters.
 
 import os
 import pandas as pd
+import tomllib
 from urllib.parse import quote
 from dotenv import load_dotenv
 
@@ -25,6 +26,30 @@ RA_COLUMN = os.getenv("ASTRO_WEB_RA_COLUMN", "ra")
 DEC_COLUMN = os.getenv("ASTRO_WEB_DEC_COLUMN", "dec")
 # Spectra URL column name
 SPECTRA_URL_COLUMN = os.getenv("ASTRO_WEB_SPECTRA_URL_COLUMN", "access_url")
+
+# Lookup tables for proper inventory management
+LOOKUP_TABLES = [
+    "Publications",
+    "Telescopes",
+    "Instruments",
+    "Modes",
+    "Filters",
+    "PhotometryFilters",
+    "Citations",
+    "References",
+    "Versions",
+    "Parameters",
+    "Regimes",
+    "ParameterList",
+    "AssociationList",
+    "CompanionList",
+    "SourceTypeList",
+]
+# If database.toml exists, use the lookup tables from the file
+if os.path.exists("database.toml"):
+    with open("database.toml", "rb") as f:
+        database_config = tomllib.load(f)
+    LOOKUP_TABLES = database_config.get("lookup_tables", LOOKUP_TABLES)
 
 
 def get_source_url(results):

@@ -28,6 +28,11 @@ You can customize the application behavior by setting these environment variable
   - Default: `access_url`
   - Used when retrieving spectra for visualization
 
+### Lookup Tables
+
+  - If `database.toml` exists, use the lookup tables from the file
+  - Otherwise, use the default lookup tables defined in `src/config.py`
+
 ## Usage
 
 Set environment variables before running the application:
