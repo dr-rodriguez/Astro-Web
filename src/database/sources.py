@@ -12,6 +12,7 @@ from src.config import (
     SOURCE_COLUMN,
     SCHEMA,
     FOREIGN_KEY,
+    PRIMARY_DATATYPE,
 )
 
 
@@ -50,6 +51,8 @@ def get_source_inventory(source_name):
               Only tables with data are returned. Empty tables are filtered out.
     """
     try:
+        print(LOOKUP_TABLES)
+        
         # Connect to database
         db = Database(
             CONNECTION_STRING,
@@ -61,6 +64,7 @@ def get_source_inventory(source_name):
         )
 
         # Get inventory (returns dict of table name -> list of dicts)
+        source_name = PRIMARY_DATATYPE(source_name)
         inventory = db.inventory(source_name)
 
         # Filter out empty tables - only return tables that have data
@@ -100,6 +104,7 @@ def get_source_spectra(source_name, convert_to_spectrum=False):
 
     try:
         # Query spectra table for the source using astrodbkit's pandas method
+        source_name = PRIMARY_DATATYPE(source_name)
         spectra_df = db.query(db.Spectra).filter(db.Spectra.c.source == source_name).pandas()
     except Exception:
         return None

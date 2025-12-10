@@ -23,6 +23,14 @@ ASTRO_WEB_SOURCE_URL_BASE = os.getenv("ASTRO_WEB_SOURCE_URL_BASE", "/source/")
 PRIMARY_TABLE = os.getenv("ASTRO_WEB_PRIMARY_TABLE", "Sources")
 SOURCE_COLUMN = os.getenv("ASTRO_WEB_SOURCE_COLUMN", "source")
 FOREIGN_KEY = os.getenv("ASTRO_WEB_FOREIGN_KEY", "source")  # typically the same as SOURCE_COLUMN
+PRIMARY_DATATYPE = os.getenv("ASTRO_WEB_PRIMARY_DATATYPE", "str")
+if PRIMARY_DATATYPE is not None and PRIMARY_DATATYPE == "str":
+    PRIMARY_DATATYPE = str
+elif PRIMARY_DATATYPE is not None and PRIMARY_DATATYPE == "int":
+    PRIMARY_DATATYPE = int
+else:
+    raise ValueError(f"Invalid PRIMARY_DATATYPE: {PRIMARY_DATATYPE}. Must be str or int")
+
 # RA/Dec column names
 RA_COLUMN = os.getenv("ASTRO_WEB_RA_COLUMN", "ra")
 DEC_COLUMN = os.getenv("ASTRO_WEB_DEC_COLUMN", "dec")
@@ -58,6 +66,8 @@ if os.path.exists("database.toml") and LOOKUP_TABLES is None:
     with open("database.toml", "rb") as f:
         database_config = tomllib.load(f)
     LOOKUP_TABLES = database_config.get("lookup_tables", LOOKUP_TABLES)
+elif LOOKUP_TABLES is not None and isinstance(LOOKUP_TABLES, str):
+    LOOKUP_TABLES = LOOKUP_TABLES.split(",")
 else:
     LOOKUP_TABLES = default_lookup_tables
 
